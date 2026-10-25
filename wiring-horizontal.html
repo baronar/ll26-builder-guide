@@ -1,10 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta name="darkreader-lock" />
+  <meta name="color-scheme" content="dark" />
+  <script id="anti-darkreader-shield">
+    (function() {
+      function purgeDarkReader() {
+        if (!document.querySelector('meta[name="darkreader-lock"]') && document.head) {
+          var m = document.createElement('meta');
+          m.name = 'darkreader-lock';
+          document.head.insertBefore(m, document.head.firstChild);
+        }
+        var styles = document.querySelectorAll('style.darkreader, link.darkreader, meta[name="darkreader"]');
+        for (var i = 0; i < styles.length; i++) {
+          styles[i].remove();
+        }
+        var root = document.documentElement;
+        if (root) {
+          root.removeAttribute('data-darkreader-mode');
+          root.removeAttribute('data-darkreader-scheme');
+          root.removeAttribute('data-darkreader-proxy-injected');
+        }
+        var nodes = document.querySelectorAll('[data-darkreader-inline-bgcolor],[data-darkreader-inline-color],[data-darkreader-inline-fill],[data-darkreader-inline-stroke],[data-darkreader-inline-border-top],[data-darkreader-inline-border-right],[data-darkreader-inline-border-bottom],[data-darkreader-inline-border-left],[data-darkreader-inline-stopcolor]');
+        for (var j = 0; j < nodes.length; j++) {
+          var el = nodes[j];
+          var attrs = el.getAttributeNames ? el.getAttributeNames() : [];
+          for (var k = 0; k < attrs.length; k++) {
+            if (attrs[k].indexOf('data-darkreader-') === 0) {
+              el.removeAttribute(attrs[k]);
+            }
+          }
+          if (el.style && el.style.cssText && el.style.cssText.indexOf('--darkreader-') !== -1) {
+            el.style.cssText = el.style.cssText.replace(/--darkreader-[^;]+;?/g, '');
+          }
+        }
+      }
+      purgeDarkReader();
+      var obs = new MutationObserver(function(mutations) {
+        var needsPurge = false;
+        for (var i = 0; i < mutations.length; i++) {
+          var m = mutations[i];
+          if (m.type === 'attributes' && m.attributeName && m.attributeName.indexOf('data-darkreader') === 0) {
+            needsPurge = true;
+            break;
+          }
+          if (m.addedNodes && m.addedNodes.length) {
+            for (var j = 0; j < m.addedNodes.length; j++) {
+              var n = m.addedNodes[j];
+              if (n.nodeType === 1 && ((n.className && typeof n.className === 'string' && n.className.indexOf('darkreader') !== -1) || (n.getAttribute && n.getAttribute('name') === 'darkreader'))) {
+                needsPurge = true;
+                break;
+              }
+            }
+          }
+        }
+        if (needsPurge) purgeDarkReader();
+      });
+      obs.observe(document.documentElement, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['data-darkreader-mode', 'data-darkreader-scheme', 'data-darkreader-inline-fill', 'data-darkreader-inline-stroke', 'data-darkreader-inline-color', 'data-darkreader-inline-bgcolor']
+      });
+      document.addEventListener('DOMContentLoaded', purgeDarkReader);
+      window.addEventListener('load', purgeDarkReader);
+    })();
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Light Loop 26 — Horizontal Compressed Connection & Pad Map (5-Wire Channel)</title>
   <style>
+    :root, html, body { color-scheme: dark !important; background-color: #0b101b !important; color: #f1f5f9 !important; }
     :root {
       --bg: #0b0f17;
       --card: #111827;
