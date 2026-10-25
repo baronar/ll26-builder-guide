@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Light Loop 26 (v2.545.0) — Builder &amp; Software Engineer Onboarding Hub</title>
+  <style>
+    :root {
+      --bg: #070b14;
+      --card: #0f172a;
+      --card-alt: #131e36;
+      --border: #1e293b;
+      --border-hi: #334155;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --cyan: #38bdf8;
+      --emerald: #10b981;
+      --amber: #f59e0b;
+      --red: #ef4444;
+      --purple: #a855f7;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+      line-height: 1.55;
+      padding: 20px 26px 70px;
+      max-width: 1520px;
+      margin: 0 auto;
+    }
+    
+  /* Unified Light Loop Drive Bundle Top Nav */
+  .ll-bundle-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    background: #060911;
+    border: 1px solid #1e293b;
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+  }
+  .ll-bundle-brand {
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #00f0ff;
+    padding-right: 10px;
+    border-right: 1px solid #334155;
+    margin-right: 4px;
+  }
+  .ll-bundle-link {
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 11px;
+    border-radius: 6px;
+    background: #111827;
+    color: #cbd5e1;
+    border: 1px solid #334155;
+    transition: all 0.14s ease;
+  }
+  .ll-bundle-link:hover {
+    color: #ffffff;
+    border-color: #38bdf8;
+    background: #1e293b;
+  }
+  .ll-bundle-link.active {
+    background: rgba(56, 189, 248, 0.18);
+    color: #38bdf8;
+    border-color: #38bdf8;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
+  }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(15,23,42,0.96), rgba(19,30,54,0.96));
+      border: 1px solid var(--border-hi);
+      border-radius: 14px;
+      padding: 24px 28px;
+      margin-bottom: 22px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.45);
+    }
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .badge-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .badge {
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+    }
+    .badge-cyan { background: rgba(56,189,248,0.15); color: #38bdf8; border: 1px solid rgba(56,189,248,0.4); }
+    .badge-emerald { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.4); }
+    .badge-amber { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.4); }
+    h1 { font-size: 24px; font-weight: 900; color: #fff; letter-spacing: -0.3px; }
+    .hero p { color: #cbd5e1; font-size: 14.5px; max-width: 1100px; margin-top: 6px; }
+    .grid-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .launch-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: var(--card);
+      border: 1px solid var(--border-hi);
+      border-radius: 12px;
+      padding: 18px 20px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.16s ease;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+    .launch-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--cyan);
+      box-shadow: 0 10px 28px rgba(56,189,248,0.18);
+    }
+    .launch-card h3 { font-size: 16px; font-weight: 800; color: #fff; margin: 8px 0 6px; }
+    .launch-card p { font-size: 13px; color: var(--muted); }
+    .launch-cta {
+      margin-top: 14px;
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px 24px;
+      margin-bottom: 22px;
+    }
+    .section h2 {
+      font-size: 17px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--cyan);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+      margin-bottom: 16px;
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+      gap: 20px;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+    th { background: #090d16; color: var(--muted); font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
+    code {
+      font-family: "SF Mono", Menlo, Consolas, monospace;
+      font-size: 12px;
+      background: #090d16;
+      color: #7dd3fc;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid #1e293b;
+    }
+    ul { padding-left: 20px; color: #cbd5e1; font-size: 13.8px; }
+    li { margin-bottom: 8px; }
+    .callout {
+      background: rgba(16,185,129,0.08);
+      border-left: 4px solid var(--emerald);
+      padding: 12px 16px;
+      border-radius: 6px;
+      font-size: 13.5px;
+      color: #e2e8f0;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="ll-bundle-nav"><span class="ll-bundle-brand">LIGHT LOOP v2.545.0 PACK</span><a class="ll-bundle-link active" href="00_START_HERE_BUILDER_GUIDE.html">00. Start Here: Builder & SW Guide</a><a class="ll-bundle-link" href="electro-cookie-interactive-wiring.html">01. ElectroCookie Shield Explorer</a><a class="ll-bundle-link" href="wiring-horizontal.html">02. Horizontal Tube Pad Map</a><a class="ll-bundle-link" href="checklist.html">03. 51-Step Solder Checklist</a><a class="ll-bundle-link" href="wiring.html">04. 5m Master Vertical Blueprint</a><a class="ll-bundle-link" href="wiring-split.html">05. Split Connectors (Opt A)</a><a class="ll-bundle-link" href="wiring-hybrid.html">06. Hybrid 2P+6D Connector (Opt B)</a></div>
+
+  <div class="hero">
+    <div class="hero-top">
+      <div>
+        <div class="badge-row">
+          <span class="badge badge-cyan">Suite v2.545.0</span>
+          <span class="badge badge-emerald">8-Tap • 72.4 FPS • 3,600 LEDs (2 Tubes × 2 Strips)</span>
+          <span class="badge badge-amber">Renesas RA4M1 + ESP32-S3 Dual-MCU</span>
+        </div>
+        <h1 style="margin-top:10px;">Light Loop 26 — Hardware Soldering &amp; Software Architecture Hub</h1>
+      </div>
+    </div>
+    <p>
+      Welcome! Everything in this folder is organized so we can knock out the <strong>ElectroCookie Proto Shield REV3.3</strong> and <strong>5-Meter Opposite-Strip Tube Soldering</strong> while giving you the complete technical picture of how the C++ firmware, cycle-counted ARM assembly driver, and React Studio app fit together.
+    </p>
+  </div>
+
+  <!-- INTERACTIVE WIRING & CHECKLIST LAUNCHER CARDS -->
+  <div class="grid-cards">
+    <a class="launch-card" href="electro-cookie-interactive-wiring.html" style="border-color:#38bdf8;">
+      <div>
+        <span class="badge badge-cyan">★ Bench Station A • Shield Soldering</span>
+        <h3>1. ElectroCookie Proto Shield Interactive Explorer</h3>
+        <p>Interactive 4-Tap vs. 8-Tap board explorer. Click any pin (D2–D12), transistor (Q1–Q6 PN2222A), resistor (100Ω, 330Ω, 22Ω), or 3-hole silver bar to isolate exact holes and step through soldering order.</p>
+      </div>
+      <span class="launch-cta">Open Interactive Shield Explorer →</span>
+    </a>
+
+    <a class="launch-card" href="wiring-horizontal.html" style="border-color:#10b981;">
+      <div>
+        <span class="badge badge-emerald">★ Tubes 1 &amp; 2 • Strip Pad Map</span>
+        <h3>2. Horizontal Compressed Tube Connection Map</h3>
+        <p>Empty LED spans compressed out so only the 7 solder connection zones are shown left-to-right. Shows the 5-wire center channel, 3-Tap vs. 5-Tap power pads, and the +4 pad <code>wire_lock</code> GND offset.</p>
+      </div>
+      <span class="launch-cta" style="color:#34d399;">Open Horizontal Pad Map →</span>
+    </a>
+
+    <a class="launch-card" href="checklist.html" style="border-color:#f59e0b;">
+      <div>
+        <span class="badge badge-amber">★ 51 Steps • Live BLE LED Tester</span>
+        <h3>3. Interactive 51-Step Soldering Checklist</h3>
+        <p>Station-by-station soldering checklist with wire cut lengths, resistor specs, and live Web Bluetooth <strong>LIGHT LED</strong> buttons that illuminate each solder joint on the strip to verify continuity immediately.</p>
+      </div>
+      <span class="launch-cta" style="color:#fbbf24;">Open 51-Step Solder Checklist →</span>
+    </a>
+
+    <a class="launch-card" href="wiring.html">
+      <div>
+        <span class="badge badge-cyan">True-Scale Elevation</span>
+        <h3>4. Master 5-Meter Vertical Straight-Line Blueprint</h3>
+        <p>Full system schematic: Mean Well LRS-200-5 (40A) PSU, 6-way blade fuse block, Arduino UNO R4 WiFi, wire cut-lengths, and both 5.0m (1,800-LED) tubes laid out side by side.</p>
+      </div>
+      <span class="launch-cta">Open 5m Master Blueprint →</span>
+    </a>
+
+    <a class="launch-card" href="wiring-split.html">
+      <div>
+        <span class="badge badge-cyan">Harness Option A</span>
+        <h3>5. Split Connectors (2-Pin Power + 3-Pin Data)</h3>
+        <p>Modular waterproof pigtail architecture separating high-current 14–16 AWG power feeds from 22 AWG data lines at the enclosure bulkhead.</p>
+      </div>
+      <span class="launch-cta">Open Option A Blueprint →</span>
+    </a>
+
+    <a class="launch-card" href="wiring-hybrid.html">
+      <div>
+        <span class="badge badge-cyan">Harness Option B</span>
+        <h3>6. Hybrid 2P+6D Single-Plug Connector</h3>
+        <p>Consolidated 8-pin (2 large power pins + 6 signal pins) quick-disconnect bulkhead connector layout for single-click tube attachment.</p>
+      </div>
+      <span class="launch-cta">Open Option B Blueprint →</span>
+    </a>
+  </div>
+
+  <!-- SECTION 1: WHERE WE ARE & THE ELECTRICAL WHY -->
+  <div class="section">
+    <h2>1. Where We Are &amp; The Electrical "Why" Behind What We're Soldering</h2>
+    <div class="two-col">
+      <div>
+        <h3 style="color:#fff;font-size:15px;margin-bottom:8px;">Physical Tube &amp; Strip Topology (3,600 Total LEDs)</h3>
+        <ul>
+          <li><strong>2 Tubes × 2 Opposite Strips</strong>: Each 5.0m tube contains two 900-LED WS2812B strips mounted back-to-back (<strong>Strip A Forward ▶</strong> <code>LED 0..899</code> and <strong>Strip B Reverse ◀</strong> <code>LED 1799..900</code>).</li>
+          <li><strong>3-Turn Coiled Hoop Geometry (<code>coilCount = 3</code>)</strong>: Each 5m tube coils into 3 overlapping 300-LED turns. Firmware projects animations across all 3 turns in lockstep via <code>applyPixelCoiled()</code>.</li>
+          <li><strong>Why We Cut <code>DIN</code> at LED 450 (8-Tap Mode = 72.4 FPS)</strong>: At 800 kHz (<code>30 µs/LED</code>), shifting 900 LEDs takes <code>27.0 ms</code> (~36.2 FPS). Cutting the copper <code>DIN</code> trace between LED 449 and 450 (while keeping <code>+5V</code> and <code>GND</code> continuous) and feeding LED 450 from a mid-tap pin halves the shift length to <strong>450 LEDs (<code>13.5 ms</code> = 72.4 FPS)</strong>.</li>
+          <li><strong>Why <code>GND</code> Is Offset by +4 Pads from <code>+5V</code></strong>: Along the strip, every power injection tap solders <code>+5V</code> at Pad <em>N</em> and <code>GND</code> at Pad <em>N+4</em> (e.g., Pads <code>6/10</code>, <code>223/227</code>, <code>448/452</code>, <code>673/677</code>, <code>890/894</code>) so the wires enter the 3D-printed <code>wire_lock</code> channel in staggered slots without overlapping or shorting.</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="color:#fff;font-size:15px;margin-bottom:8px;">Why the ElectroCookie Shield Uses 6× PN2222A + 2× Direct 330Ω</h3>
+        <ul>
+          <li><strong>Short Base Lines (<code>D2 → T1-A</code>, <code>D4 → T2-A</code>, &lt;15 cm)</strong>: Enter the base of the tube right next to the enclosure. Low wire capacitance allows a direct <strong><code>330 Ω</code> series damping resistor</strong> on Column 10.</li>
+          <li><strong>Long Mid-Tap &amp; Far-End Lines (<code>D3, D5, D6, D7, D11, D12</code>, 2.5m–5.0m runs)</strong>: Running 800 kHz square waves 2.5m to 5.0m up the internal tube channel requires high current drive and source termination. Each channel uses a <strong><code>PN2222A</code> NPN Emitter-Follower</strong>:
+            <ol style="padding-left:18px;margin-top:6px;">
+              <li><code>100 Ω</code> from Arduino GPIO pin → Base 3-hole bar.</li>
+              <li><code>PN2222A</code> Collector (Pin 3) → Center <code>+5V</code> bus; Base (Pin 2) → Base bar; Emitter (Pin 1) → Emitter bar.</li>
+              <li><code>330 Ω</code> pull-down from Emitter bar → Center <code>GND</code> bus (ensures fast fall times for the 12-cycle <code>0.25 µs</code> T0H bit window).</li>
+              <li><code>22 Ω</code> series output termination from Emitter bar → Output bar → Tube data wire.</li>
+            </ol>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="color:#fff;font-size:14.5px;margin:18px 0 8px;">Complete 8-Channel Pin &amp; Tap Assignment Matrix</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Arduino Pin</th>
+          <th>Tap Badge</th>
+          <th>Tube &amp; Strip Segment</th>
+          <th>LED Range</th>
+          <th>Mode</th>
+          <th>ElectroCookie Shield Stage</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code>D2</code></td><td><code>T1-A</code></td><td>Tube 1 • Strip 1A Base (▶)</td><td><code>0 .. 449</code></td><td>4-Tap &amp; 8-Tap</td><td>Direct <code>330 Ω</code> (Col 10 Lower Row)</td></tr>
+        <tr><td><code>D3</code></td><td><code>T1-B</code></td><td>Tube 1 • Strip 1B Mid-Tap (✂️ ▶)</td><td><code>450 .. 899</code></td><td>4-Tap &amp; 8-Tap</td><td><code>Q6</code> PN2222A (<code>100Ω</code> + <code>330Ω</code> + <code>22Ω</code>, Lower Row)</td></tr>
+        <tr><td><code>D5</code></td><td><code>T1-C</code></td><td>Tube 1 • Strip 2A Far End (◀)</td><td><code>900 .. 1349</code></td><td>4-Tap &amp; 8-Tap</td><td><code>Q5</code> PN2222A (<code>100Ω</code> + <code>330Ω</code> + <code>22Ω</code>, Lower Row)</td></tr>
+        <tr><td><code>D7</code></td><td><code>T1-D</code></td><td>Tube 1 • Strip 2B Mid-Tap (◀ ✂️)</td><td><code>1350 .. 1799</code></td><td>8-Tap Only</td><td><code>Q3</code> PN2222A (<code>100Ω</code> + <code>330Ω</code> + <code>22Ω</code>, Upper Row)</td></tr>
+        <tr><td><code>D4</code></td><td><code>T2-A</code></td><td>Tube 2 • Strip 3A Base (▶)</td><td><code>1800 .. 2249</code></td><td>8-Tap Only</td><td>Direct <code>330 Ω</code> (Col 10 Upper Row)</td></tr>
+        <tr><td><code>D11</code></td><td><code>T2-B</code></td><td>Tube 2 • Strip 3B Mid-Tap (✂️ ▶)</td><td><code>2250 .. 2699</code></td><td>8-Tap Only</td><td><code>Q2</code> PN2222A (<code>100Ω</code> + <code>330Ω</code> + <code>22Ω</code>, Upper Row)</td></tr>
+        <tr><td><code>D6</code></td><td><code>T2-C</code></td><td>Tube 2 • Strip 4A Far End (◀)</td><td><code>2700 .. 3149</code></td><td>4-Tap &amp; 8-Tap</td><td><code>Q4</code> PN2222A (<code>100Ω</code> + <code>330Ω</code> + <code>22Ω</code>, Lower Row)</td></tr>
+        <tr><td><code>D12</code></td><td><code>T2-D</code></td><td>Tube 2 • Strip 4B Mid-Tap (◀ ✂️)</td><td><code>3150 .. 3599</code></td><td>8-Tap Only</td><td><code>Q1</code> PN2222A (<code>100Ω</code> + <code>330Ω</code> + <code>22Ω</code>, Upper Row)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 2: PROGRAM LAYOUT & CODEBASE ARCHITECTURE -->
+  <div class="section">
+    <h2>2. Program Layout &amp; Codebase Map (v2.545.0)</h2>
+    <div class="two-col">
+      <div>
+        <h3 style="color:#fff;font-size:15px;margin-bottom:8px;">Embedded Microcontroller Firmware (<code>firmware/</code>)</h3>
+        <ul>
+          <li><code>firmware/light_loop_900/light_loop_900.ino</code> &amp; <code>ws2812_parallel.S</code>:
+            <br/>Main <strong>Renesas RA4M1 (48 MHz Cortex-M4F)</strong> firmware. Drives 40 procedural &amp; physics modes, the Universal Landing Overlay Compositor (L1–L12), sub-microsecond <code>ARM_DWT_CYCCNT</code> parallel port-register WS2812 output, non-blocking 10–20 Hz sensory bus (VL53L5CX 64-zone ToF LiDAR + HC-SR04 Ultrasonic + DS1307 RTC), and <code>.noinit</code> SRAM crash telemetry.</li>
+          <li><code>firmware/esp32_unified_bridge/esp32_unified_bridge.ino</code>:
+            <br/>Dual-Core FreeRTOS firmware for the onboard <strong>ESP32-S3 radio co-processor</strong>.
+            <strong>Core 0</strong> runs an offline Wi-Fi Captive Portal (<code>SSID: LightLoop-Setup</code>, <code>192.168.4.1</code>) serving the 311.5 KB gzipped React PWA directly from flash ROM with zero internet required.
+            <strong>Core 1</strong> runs the Coded PHY BLE GATT peripheral (<code>LightLoop-545</code>) bridged over 115,200-baud <code>Serial2</code> to the RA4M1.</li>
+          <li><code>firmware/bench_harness_tester/bench_harness_tester.ino</code>:
+            <br/>Dedicated bench test sketch for Continuity / Channel / Tap verification during soldering.</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="color:#fff;font-size:15px;margin-bottom:8px;">React + TypeScript Web &amp; Mobile Suite (Root)</h3>
+        <ul>
+          <li><code>index.tsx</code>: Root router (<code>?view=studio</code>, <code>?view=phone</code>, <code>?view=checklist</code>, <code>?view=classic</code>) and 4-phase Web Bluetooth post-connect settling state machine (<code>+550ms, +900ms, +1100ms, +1400ms</code>).</li>
+          <li><code>LightLoopAdaptiveStudio.tsx</code>: Desktop &amp; tablet studio with concentric 3-coil 60 FPS canvas simulator, 40-mode matrix, 7 live modulators, and 5-zone scrubber.</li>
+          <li><code>MobilePhoneApp.tsx</code>: Mobile &amp; Google Pixel Fold controller with single-row precision gesture scrubber and Android native BLE Coded PHY bridge support.</li>
+          <li><code>WiringChecklistApp.tsx</code>: Powers <code>/?view=checklist</code> and <code>checklist.html</code>—syncs soldering progress (64-bit mask) to Arduino Data Flash and fires <code>CHK</code> packets to light individual solder-joint LEDs.</li>
+          <li><code>LedController.ts</code>: Browser 60 FPS simulation engine mirroring all 40 C++ firmware modes and particle physics 1:1.</li>
+          <li><code>scripts/</code>: Hardware-in-the-loop CLI tools (<code>read-serial.py</code>, <code>scan-ble.py</code>, <code>test_ble.py</code>, <code>build-firmware.sh</code>).</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong> Included Reference Files in This Google Drive Folder:</strong>
+      <code>00_START_HERE_BUILDER_GUIDE.md</code> •
+      <code>light_loop_features.md</code> (Full Feature Catalog) •
+      <code>unified_esp32_firmware_handoff.md</code> (ESP32-S3 Dual-Core Spec) •
+      <code>four_line_segment_driver.md</code> (ARM DWT Assembly Timing Spec) •
+      <code>power_protection_and_timing_precision.md</code> (Inrush Slew &amp; Power Isolation) •
+      <code>electrocookie_photorealistic_wiring.png</code> •
+      <code>full_board_photo_guide.png</code> •
+      <code>electrocookie_light_loop_26.diylc</code>
+    </div>
+  </div>
+<!-- LL_DOC_MODAL_START -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style>
+  .ll-modal-backdrop {
+    position: fixed; inset: 0; background: rgba(2, 6, 23, 0.88);
+    backdrop-filter: blur(8px); z-index: 99999; display: none;
+    align-items: center; justify-content: center; padding: 20px;
+  }
+  .ll-modal-backdrop.open { display: flex; }
+  .ll-modal-box {
+    background: #0f172a; border: 1px solid #334155; border-radius: 14px;
+    width: 100%; max-width: 1040px; max-height: 90vh; display: flex;
+    flex-direction: column; box-shadow: 0 25px 60px rgba(0,0,0,0.75);
+    overflow: hidden;
+  }
+  .ll-modal-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 20px; background: #1e293b; border-bottom: 1px solid #334155;
+  }
+  .ll-modal-title {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 14px; font-weight: 700; color: #38bdf8;
+  }
+  .ll-modal-actions { display: flex; gap: 10px; align-items: center; }
+  .ll-modal-btn {
+    background: #334155; color: #f8fafc; border: 1px solid #475569;
+    padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 700;
+    cursor: pointer; text-decoration: none;
+  }
+  .ll-modal-btn:hover { background: #475569; color: #fff; text-decoration: none; }
+  .ll-modal-close { background: #ef4444; border-color: #dc2626; color: #fff; }
+  .ll-modal-close:hover { background: #dc2626; }
+  .ll-modal-body {
+    padding: 28px 32px; overflow-y: auto; color: #e2e8f0; line-height: 1.65;
+    font-size: 15px;
+  }
+  .ll-modal-body h1, .ll-modal-body h2, .ll-modal-body h3 {
+    color: #f8fafc; margin-top: 1.4em; margin-bottom: 0.5em;
+    border-bottom: 1px solid #1e293b; padding-bottom: 6px;
+  }
+  .ll-modal-body h1 { font-size: 24px; color: #38bdf8; margin-top: 0; }
+  .ll-modal-body h2 { font-size: 19px; color: #eab308; }
+  .ll-modal-body h3 { font-size: 16px; color: #34d399; border-bottom: none; }
+  .ll-modal-body pre {
+    background: #020617; border: 1px solid #1e293b; padding: 14px;
+    border-radius: 8px; overflow-x: auto; font-size: 13px; color: #a5f3fc;
+  }
+  .ll-modal-body code {
+    background: #1e293b; padding: 2px 6px; border-radius: 4px;
+    font-size: 13px; color: #38bdf8;
+  }
+  .ll-modal-body pre code { background: transparent; padding: 0; color: inherit; }
+  .ll-modal-body table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 13.5px; }
+  .ll-modal-body th, .ll-modal-body td { border: 1px solid #334155; padding: 8px 12px; text-align: left; }
+  .ll-modal-body th { background: #1e293b; color: #94a3b8; }
+  .ll-modal-body img { max-width: 100%; border-radius: 8px; border: 1px solid #334155; }
+</style>
+
+<div id="ll-doc-modal" class="ll-modal-backdrop" onclick="if(event.target===this) closeLlModal()">
+  <div class="ll-modal-box">
+    <div class="ll-modal-header">
+      <span id="ll-modal-title" class="ll-modal-title">Document Preview</span>
+      <div class="ll-modal-actions">
+        <a id="ll-modal-raw" href="#" target="_blank" class="ll-modal-btn">Open Raw File ↗</a>
+        <button onclick="closeLlModal()" class="ll-modal-btn ll-modal-close">✕ Close (Esc)</button>
+      </div>
+    </div>
+    <div id="ll-modal-body" class="ll-modal-body"></div>
+  </div>
+</div>
+
+<script>
+  const LL_EMBEDDED_MDS = {"00_START_HERE_BUILDER_GUIDE.md": "# Light Loop 26 (v2.545.0) \u2014 Builder & Software Engineer Onboarding Guide\n\nWelcome to **Light Loop 26**! This guide bridges the gap between our **embedded C++ / React TypeScript software stack** and the **physical soldering & assembly work** we are tackling on the bench.\n\n---\n\n## 1. Where We Are Right Now & The Bench Gameplan\n\n- **Software & Firmware Status (`v2.545.0`)**: Feature-complete and hardware-verified. The 60\u201372.4 FPS animation engine (40 modes, 7 live modulators, 12 universal landing overlays), Dual-Core ESP32-S3 Wi-Fi Captive Portal + BLE GATT bridge, Web Studio / Mobile / Pixel Fold UI, and interactive BLE Soldering Checklist are all live.\n- **Our Immediate Hardware / Soldering Objective**:\n  1. **Bench Station A (ElectroCookie Proto Shield REV3.3)**: Populate and solder the 3.3V-to-5V high-speed line driver shield that mounts onto the Arduino UNO R4 WiFi (`electro-cookie-interactive-wiring.html`).\n  2. **Tubes 1 & 2 (two 5.0m tubes \u00d7 two opposite-direction 900-LED strips = 3,600 physical LEDs)**:\n     - Solder the **+5V (Red) and GND (White) power injection taps** along the 5m strips (`wiring-horizontal.html`), using the **+4 pad GND offset** so wires sit flat in the 3D-printed `wire_lock` channel without crossing.\n     - Solder the **data entry taps (`T1-A..D`, `T2-A..D`)** and, for **8-Tap Mode (72.4 FPS)**, cut the thin copper `DIN` trace between LED 449 and LED 450 at the 2.5m midpoint of each strip while keeping `+5V` and `GND` continuous.\n  3. **Live Hardware Continuity & Joint Verification (`checklist.html`)**: Use the 51-step interactive checklist (synced via Web Bluetooth to the Arduino) to light up the exact test LED at each solder joint (`LIGHT LED 1`, `LIGHT LED 451`, etc.) as we go.\n\n---\n\n## 2. Physical Topology & Why the Circuit Is Built This Way\n\n### A. 2 Tubes \u00d7 2 Opposite Strips (Coiled 3-Turn Geometry)\n- Each 5.0-meter tube houses **two 900-LED WS2812B strips mounted back-to-back** (1,800 LEDs per tube; 3,600 LEDs total across both tubes):\n  - **Strip A (Forward `\u25b6`)**: Data flows from Base (`0.0m`, LED 0) to Far End (`5.0m`, LED 899).\n  - **Strip B (Reverse `\u25c0`)**: Data flows from Far End (`5.0m`, LED 1799) back toward Base (`0.0m`, LED 900).\n- Physically, each 5m tube coils into **3 concentric turns of 300 LEDs (`coilCount = 3`)**. In firmware, `applyPixelCoiled(led, r, g, b)` projects animations across all 3 turns in lockstep.\n\n### B. 4-Tap (36.2 FPS) vs. 8-Tap (72.4 FPS) Parallel Drive\nAt the standard WS2812B data rate of **800 kHz** ($1.25\\,\\mu\\text{s}$ per bit $\\times 24\\text{ bits} = 30\\,\\mu\\text{s}$ per LED):\n- Driving **900 LEDs** in series per pin takes $900 \\times 30\\,\\mu\\text{s} = \\mathbf{27.0\\text{ ms}}$ per frame (**~36.2 FPS** max).\n- By cutting `DIN` at **LED 450** (the 2.5m midpoint) and feeding the second half from its own GPIO pin (**8-Tap Mode**), each pin only shifts **450 LEDs** in parallel:\n  $$450 \\times 30\\,\\mu\\text{s} = \\mathbf{13.5\\text{ ms}}\\text{ per frame} \\implies \\mathbf{72.4\\text{ FPS}}$$\n\n### C. Why the ElectroCookie Board Uses 6\u00d7 PN2222A Emitter-Followers + 2\u00d7 Direct 330\u03a9 Lines\n- **Short Base Lines (`D2 \u2192 T1-A`, `D4 \u2192 T2-A`, `< 15 cm` wire)**:\n  - The wire from the Arduino enclosure to the base of Strip 1A / Strip 3A is very short (`<15 cm`), so a single **`330 \u03a9` series damping resistor** on Column 10 of the ElectroCookie shield cleanly terminates reflections.\n- **Long Mid-Tap & Far-End Lines (`D3, D5, D6, D7, D11, D12`, `2.5m \u2013 5.0m` wire runs)**:\n  - Driving several meters of parallel cable inside the tube presents high capacitive load and line impedance.\n  - Each of these 6 channels uses a **PN2222A NPN Emitter-Follower buffer** on the ElectroCookie shield:\n    1. **`100 \u03a9` Base Resistor**: From the Arduino GPIO header pin into the Base 3-hole silver bar.\n    2. **`PN2222A` (TO-92)**: Collector (Pin 3) tied directly to the center **`+5V` rail**; Base (Pin 2) in the Base bar; Emitter (Pin 1) in the adjacent Emitter bar.\n    3. **`330 \u03a9` Emitter Pull-Down Resistor**: From the Emitter bar to the center **`GND` rail** for crisp falling edges during the strict $T_{0H} = 0.25\\,\\mu\\text{s}$ (12 CPU clock cycles at 48 MHz) window.\n    4. **`22 \u03a9` Series Output Resistor**: Bridges the Emitter bar to the Output bar to match the characteristic impedance of the long tube data wire.\n\n| Arduino Pin | Tap Label | Tube & Strip Segment | LED Index Range | Mode Active | Driver Stage on ElectroCookie Shield |\n| :--- | :--- | :--- | :--- | :--- | :--- |\n| **`D2`** | **`T1-A`** | Tube 1 \u2022 Strip 1A Base (`\u25b6`) | `0 .. 449` *(or `0..899` in 4-Tap)* | **4-Tap & 8-Tap** | Direct **`330 \u03a9`** (Col 10 Lower Row) |\n| **`D3`** | **`T1-B`** | Tube 1 \u2022 Strip 1B Mid (`\u25b6`) | `450 .. 899` *(or T2-A in 4-Tap)* | **4-Tap & 8-Tap** | **`Q6` PN2222A** (`100\u03a9` + `330\u03a9` + `22\u03a9`, Lower Row) |\n| **`D5`** | **`T1-C`** | Tube 1 \u2022 Strip 2A Far End (`\u25c0`) | `900 .. 1349` *(or `900..1799` in 4-Tap)* | **4-Tap & 8-Tap** | **`Q5` PN2222A** (`100\u03a9` + `330\u03a9` + `22\u03a9`, Lower Row) |\n| **`D7`** | **`T1-D`** | Tube 1 \u2022 Strip 2B Mid (`\u25c0`) | `1350 .. 1799` | **8-Tap Only** | **`Q3` PN2222A** (`100\u03a9` + `330\u03a9` + `22\u03a9`, Upper Row) |\n| **`D4`** | **`T2-A`** | Tube 2 \u2022 Strip 3A Base (`\u25b6`) | `1800 .. 2249` | **8-Tap Only** | Direct **`330 \u03a9`** (Col 10 Upper Row) |\n| **`D11`** | **`T2-B`** | Tube 2 \u2022 Strip 3B Mid (`\u25b6`) | `2250 .. 2699` | **8-Tap Only** | **`Q2` PN2222A** (`100\u03a9` + `330\u03a9` + `22\u03a9`, Upper Row) |\n| **`D6`** | **`T2-C`** | Tube 2 \u2022 Strip 4A Far End (`\u25c0`) | `2700 .. 3149` *(or `2700..3599` in 4-Tap)* | **4-Tap & 8-Tap** | **`Q4` PN2222A** (`100\u03a9` + `330\u03a9` + `22\u03a9`, Lower Row) |\n| **`D12`** | **`T2-D`** | Tube 2 \u2022 Strip 4B Mid (`\u25c0`) | `3150 .. 3599` | **8-Tap Only** | **`Q1` PN2222A** (`100\u03a9` + `330\u03a9` + `22\u03a9`, Upper Row) |\n\n---\n\n## 3. Software & Firmware Architecture Map\n\n### A. Dual-MCU Embedded Architecture (Arduino UNO R4 WiFi)\nThe Arduino UNO R4 WiFi contains two distinct microcontrollers communicating over internal `Serial2` (115,200 baud):\n\n1. **Renesas RA4M1 (48 MHz ARM Cortex-M4F, 256 KB Flash, 32 KB SRAM)**:\n   - **Source**: `firmware/light_loop_900/light_loop_900.ino` + `firmware/light_loop_900/ws2812_parallel.S`\n   - **Role**:\n     - Runs the real-time **40-mode procedural & physics render engine** (`LedController` parity) and the **Universal Landing Compositor (`renderUniversalLandingOverlay`)** which additively overlays 12 touchdown detonations (L1\u2013L12) over any running mode.\n     - Executes **cycle-counted parallel port-register bit-banging** (`R_PORT1` / `R_PORT3` via `ARM_DWT_CYCCNT`) to drive multiple WS2812B data lines simultaneously with zero timing jitter.\n     - Polls the **Layer-0 Sensory Bus** at 10\u201320 Hz non-blockingly across all modes: **SparkFun VL53L5CX 64-Zone (8\u00d78) Time-of-Flight LiDAR** (`Wire1`) + **HC-SR04 Ultrasonic Sensor** (`D2`/`D3` or configured trigger/echo) + **DS1307 RTC** (`Wire`).\n     - Preserves volatile crash telemetry (`RSTSR0`, `RSTSR1`, `g_crashContext`) in `.noinit` SRAM and displays live status/version (`545`) on the onboard 12\u00d78 red LED matrix.\n\n2. **Espressif ESP32-S3 Co-Processor (Dual-Core 240 MHz Xtensa LX7, 512 KB SRAM, 4 MB Flash)**:\n   - **Source**: `firmware/esp32_unified_bridge/esp32_unified_bridge.ino` + `tools/esp32/firmware/embedded_pwa_data.h`\n   - **Role**:\n     - **Core 0 (Offline Wi-Fi Captive Portal)**: Broadcasts `SSID: LightLoop-Setup` (`Password: liftlift`, `http://192.168.4.1/`) and serves the entire **311.5 KB level-9 gzipped React PWA directly from ESP32 flash ROM**\u2014meaning any phone or laptop in the desert with zero cell/internet service can connect to Wi-Fi and immediately load the full Light Loop Studio web app.\n     - **Core 1 (BLE 5.0 Coded PHY GATT Peripheral & UART Bridge)**: Advertises `LightLoop-545` (strictly $\\le 31$-byte advertisement payload) and bridges 16-byte GATT commands (`CMD`, `MOD`, `WND`, `TAP`, `SAV`, `TOF`, `CHK`) to the RA4M1 with zero-latency UART buffer detection.\n\n3. **Dedicated Bench Soldering Harness Sketch**:\n   - **Source**: `firmware/bench_harness_tester/bench_harness_tester.ino`\n   - Standalone diagnostic firmware for testing individual channels, pins, and solder joints on the bench.\n\n---\n\n### B. Web Studio, Mobile App & Soldering Checklist (React 19 + TypeScript + Vite)\n\nAll frontend views live in the root repository and share a single state/profile engine (`UserProfileManager.ts`, `version_manifest.ts`):\n\n| File / Entrypoint | URL Route | Purpose |\n| :--- | :--- | :--- |\n| `index.tsx` | `/` | `RootAppRouter` switching between Studio, Mobile Phone, Classic Desktop, Canvas, and Soldering Checklist views; manages the 4-phase Web Bluetooth post-connect settling handshake ($+550\\text{ms}, +900\\text{ms}, +1100\\text{ms}, +1400\\text{ms}$). |\n| `LightLoopAdaptiveStudio.tsx` | `/?view=studio` | Primary desktop & tablet control studio: concentric 3-coil 60 FPS ring visualizer, 40-mode selector, 7 live modulators, 5-zone kinetic scrubber, and ToF LiDAR heatmap HUD. |\n| `MobilePhoneApp.tsx` | `/?view=phone` | Touch-optimized mobile & Google Pixel Fold controller with single-row precision gesture scrubber and Android native BLE Coded PHY bridge support. |\n| `WiringChecklistApp.tsx` | `/?view=checklist` | **51-Step Interactive Soldering Checklist** (`checklist.html`). Syncs a 64-bit completion bitmask to Arduino Data Flash (`CHK` packet) and provides one-tap **`LIGHT LED`** buttons to illuminate the exact LED at each solder joint. |\n| `LedController.ts` | *(Shared Engine)* | Pure TypeScript 60 FPS simulation of all 40 firmware modes, multi-coil geometry, and particle physics so browser preview matches physical LEDs 1:1. |\n\n---\n\n### C. 16-Byte Binary Command Protocol (Web Bluetooth GATT & USB Serial)\n\nService UUID: `19b10000-e8f2-537e-4f6c-d104768a1214` | Characteristic UUID: `19b10001-e8f2-537e-4f6c-d104768a1214`\n\n- **`CMD` (16 Bytes)**: `[0..2]='CMD'`, `[3]=mode (1..40)`, `[4]=speed*10`, `[5]=brightness (0..100)`, `[6]=origin`, `[7]=trail`, `[8]=blocks`, `[9..10]=cursorLED`, `[11]=flags`, `[12..13]=scrubFrame`, `[14]=landingPreset (1..12)`, `[15]=lineLength`.\n- **`MOD` (16 Bytes)**: `[0..2]='MOD'`, `[3]=turbineHeads`, `[4]=collisionRatio`, `[5]=phosphorDecay`, `[6]=prismDispersion`, `[7]=viscosity`, `[8]=sparklerDensity`, `[9]=magnesiumWhite`.\n- **`WND` (16 Bytes)**: Live anemometer wind speed, gust speed, compass direction ($0..359^\\circ$), and Beaufort display style for Mode 38.\n- **`TAP` (16 Bytes)**: Configures hardware segment tap count (`4-Tap` vs `6-Tap` vs `8-Tap`) and dual-strip topology (`Mirror`, `Counter-Rotating`, `90\u00b0 Echo`, `Harmonic`).\n- **`CHK` (16 Bytes)**: Reads/writes the 64-bit hardware soldering checklist bitmask in Data Flash and triggers pinpoint joint-test LEDs during soldering.\n- **`SAV` (16 Bytes)**: Explicitly commits in-memory preset configuration to Renesas Data Flash in paced 16-byte chunks with interleaved `WDT.refresh()` calls.\n\n---\n\n## 4. Guide to All Files in This Google Drive Folder\n\n1. **`00_START_HERE_BUILDER_GUIDE.html`** *(Open in Browser)* \u2014 Interactive visual version of this guide with one-click links to every wiring diagram and checklist.\n2. **`electro-cookie-interactive-wiring.html`** *(Open in Browser)* \u2014 **Bench Station A**: Interactive ElectroCookie Proto Shield REV3.3 explorer (4-Tap / 8-Tap switcher, clickable D2\u2013D12 channels, 7-step soldering isolator, zoomable PCB photo + CAD grid).\n3. **`wiring-horizontal.html`** *(Open in Browser)* \u2014 **Tubes 1 & 2**: Horizontal compressed connection & pad map showing the 7 solder zones, center 5-wire channel, and +4 pad `wire_lock` GND offset.\n4. **`checklist.html`** *(Open in Browser)* \u2014 **51-Step Interactive Soldering Checklist** with wire cut lengths, resistor values, pad numbers, and live BLE `TEST LED` joint verification buttons.\n5. **`wiring.html`** *(Open in Browser)* \u2014 Full 5-Meter Straight-Line Vertical Blueprint (Mean Well 40A PSU, fuse block, resistor bank, wire lengths, and both 5m tubes).\n6. **`wiring-split.html` & `wiring-hybrid.html`** *(Open in Browser)* \u2014 Enclosure-to-Tube disconnect harness blueprints (Option A: Split 2-Pin Power + 3-Pin Data vs. Option B: Hybrid 2P+6D connector).\n7. **`electrocookie_photorealistic_wiring.png` & `full_board_photo_guide.png`** \u2014 High-resolution visual reference renders of the populated ElectroCookie shield.\n8. **`electrocookie_light_loop_26.diylc`** \u2014 DIY Layout Creator CAD file for the ElectroCookie shield.\n9. **`light_loop_features.md`** \u2014 Exhaustive Hardware & Software Feature Catalog.\n10. **`unified_esp32_firmware_handoff.md`** \u2014 Technical spec for the Dual-Core ESP32-S3 Offline Captive Portal PWA + Coded PHY BLE Bridge.\n11. **`four_line_segment_driver.md` & `power_protection_and_timing_precision.md`** \u2014 Sub-microsecond ARM DWT cycle-counted WS2812 driver math and temporal inrush slew ($di/dt$) power protection invariants.\n12. **`3d_models_README.md` & `3d_arc_enclosure_preview.png`** \u2014 Mechanical spec for the 3D-printed 5m snap-together arc extrusions (`wire_lock` channel) and weatherproof desert enclosure.\n", "light_loop_features.md": "# LightLoop Project Feature Catalog\n\nAn exhaustive list of every feature in the LightLoop project, divided into Hardware and Software with simple and direct descriptions.\n\n---\n\n## \ud83d\udee0\ufe0f Hardware Features\n\n### 1. Compute & Radio Co-Processors\n- **Arduino UNO R4 WiFi Main Controller**: 32-bit Renesas RA4M1 ARM Cortex-M4 microcontroller running at 48 MHz with hardware floating-point unit (FPU), 256 KB Flash, and 32 KB SRAM.\n- **ESP32-S3 Wireless Co-Processor**: Dual-core 240 MHz radio chip running an AT bridge firmware for Bluetooth Low Energy (BLE 5.0) and 2.4 GHz Wi-Fi (802.11 b/g/n).\n- **Hardware Watchdog Timers (WDT & IWDT)**: Internal hardware timers that automatically reboot the system if the main render or communications loop hangs.\n- **Non-Volatile Data Flash & EEPROM**: Onboard flash storage preserving mode parameters, system configuration, and offline forecast data across reboots.\n- **Retained SRAM Storage**: Uninitialized SRAM section (`.noinit`) that preserves crash telemetry and register states across warm watchdog resets.\n\n### 2. LED Strips & Photonics\n- **900 Addressable RGB/RGBW LEDs**: High-density 5V WS2812B / WS2814 pixel strip array (standard 900-LED ring, with legacy support for 420-LED / 60-IC strips).\n- **Parallel DMA / High-Speed Assembly Driver**: 4-channel parallel output using sub-microsecond cycle-counted assembly driving digital pins D6, D7, D8, and D9.\n- **Multi-Coil Ring Geometry**: Physical mounting supporting 1 single coil (900 LEDs), 2 overlapping coils (450 LEDs each), or 3 coils (300 LEDs each).\n- **Dual-Strip Physical Topology**: Support for dual parallel strips wired in mirror, counter-rotating, 90\u00b0 phase-delayed echo, or harmonic offset configurations.\n\n### 3. Visual Indicators & Display\n- **Onboard 12x8 LED Matrix**: Built-in red LED grid on the Arduino board displaying the running firmware version (e.g., \"496\"), connection status, and diagnostic icons (such as a sad face on unexpected resets).\n\n### 4. Distance & Spatial Sensors\n- **HC-SR04 Ultrasonic Distance Sensor**: Native 5V proximity sensor wired to Digital Pin D2 (Trigger) and Digital Pin D3 (Echo) measuring distance up to 1.7 meters.\n- **SparkFun VL53L5CX Time-of-Flight (ToF) LiDAR**: 64-zone (8x8 grid) optical distance sensor wired over I2C Wire1 (Pins 26 and 27) providing 2D spatial obstacle tracking and gesture sensing.\n- **Dual-Source Proximity Gate**: Microcontroller-level logical OR fusion combining ultrasonic and ToF readings for touchless touchdown detection.\n\n### 5. Timekeeping & Audio\n- **DS1307 Real-Time Clock (RTC)**: Dedicated I2C clock module (Pins A4 and A5) with coin-cell battery backup maintaining accurate real-world time while powered off.\n- **I2C Bus Auto-Recovery**: Microcontroller pin-toggling routine that clears stuck I2C slave devices holding SDA low.\n- **Piezo Buzzer / Speaker**: Audio transducer connected to Digital Pin 10 (PWM channel 5) generating dynamic collision tones, system alerts, and landing fanfares.\n\n### 6. External Hardware Controllers\n- **Elgato Stream Deck MK.2 Controller**: 15-key physical desktop controller with full-color LCD screens connected directly via USB HID.\n\n### 7. Enclosure & Mechanical Optics\n- **Modular Snap Carrier Chassis**: 3D-printed mounting brackets for the Arduino UNO R4 WiFi and DS1307 RTC module.\n- **Weatherproof Desert Enclosure**: 3D-printed protective housing featuring a TPU sealing ring, outer cowl lid, and cable gland bulkheads for dust and water resistance.\n- **5-Meter Arc Track Segments**: Modular 3D-printed snap-together curved extrusion tracks (20x and 24x profiles) holding the LED ring securely in place.\n\n---\n\n## \ud83d\udcbb Software Features\n\n### 1. Embedded Microcontroller Firmware (`light_loop_900.ino`)\n- **60 FPS Real-Time Render Engine**: Non-blocking animation loop generating 60 frames per second across 900 LEDs.\n- **Fast Polynomial Math**: Inlined sine and cosine approximations that bypass heavy math libraries to minimize binary flash size.\n- **40 Built-in Animation Modes**: Comprehensive preset library including:\n  - *Mode 5*: Solid Color with interactive touch scrubbing and explosive ember burst release.\n  - *Mode 8*: Diode Calibration & Coil Alignment with pinpoint boundary targeting.\n  - *Mode 28*: Blinker strobe with quadratic green decay.\n  - *Mode 29*: Eclipse Corona with solar core, radial symmetry lookup table, and Fourth of July embers.\n  - *Mode 30 / 32*: Matrix Grid mapping.\n  - *Mode 33*: Smooth Physics Simulation with multi-head turbine and dynamic particle collisions.\n  - *Mode 34*: Real-Time Clock face with continuous sweep kinematics and 5 color themes.\n  - *Mode 35*: Touchdown Landing deck playing 6 selectable celebration animations.\n  - *Mode 36*: LiDAR 64-Zone Spatial Heatmap projection.\n  - *Mode 37*: Quantum Flux relativistic plasma turbulence.\n  - *Mode 38*: Meteorological Wind Telemetry with live anemometer vectors.\n  - *Mode 39*: Tetherball elastic pendulum orbital simulation.\n  - *Mode 40*: Kinetic Incline Marbles run.\n- **7 Live Modulators**: Real-time parameter controls for Turbine Heads (1\u201312), Collision Ratio, Phosphor Decay (Fluidity), Chromatic Prism Dispersion, Viscosity / Elasticity, Sparkler Particle Density, and Magnesium White toggle.\n- **200-Particle Sparkler Engine**: Real-time ember simulation featuring wake counter-velocity, aerodynamic drag, and chaotic sputtering.\n- **Meteorological Wind Engine**: Real-time display of wind speed, gusts, direction, and Beaufort scale with 4 display styles (Windsock Stream, Windsock Vortex, Precision Compass, and Wave).\n- **14-Day Offline Wind Forecast Storage**: Microcontroller stores up to 336 hours of weather forecast data in dedicated 1 KB flash memory blocks for autonomous offline playback.\n- **Sub-Second Precision Clockwork**: Continuous timekeeping synchronized from the DS1307 RTC with fractional second positioning.\n- **Touchless Touchdown Detection**: Automatic trigger of landing animations via ultrasonic proximity (20\u2013200 mm) or ToF LiDAR coverage with hysteresis re-arm latching.\n- **Crash Telemetry Preservation**: Automatic recording of fault program counter, return address, and active subsystem to SRAM before watchdog reboot.\n- **Hardware Segment Calibration**: In-firmware support for switching between 4-tap (450 LEDs) and 6-tap (300 LEDs) physical segment layouts.\n\n### 2. Frontend Web Application (React, TypeScript, Vite)\n- **Adaptive Responsive Posture**: Automatically switches interface layout between Desktop Adaptive Studio, Mobile Phone view, and Google Pixel Fold dual-screen foldable posture.\n- **Interactive 60 FPS Canvas Ring Simulator**: In-browser virtual preview rendering 900 physical LEDs, coil layering, and particle physics in real time.\n- **5-Segment Kinetic Scrubber**: Multi-tier scrubbing bar allowing micro, medium, and macro frame positioning across 360 degrees.\n- **Upward-Yielding Panel Expansion**: UI panels that detect the bottom of the screen and expand upward within 80ms, preventing controls from clipping off-screen.\n- **Live Photonics HUD**: Real-time telemetry indicators showing active mode, frame position, speed, and communication latency.\n- **Scrub Sensitivity Visualizer**: Dynamic visual curve showing touch and mouse scrub sensitivity across the scrubber track.\n- **Triple Communication Interfaces**:\n  - *Web Bluetooth (BLE)*: Browser-based wireless link using Nordic UART 16-byte command packets (`CMD`, `MOD`, `WND`, `TAP`, `SAV`) with automatic reconnect.\n  - *Web Serial (USB)*: High-speed 500,000 baud serial stream for real-time control and debugging.\n  - *Wi-Fi REST API*: Networked HTTP control endpoint (`/api/control`) secured by password authentication.\n- **4-Phase BLE Post-Connect Settling Sequence**: Phased transmission delay (550ms, 900ms, 1100ms, 1400ms) ensuring zero dropped packets on newly established Bluetooth links.\n- **Decoupled Tri-Tier Versioning System**: Independent version tracking for Web App (`webVersion`), Target Firmware (`targetFirmwareVersion`), and Backward Compatibility (`minSupportedFirmwareMinor`) with an emerald reassurance badge.\n- **User Profile & Preset Manager (`UserProfileManager`)**: Browser storage saving custom parameter presets, themes, and calibration configurations.\n- **Minimal Blocking Status Overlay**: Modal overlay that activates strictly during active asset compilation or Arduino flashing, leaving the app interactive during normal use.\n\n### 3. Stream Deck Direct USB HID Daemon (macOS Service)\n- **Direct USB HID Controller (`controller.py`)**: Communicates directly with Stream Deck hardware via `hidapi`, bypassing the vendor app to eliminate border clipping and downscaling.\n- **24/7 Persistent macOS LaunchAgent**: System daemon running under `com.antigravity.streamdeck.plist` with automatic recovery and single-instance PID locking.\n- **220ms Elastomer Debounce**: Schmitt-trigger filter eliminating contact bounce on physical silicone keys.\n- **Decoupled KeyDown / KeyUp Actions**: Instant negative-inversion visual feedback on key press, followed by non-blocking asynchronous command execution on key release.\n- **Continuous 2D Matrix Wave Animations**: Full-panel shockwave and ripple effects spanning all 15 LCD buttons, rendered at 40 FPS using precomputed alpha masks.\n- **Borderless Key Typography**: High-contrast, full-bleed icon graphics without artificial borders or padding.\n\n### 4. Android Companion App (Kotlin)\n- **Native Android Companion**: Mobile client application optimized specifically for Google Pixel Fold devices.\n- **Extended BLE Coded PHY Support**: Long-range Bluetooth communication taking full advantage of modern mobile radio hardware.\n- **ADB Reverse Tunneling & Broadcast Control**: Command interface allowing headless automated control and testing over USB ADB.\n\n### 5. Auditory System Integration\n- **Spoken Technical Debriefs & Briefings**: Integration with local auditory server (port 8005) delivering natural voice announcements and progress updates via Google Cloud TTS.\n- **Hardware Lease Mutex Coordinator**: Software lock preventing simultaneous access to the serial port or radio during flashing operations.\n\n### 6. Development, Diagnostic & Flashing Tooling\n- **Autonomous CLI Upload Script**: Single-command flashing utilizing 1200-bps DFU touch reset to upload firmware without touching physical board buttons.\n- **Automated Serial Teardown (`.kill_serial`)**: Coordination system that gracefully closes active browser serial ports before flashing firmware.\n- **Dedicated Diagnostic Tools**:\n  - `scripts/read-serial.py`: Safe, non-rebooting serial telemetry reader.\n  - `scripts/scan-ble.py`: Real-time interactive Bluetooth Low Energy advertisement scanner.\n  - `scripts/test_ble.py`: Automated GATT handshake, packet verification, and stress fuzzing suite.\n- **ESP32-S3 Bridge Flasher**: Scripts to compile, upload, or restore custom Coded PHY AT bridge firmware to the radio co-processor.\n", "unified_esp32_firmware_handoff.md": "````markdown\n# TASK BRIEFING: Unified ESP32-S3 Firmware \u2014 Simultaneous Wi-Fi Captive Portal (PWA Delivery) & Coded PHY BLE Bridge\n\n## \ud83c\udfaf Executive Objective\nUnify the ESP32-S3 co-processor firmware on the **Arduino UNO R4 WiFi** so that it simultaneously operates:\n1. **Wi-Fi SoftAP & Captive DNS Web Server** (`SSID: LightLoop-Setup`, `Password: liftlift`, `IP: 192.168.4.1`): Serving the complete embedded, level-9 gzipped Progressive Web App (311.5 KB) directly from ESP32 flash ROM with zero internet access required.\n2. **Bluetooth Low Energy (BLE) Peripheral & AT Bridge** (`LightLoop-<fwMinor>` / `LightLoop-492`): Maintaining active Web Bluetooth GATT service with the 16-byte binary protocol (CMD, MOD, WND, TAP, SAV, LND) bridging to the Renesas RA4M1 microcontroller over high-speed internal UART (`Serial2`).\n\nCurrently, these two capabilities exist as mutually exclusive binary images. Your goal is to eliminate this either/or limitation by leveraging the dual-core Xtensa LX7 architecture and FreeRTOS Wi-Fi/Bluetooth coexistence on the ESP32-S3.\n\n---\n\n## \ud83d\udcd0 Hardware & Architectural Topology\n\n```\n+-----------------------------------------------------------------------------------+\n|                            ARDUINO UNO R4 WIFI                                    |\n|                                                                                   |\n|  [ Renesas RA4M1 MCU ] (Cortex-M4F @ 48 MHz, 32 KB SRAM, 256 KB Flash)           |\n|    - Runs light_loop_900.ino: 900-LED WS2812B bit-bang engine & 12x8 LED Matrix    |\n|    - Communicates with ESP32-S3 over internal UART (Serial2 @ 115200 or higher)   |\n|                                 \u25b2                                                 |\n|                                 \u2502 Internal UART Bridge                            |\n|                                 \u25bc                                                 |\n|  [ ESP32-S3 Co-Processor ] (Dual-Core @ 240 MHz, 512 KB SRAM, 4 MB Flash)         |\n|    - Core 0: Wi-Fi SoftAP (\"LightLoop-Setup\") + DNS + HTTP WebServer (Port 80)    |\n|              Serves embedded 311.5 KB PWA from flash ROM (Zero Internet)          |\n|    - Core 1: BLE GATT Peripheral (\"LightLoop-492\") + UART Bridge to RA4M1        |\n|              Native Wi-Fi / Bluetooth hardware coexistence                        |\n+-----------------------------------------------------------------------------------+\n```\n\n---\n\n## \ud83d\udd0d Existing Code Assets & Working References\n\nBefore writing new code, review and inspect the following working reference assets in the repository:\n\n1. **Standalone Captive Portal Prototype**:\n   - `scratch/test_portal/test_portal.ino`: Proven working implementation of SoftAP (`LightLoop-Setup`), `DNSServer` on port 53, and `WebServer` on port 80 with captive portal probe redirection (`/generate_204`, `/gen_204`, etc.).\n2. **Asset Compression & Packaging Pipeline**:\n   - `scripts/package_embedded_pwa.py`: Packs `dist/` web assets with `gzip -9` and generates `embedded_pwa_data.h` and `pwa_manifest.json`.\n   - `tools/esp32/firmware/embedded_pwa_data.h`: The zero-copy C header containing the 311.5 KB compressed PWA byte array table.\n3. **Flashing & Automation Tooling**:\n   - `scripts/deploy_esp32_portal.py`: Script compiling with `arduino-cli` and flashing via `esptool.py`.\n   - `tools/esp32/firmware/UNOR4-WIFI-S3-CODED-ALL.bin`: The existing Coded PHY BLE AT bridge firmware.\n   - `scripts/flash-esp32-bridge.sh` and `scripts/restore-esp32-stock.sh`: Bridge flash scripts.\n4. **Main Renesas RA4M1 Firmware**:\n   - `firmware/light_loop_900/light_loop_900.ino`: Production 900-LED firmware. Uses `ArduinoBLE` talking to the ESP32-S3 via AT commands over internal `Serial2`.\n\n---\n\n## \ud83d\udee0\ufe0f Mandatory Technical Invariants & Rules\n\n1. **Strict 31-Byte BLE Advertising Limit**:\n   - Bluetooth Low Energy standard primary advertising packets are limited to 31 bytes total.\n   - Broadcast **ONLY** the local advertised name (e.g. `LightLoop-492`). Do NOT call `BLE.setAdvertisedService()` in advertising packets, as UUID + Name exceeds 31 bytes and crashes the co-processor radio.\n2. **UUID Specifications**:\n   - Service UUID: `'19b10000-e8f2-537e-4f6c-d104768a1214'`\n   - Control Characteristic UUID: `'19b10001-e8f2-537e-4f6c-d104768a1214'`\n3. **Dual-Core FreeRTOS Task Separation**:\n   - Pin the Wi-Fi stack and HTTP WebServer to **Core 0** (`xTaskCreatePinnedToCore`).\n   - Pin the BLE GATT handler and high-speed UART bridge to **Core 1** to prevent web serving page transfers from starving the UART buffer and dropping LED animation frames.\n4. **Watchdog Protection & Non-Blocking HTTP Transfers**:\n   - The Renesas RA4M1 has a hardware watchdog timer (`WDT.refresh()`) that expires in 4000ms.\n   - The ESP32-S3 must NEVER block internal serial responses or lock up during heavy HTTP downloads (such as when an Android device downloads the 203 KB main JavaScript chunk).\n5. **Captive Portal Endpoints**:\n   - Must intercept: `/generate_204`, `/gen_204`, `/connecttest.txt`, `/ncsi.txt`, `/hotspot-detect.html`, `/canonical.html` and return HTTP 302 redirecting to `http://192.168.4.1/`.\n   - Web assets must be served with:\n     - `Content-Encoding: gzip`\n     - `Cache-Control: public, max-age=31536000, immutable`\n     - `ETag` matching the asset hash.\n\n---\n\n## \ud83d\udccb Implementation Plan\n\n### Step 1: Create Unified ESP32-S3 Firmware Source\n- Create a dedicated workspace directory: `firmware/esp32_unified_bridge/`.\n- Merge the SoftAP / Captive Portal WebServer from `scratch/test_portal/test_portal.ino` with the BLE AT bridge logic.\n- Include `embedded_pwa_data.h` so that static assets are mapped directly into the ESP32-S3's 4MB flash partition.\n\n### Step 2: Build & Flash Pipeline\n- Codify compilation via `arduino-cli` using FQBN `esp32:esp32:esp32s3:CDCOnBoot=cdc`.\n- Output a merged binary `UNOR4-WIFI-S3-UNIFIED.bin`.\n- Create a deployment script `scripts/deploy_unified_esp32.sh` to flash the ESP32-S3 using `esptool.py`.\n\n### Step 3: Verification & Coexistence Testing\n- Test that `LightLoop-Setup` appears on Wi-Fi and successfully serves `http://192.168.4.1/` (delivering HTTP 200 gzipped assets).\n- Test that `LightLoop-492` simultaneously advertises over Bluetooth Low Energy.\n- Perform a live stress test: Connect an Android phone via Wi-Fi and download the PWA, while concurrently connecting Chrome Web Bluetooth and scrubbing LED parameters to verify zero frame-rate degradation on the 900-LED strip.\n````\n", "four_line_segment_driver.md": "# 4-Line Segment Split WS2812 Parallel Driver Invariants\n\n## 1. Physical Pin & Renesas RA4M1 Port Register Mapping\nTo drive two 900-LED WS2812 strands without exceeding 15ms frame latencies, each ring is divided into two 450-LED hardware segments driven in parallel across 4 GPIO pins:\n- **Ring 1 (Strip 1)**:\n  - **LEDs $0 \\dots 449$**: Pin D6 $\\rightarrow$ `BSP_IO_PORT_01_PIN_11` (`P111` / `R_PORT1` Bit 11, Mask `1U << 11`)\n  - **LEDs $450 \\dots 899$**: Pin D9 $\\rightarrow$ `BSP_IO_PORT_03_PIN_03` (`P303` / `R_PORT3` Bit 3, Mask `1U << 3`)\n- **Ring 2 (Strip 2)**:\n  - **LEDs $0 \\dots 449$**: Pin D7 $\\rightarrow$ `BSP_IO_PORT_01_PIN_12` (`P112` / `R_PORT1` Bit 12, Mask `1U << 12`)\n  - **LEDs $450 \\dots 899$**: Pin D10 $\\rightarrow$ `BSP_IO_PORT_01_PIN_03` (`P103` / `R_PORT1` Bit 3, Mask `1U << 3`)\n- **Buzzer / Tone Generator**: Dedicated to **Pin D8** $\\rightarrow$ `BSP_IO_PORT_03_PIN_04` (`P304` / `R_PORT3` Bit 4).\n\n## 2. Pre-Calculated Sub-Microsecond WS2812 Bit Timing (Mandatory Rule)\nAt the 48MHz CPU clock of the Renesas RA4M1:\n- $T_{0H} = 0.25\\text{\u00b5s}$ (12 CPU clock cycles)\n- $T_{1H} = 0.80\\text{\u00b5s}$ (38 CPU clock cycles)\n- $T_{\\text{period}} = 1.25\\text{\u00b5s}$ (60 CPU clock cycles)\n\n**CRITICAL INVARIANT**:\nBranch calculations for which bits to clear at $T_{0H}$ and $T_{1H}$ (`clr1_t0`, `clr1_t1`, `clr3_t0`, `clr3_t1`) **must always be pre-calculated before** asserting the timer counter (`ARM_DWT_CYCCNT`).\nCalculating bit conditions after driving pins HIGH consumes 15\u201320 CPU cycles, blowing past the strict 12-cycle $T_{0H}$ threshold and causing the WS2812 LEDs to interpret $0$ bits as $1$ bits.\n\n```cpp\n// Pre-calculate clear masks BEFORE cycle start\nuint16_t clr1_t0 = 0, clr1_t1 = 0;\nif (!bit6)  clr1_t0 |= PIN6_MASK;  else clr1_t1 |= PIN6_MASK;\nif (!bit7)  clr1_t0 |= PIN7_MASK;  else clr1_t1 |= PIN7_MASK;\nif (!bit10) clr1_t0 |= PIN10_MASK; else clr1_t1 |= PIN10_MASK;\n\nconst uint16_t clr3_t0 = (!bit9) ? PIN9_MASK : 0;\nconst uint16_t clr3_t1 = (bit9)  ? PIN9_MASK : 0;\n\nwhile (ARM_DWT_CYCCNT - cyc < CYCLES_800);\ncyc = ARM_DWT_CYCCNT;\n*set_reg1 = PORT1_MASK;\n*set_reg3 = PORT3_MASK;\n\nwhile (ARM_DWT_CYCCNT - cyc < CYCLES_800_T0H);\nif (clr1_t0) *clr_reg1 = clr1_t0;\nif (clr3_t0) *clr_reg3 = clr3_t0;\n\nwhile (ARM_DWT_CYCCNT - cyc < CYCLES_800_T1H);\nif (clr1_t1) *clr_reg1 = clr1_t1;\nif (clr3_t1) *clr_reg3 = clr3_t1;\n```\n\n## 3. Parallel Transmission Performance\n- Frame transmission duration: $450 \\text{ LEDs} \\times 30\\text{\u00b5s} = \\mathbf{13.5\\text{ms}}$ (down from $27\\text{ms}$).\n- Maximum hardware refresh rate: $\\approx \\mathbf{74\\text{ FPS}}$.\n- 2\u00b5s interrupt window between LEDs ensures the UART FIFO and LED matrix ISR remain responsive.\n", "power_protection_and_timing_precision.md": "# Full-Brilliance Zero-Clamp Power Protection & Timing Precision Invariant\n\n## \u26a1 Full-Brilliance Zero-Clamp Power Protection Invariant (Permanent Hardware Rule)\n- **Zero Brightness Clamping**:\n  - When resolving high-current LED transients, power rail collapse, or microcontroller brownout resets (e.g. on the 900-LED WS2812B loop), agents must **NEVER** clamp, cap, truncate, or reduce maximum pixel brightness (`wVal = 255`) or visual dynamic range.\n- **Mandatory Temporal Inrush Slew ($\\frac{di}{dt}$ Mitigation)**:\n  - Instead of switching high-density LEDs from 0 to 255 in a single instantaneous frame latch (which creates an explosive 15\u201320A current spike that collapses the 5V power rail), slew the onset continuously over time ($\\sim 45\\text{ms}$ rise time, spanning 2\u20133 frames at ~65 FPS).\n  - Continuous formulation:\n    $$\\text{attack}(t) = \\min\\left(1.0,\\, \\frac{t}{0.045}\\right)$$\n    $$wVal(t) = \\left\\lfloor 255.0 \\times \\text{fade}(t) \\times \\text{attack}(t) \\right\\rfloor$$\n  - This eliminates the infinite $\\frac{di}{dt}$ step change that induces supply rail collapse while delivering **100% full peak white brilliance (`255, 255, 255`)**.\n- **Hardware Power Isolation Alternatives**:\n  - **Schottky Diode + Local Capacitor Reservoir**: Insert a low-forward-drop Schottky diode (e.g. SS34, 1N5819) on the Arduino 5V input feed with a 470\u00b5F\u20131000\u00b5F low-ESR capacitor on the Arduino side. When the LED rail sags, the diode reverse-biases and the capacitor holds $V_{DD}$ steady above the LVD threshold.\n  - **Dedicated Dual-Feed Power**: Power the microcontroller independently via USB-C or the VIN barrel jack (7\u201312V into the onboard buck regulator) while running LEDs from their dedicated 5V power supply, sharing a clean common ground.\n  - **Data Line Protection**: Place a 330\u03a9\u2013470\u03a9 series resistor or 74AHCT125 buffer on the NeoPixel data line (`DIN`) to eliminate ground bounce latch-up across internal ESD protection diodes.\n\n## \u23f1\ufe0f Deterministic Mathematical Precision in Timing & Cadence Descriptions (Permanent Invariant)\n- **Zero Vague Frame Ranges**:\n  - Never describe timing, slews, or debounces with vague ranges (e.g. saying *\"2\u20133 frames\"*) without explicit mathematical definition.\n- **Mandatory Three-Part Cadence Breakdown**:\n  1. **Continuous Time Parameter**: Explicitly state the exact continuous duration ($t_{\\text{rise}} = 45.0\\text{ ms} = 0.045\\text{ s}$).\n  2. **Mathematical Formula**: Provide the governing equation (e.g. $\\text{attack}(t) = \\min(1.0,\\, t / 0.045)$).\n  3. **Operational Cadence Breakdown**: Provide the exact discrete integer values across operational frame rates:\n     - **At 60.0 FPS ($16.67\\text{ms}$ frame period)**: Exactly **2 intermediate rising frames** (Frame 1 at 94, Frame 2 at 189) before reaching full 255 on Frame 3 ($50\\text{ms}$).\n     - **At 71.4 FPS ($14.00\\text{ms}$ frame period)**: Exactly **3 intermediate rising frames** (Frame 1 at 79, Frame 2 at 158, Frame 3 at 238) before reaching full 255 on Frame 4 ($56\\text{ms}$).\n", "3d_models_README.md": "# Light Loop 5m Ring Light \u2014 3D Printable Interlocking Arc Braces (Enhanced Snap-Fit)\n\nHigh-precision interlocking curved brace segments designed to hold circular LED ring lights in a true geometric circle, with dual light strips seated vertically on their sides (back-to-back).\n\n---\n\n## \ud83d\udd27 Enhanced Snap-Fit Interlocking Joint Design\n\nThe joint between arc segments has been engineered with:\n\n1. **Stepped Lap / Halving Shelf**:\n   * A 15 mm overlapping tongue-and-hood design that eliminates vertical sagging, twisting, or bending across segments.\n2. **Dual Cantilever Locking Latches**:\n   * Spring-action cantilever arms on the inner and outer walls flex horizontally into place during assembly and drop into mating window pockets with a tactile \"click\".\n3. **Pinch-to-Release Disassembly**:\n   * Side window cutouts allow you to pinch the latch tabs with your thumb and forefinger to deflect the spring arms inward, letting the arcs slide apart smoothly without tools or damage.\n4. **Seamless Strip Pass-Through**:\n   * The 5.6 mm center channel carries continuously through the joint, clamping both vertical LED strips back-to-back across the seam.\n5. **Horizontal FDM Print-Bed Strength**:\n   * Because the arc lays flat on the bed, all cantilever snap arms flex along continuous extruded XY filament tracks, providing maximum fatigue strength and zero layer delamination.\n\n---\n\n## \ud83d\udcd0 Geometry & Specifications\n\n| Parameter | 24-Segment (Recommended) | 20-Segment Option |\n| :--- | :--- | :--- |\n| **Total Circumference** | 5000 mm (5.0 meters) | 5000 mm (5.0 meters) |\n| **Exact Centerline Radius** | **795.775 mm** (~795.8 mm) | **795.775 mm** (~795.8 mm) |\n| **Arc Angle per Segment** | **15.0\u00b0** | **18.0\u00b0** |\n| **Arc Length (Centerline)** | **208.33 mm** | **250.00 mm** |\n| **Straight Chord Length** | **207.74 mm** (fits on all 220\u2013256mm beds) | **248.97 mm** (for 250mm+ beds) |\n| **Overall Radial Width** | 12.0 mm | 12.0 mm |\n| **Overall Vertical Height** | 12.0 mm | 12.0 mm |\n| **Base Floor Thickness** | 2.4 mm | 2.4 mm |\n| **LED Strip Slot Width** | **5.6 mm** (fits 2x WS2812B/COB back-to-back on edge) | **5.6 mm** |\n| **Retention Barbs** | 0.55 mm overhang with 45\u00b0 lead-in chamfer | 0.55 mm overhang |\n| **Lap Joint Length** | 15.0 mm | 15.0 mm |\n| **Fit Clearance** | 0.25 mm (calibrated for standard 0.4mm FDM nozzles) | 0.25 mm |\n\n---\n\n## \ud83d\udcc2 Included Files in `/3d_models/`\n\n* **`light_loop_5m_arc_24x_snap.stl`**: Ready-to-print binary STL with enhanced snap joint (208 mm length).\n* **`light_loop_5m_arc_20x_snap.stl`**: 20-piece segment variant (250 mm length).\n* **`Fusion360_Scripts/LightLoopArcGenerator/`**: Fusion 360 script package with `.py` and `.manifest`.\n* **`LightLoop_5m_Arc_Profile.dxf`**: 2D cross-section DXF for instant revolve in Fusion 360.\n* **`light_loop_5m_arc_24x_snap.scad`**: OpenSCAD parametric source code.\n\n---\n\n## \ud83d\udda8\ufe0f Recommended 3D Print Settings\n\n* **Orientation**: Lay flat on the print bed (open U-channel facing upward).\n* **Material**: **PETG** (Highly recommended for flexible, fatigue-resistant snap clips) or **PLA+**.\n* **Layer Height**: `0.20 mm` (or `0.16 mm` for crisp snap detents).\n* **Wall Loops / Perimeters**: `3` or `4` walls.\n* **Infill**: `25%` Gyroid.\n* **Supports**: **None needed** (all overhangs and snap wedges are angled $\\le 45^\\circ$).\n"};
+  function openLlMarkdown(filename) {
+    const md = LL_EMBEDDED_MDS[filename];
+    if (!md) return false;
+    document.getElementById('ll-modal-title').textContent = '📄 ' + filename;
+    document.getElementById('ll-modal-raw').href = './' + filename;
+    const body = document.getElementById('ll-modal-body');
+    if (window.marked && window.marked.parse) {
+      body.innerHTML = window.marked.parse(md);
+    } else {
+      body.innerHTML = '<pre>' + md.replace(/</g, '&lt;') + '</pre>';
+    }
+    document.getElementById('ll-doc-modal').classList.add('open');
+    return true;
+  }
+  function openLlImage(filename) {
+    document.getElementById('ll-modal-title').textContent = '🖼️ ' + filename;
+    document.getElementById('ll-modal-raw').href = './' + filename;
+    const body = document.getElementById('ll-modal-body');
+    body.innerHTML = '<div style="text-align:center;"><img src="./' + filename + '" alt="' + filename + '" /></div>';
+    document.getElementById('ll-doc-modal').classList.add('open');
+    return true;
+  }
+  function closeLlModal() {
+    document.getElementById('ll-doc-modal').classList.remove('open');
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLlModal();
+  });
+  document.addEventListener('click', function(e) {
+    const a = e.target.closest('a');
+    if (!a) return;
+    const href = a.getAttribute('href') || '';
+    const clean = href.replace(/^\.\//, '');
+    if (clean.endsWith('.md') && LL_EMBEDDED_MDS[clean]) {
+      e.preventDefault();
+      openLlMarkdown(clean);
+    } else if (clean.endsWith('.png') || clean.endsWith('.jpg')) {
+      e.preventDefault();
+      openLlImage(clean);
+    }
+  });
+</script>
+</body>
+</html>
+

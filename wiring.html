@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Light Loop 26 — 5-Meter Straight-Line Master Wiring Blueprint (2 Tubes × 2 Opposite Strips)</title>
+  <style>
+    :root {
+      --bg: #060911;
+      --panel: #0f172a;
+      --panel-alt: #131e36;
+      --border: #1e293b;
+      --border-bright: #334155;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --cyan: #00f0ff;
+      --emerald: #00ff88;
+      --amber: #ffaa00;
+      --red: #ff3355;
+      --purple: #b57cff;
+      --pink: #ff66cc;
+      --blue: #0070f3;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+      line-height: 1.5;
+      padding: 20px 24px;
+      max-width: 1640px;
+      margin: 0 auto;
+    }
+    .nav-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .nav-tab {
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      background: #0f172a;
+      color: var(--muted);
+      border: 1px solid var(--border-bright);
+      transition: all 0.15s ease;
+    }
+    .nav-tab:hover { color: #fff; border-color: var(--cyan); }
+    .nav-tab.active {
+      background: rgba(0, 240, 255, 0.14);
+      color: var(--cyan);
+      border-color: var(--cyan);
+      box-shadow: 0 0 18px rgba(0, 240, 255, 0.2);
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding: 18px 22px;
+      background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(19,30,54,0.95));
+      border: 1px solid var(--border-bright);
+      border-radius: 12px;
+      margin-bottom: 18px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.45);
+    }
+    .title-group h1 {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(0, 240, 255, 0.12);
+      color: var(--cyan);
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+    .subtitle { color: var(--muted); font-size: 13px; margin-top: 4px; }
+    .toolbar {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 20px;
+      background: #090e1a;
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--border-bright);
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .btn-group {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .group-label {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--amber);
+      margin-right: 4px;
+    }
+    .topo-btn {
+      background: #131e36;
+      color: #cbd5e1;
+      border: 1px solid #334155;
+      padding: 8px 14px;
+      border-radius: 7px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.12s ease;
+    }
+    .topo-btn:hover { border-color: var(--emerald); color: #fff; }
+    .topo-btn.active {
+      background: rgba(0, 255, 136, 0.15);
+      color: var(--emerald);
+      border-color: var(--emerald);
+      box-shadow: 0 0 14px rgba(0, 255, 136, 0.2);
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .card-header h2 {
+      font-size: 16.5px;
+      font-weight: 800;
+      color: var(--cyan);
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+    .vertical-blueprint-wrap {
+      width: 100%;
+      overflow-x: auto;
+      background: #04070e;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 12px;
+    }
+    svg.vertical-schematic {
+      width: 100%;
+      min-width: 1360px;
+      height: auto;
+      display: block;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+    th {
+      background: #090e1a;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+    .res-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 800;
+      font-size: 13.5px;
+      padding: 3px 10px;
+      border-radius: 6px;
+      background: rgba(0, 255, 136, 0.12);
+      color: var(--emerald);
+      border: 1px solid rgba(0, 255, 136, 0.35);
+    }
+    .len-pill {
+      display: inline-block;
+      font-weight: 800;
+      font-family: "SF Mono", Menlo, monospace;
+      font-size: 13px;
+      padding: 3px 9px;
+      border-radius: 5px;
+      background: rgba(0, 240, 255, 0.12);
+      color: var(--cyan);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+      gap: 24px;
+    }
+    .callout {
+      background: rgba(0, 255, 136, 0.08);
+      border-left: 4px solid var(--emerald);
+      padding: 14px 18px;
+      border-radius: 6px;
+      font-size: 13.5px;
+      margin-top: 12px;
+    }
+  
+  /* Unified Light Loop Drive Bundle Top Nav */
+  .ll-bundle-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    background: #060911;
+    border: 1px solid #1e293b;
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+  }
+  .ll-bundle-brand {
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #00f0ff;
+    padding-right: 10px;
+    border-right: 1px solid #334155;
+    margin-right: 4px;
+  }
+  .ll-bundle-link {
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 11px;
+    border-radius: 6px;
+    background: #111827;
+    color: #cbd5e1;
+    border: 1px solid #334155;
+    transition: all 0.14s ease;
+  }
+  .ll-bundle-link:hover {
+    color: #ffffff;
+    border-color: #38bdf8;
+    background: #1e293b;
+  }
+  .ll-bundle-link.active {
+    background: rgba(56, 189, 248, 0.18);
+    color: #38bdf8;
+    border-color: #38bdf8;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
+  }
+
+  </style>
+</head>
+<body>
+  <div class="ll-bundle-nav"><span class="ll-bundle-brand">LIGHT LOOP v2.545.0 PACK</span><a class="ll-bundle-link" href="00_START_HERE_BUILDER_GUIDE.html">00. Start Here: Builder & SW Guide</a><a class="ll-bundle-link" href="electro-cookie-interactive-wiring.html">01. ElectroCookie Shield Explorer</a><a class="ll-bundle-link" href="wiring-horizontal.html">02. Horizontal Tube Pad Map</a><a class="ll-bundle-link" href="checklist.html">03. 51-Step Solder Checklist</a><a class="ll-bundle-link active" href="wiring.html">04. 5m Master Vertical Blueprint</a><a class="ll-bundle-link" href="wiring-split.html">05. Split Connectors (Opt A)</a><a class="ll-bundle-link" href="wiring-hybrid.html">06. Hybrid 2P+6D Connector (Opt B)</a></div>
+
+  <nav class="nav-tabs">
+    <a class="nav-tab" href="wiring-horizontal.html">★ 1. Horizontal Compressed Connection &amp; Pad Map (Simple Colors, Zero Empty Space)</a>
+    <a class="nav-tab active" href="wiring.html">2. Master 5m Vertical Blueprint (2 Tubes × 2 Opposite Strips)</a>
+    <a class="nav-tab" href="wiring-split.html">3. Option A: Split Connectors (2-Pin Power + 3-Pin Data)</a>
+    <a class="nav-tab" href="wiring-hybrid.html">4. Option B: Hybrid 2P+6D Connector</a>
+  </nav>
+
+  <header>
+    <div class="title-group">
+      <h1>
+        5-METER STRAIGHT-LINE WIRING BLUEPRINT — 2 TUBES × 2 OPPOSITE-DIRECTION STRIPS
+        <span class="badge">True-Scale Vertical Elevation</span>
+      </h1>
+      <div class="subtitle">
+        Left &amp; Center: Power Supply, Arduino, Resistor Bank, Connectors &amp; Wire Cut-Lengths • Right Side: Both 5.0m (900-LED) Tubes Laid Out Straight (Strip A ↓ Forward &amp; Strip B ↑ Reverse)
+      </div>
+    </div>
+  </header>
+
+  <!-- INTERACTIVE TOPOLOGY SWITCHER BAR -->
+  <div class="toolbar">
+    <div class="btn-group">
+      <span class="group-label">⚡ Power Tap Locations Along the 5m Tubes:</span>
+      <button id="btnPwr3" class="topo-btn" onclick="setPowerMode(3)">
+        3 Power Taps: Top (0.00m) + Center (2.50m / LED 450) + End (5.00m)
+      </button>
+      <button id="btnPwr5" class="topo-btn active" onclick="setPowerMode(5)">
+        ★ 5 Power Taps: 0.00m, 1.25m (LED 225), 2.50m (LED 450), 3.75m (LED 675), 5.00m — Best Voltage &amp; 42cm Data Clearance!
+      </button>
+      <button id="btnPwr4" class="topo-btn" onclick="setPowerMode(4)">
+        4 Power Taps: Alongside Data (0.00m, 1.67m, 3.33m, 5.00m — Staggered +5–6 Pads)
+      </button>
+    </div>
+    <div class="btn-group">
+      <span class="group-label">🔌 Tube Base Connector View:</span>
+      <button id="btnConnHybrid" class="topo-btn active" onclick="setConnMode('hybrid')">
+        2P+6D Hybrid Connector (1 Plug per Tube)
+      </button>
+      <button id="btnConnSplit" class="topo-btn" onclick="setConnMode('split')">
+        Split Plugs (2-Pin Power + 3-Pin Data)
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= FULL-PAGE VERTICAL STRAIGHT-LINE BLUEPRINT ================= -->
+  <div class="card">
+    <div class="card-header">
+      <h2 id="blueprintHeading">
+        1. Full-Length 5.00-Meter Straight-Line Layout (Left/Center: Equipment &amp; Wire Lengths → Right: Two 5m Tubes with Opposite Strips)
+      </h2>
+      <span style="font-size:12px; color:var(--emerald); font-weight:700;">
+        Strip A Runs DOWN (0m → 5m) • Strip B Runs UP in Opposite Direction (5m → 0m) • Explaining the 1.00m, 2.67m, 4.33m, and 6.00m Data Runs!
+      </span>
+    </div>
+
+    <div class="vertical-blueprint-wrap">
+      <svg class="vertical-schematic" viewBox="0 0 1440 1380" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="cardGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#152238"/>
+            <stop offset="100%" stop-color="#0b1322"/>
+          </linearGradient>
+          <linearGradient id="stripDownGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#00f0ff" stop-opacity="0.35"/>
+            <stop offset="33%" stop-color="#00ff88" stop-opacity="0.35"/>
+            <stop offset="66%" stop-color="#ffaa00" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#ff3355" stop-opacity="0.35"/>
+          </linearGradient>
+          <linearGradient id="stripUpGrad" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0%" stop-color="#b57cff" stop-opacity="0.38"/>
+            <stop offset="33%" stop-color="#ff66cc" stop-opacity="0.35"/>
+            <stop offset="66%" stop-color="#4ade80" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.38"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Deep Dark Canvas -->
+        <rect x="0" y="0" width="1440" height="1380" fill="#04070e"/>
+
+        <!-- Horizontal Elevation Ruler Lines Across Page -->
+        <!-- Y=220 is 0.00m (Top of Tubes, LED 0) -->
+        <!-- Y=560 is 1.67m (300 LEDs down) -->
+        <!-- Y=730 is 2.50m (450 LEDs — Very Center of Strip) -->
+        <!-- Y=900 is 3.33m (600 LEDs down) -->
+        <!-- Y=1240 is 5.00m (900 LEDs — Far Bottom End of Strip) -->
+        <g stroke="#162235" stroke-width="1" stroke-dasharray="4,4">
+          <line x1="480" y1="220" x2="1420" y2="220"/>
+          <line x1="480" y1="560" x2="1420" y2="560"/>
+          <line x1="480" y1="730" x2="1420" y2="730"/>
+          <line x1="480" y1="900" x2="1420" y2="900"/>
+          <line x1="480" y1="1240" x2="1420" y2="1240"/>
+        </g>
+
+        <!-- ================= COLUMN 1 (LEFT, X=20..450): POWER SUPPLY, ARDUINO, RESISTORS & WIRE SPECS ================= -->
+
+        <!-- 1. ARDUINO UNO R4 WIFI + STEPPED RESISTOR BOARD (X=20, Y=24..510) -->
+        <rect x="20" y="24" width="435" height="485" rx="12" fill="url(#cardGrad)" stroke="#00f0ff" stroke-width="2"/>
+        <text x="237" y="52" fill="#ffffff" font-size="16" font-weight="900" text-anchor="middle">
+          1. ARDUINO UNO R4 WiFi + RESISTOR BANK
+        </text>
+        <text x="237" y="70" fill="#7dd3fc" font-size="11.5" text-anchor="middle">
+          Positioned 1.00 Meter Away from Tube Top Entry (0.00m)
+        </text>
+
+        <!-- Forward Strip A Channels (D2, D3, D4) -->
+        <rect x="34" y="84" width="407" height="190" rx="8" fill="#070d19" stroke="#00f0ff" stroke-width="1.2"/>
+        <text x="48" y="106" fill="#00f0ff" font-size="12.5" font-weight="800">
+          FORWARD STRIPS (STRIP A ↓ IN TUBE 1 &amp; TUBE 2 — Top 0m to Bottom 5m):
+        </text>
+
+        <!-- Pin D2: Strip A Top Start (0.00m) -->
+        <rect x="46" y="118" width="64" height="26" rx="4" fill="#091926" stroke="#00f0ff"/>
+        <text x="78" y="135" fill="#00f0ff" font-size="11.5" font-weight="800" text-anchor="middle">PIN D2</text>
+        <line x1="110" y1="131" x2="132" y2="131" stroke="#00f0ff" stroke-width="2.5"/>
+        <rect x="132" y="118" width="64" height="26" rx="4" fill="#132a1f" stroke="#00f0ff" stroke-width="1.8"/>
+        <text x="164" y="135" fill="#00f0ff" font-size="12" font-weight="900" text-anchor="middle">47Ω</text>
+        <text x="206" y="130" fill="#f8fafc" font-size="11.5" font-weight="700">Strip A Start (0.00m / LED 0)</text>
+        <text x="206" y="144" fill="#94a3b8" font-size="10.5">Total 30 AWG Wire: 1.00m (1m lead + 0m)</text>
+
+        <!-- Pin D3: Strip A +300 LEDs Down (1.67m) -->
+        <rect x="46" y="166" width="64" height="26" rx="4" fill="#091926" stroke="#00ff88"/>
+        <text x="78" y="183" fill="#00ff88" font-size="11.5" font-weight="800" text-anchor="middle">PIN D3</text>
+        <line x1="110" y1="179" x2="132" y2="179" stroke="#00ff88" stroke-width="2.5"/>
+        <rect x="132" y="166" width="64" height="26" rx="4" fill="#132a1f" stroke="#00ff88" stroke-width="1.8"/>
+        <text x="164" y="183" fill="#00ff88" font-size="12" font-weight="900" text-anchor="middle">33Ω</text>
+        <text x="206" y="178" fill="#f8fafc" font-size="11.5" font-weight="700">Strip A Mid-1 (1.67m / 300 LEDs Down)</text>
+        <text x="206" y="192" fill="#94a3b8" font-size="10.5">Total 30 AWG Wire: 2.67m (1m + 1.67m)</text>
+
+        <!-- Pin D4: Strip A +600 LEDs Down (3.33m) -->
+        <rect x="46" y="214" width="64" height="26" rx="4" fill="#091926" stroke="#ffaa00"/>
+        <text x="78" y="231" fill="#ffaa00" font-size="11.5" font-weight="800" text-anchor="middle">PIN D4</text>
+        <line x1="110" y1="227" x2="132" y2="227" stroke="#ffaa00" stroke-width="2.5"/>
+        <rect x="132" y="214" width="64" height="26" rx="4" fill="#2b2111" stroke="#ffaa00" stroke-width="1.8"/>
+        <text x="164" y="231" fill="#ffaa00" font-size="11.5" font-weight="900" text-anchor="middle">30Ω/27Ω</text>
+        <text x="206" y="226" fill="#f8fafc" font-size="11.5" font-weight="700">Strip A Mid-2 (3.33m / 600 LEDs Down)</text>
+        <text x="206" y="240" fill="#94a3b8" font-size="10.5">Total 30 AWG Wire: 4.33m (1m + 3.33m)</text>
+
+        <!-- Reverse Strip B Channels (D5, D6, D7 — Running in Opposite Direction!) -->
+        <rect x="34" y="288" width="407" height="205" rx="8" fill="#070d19" stroke="#b57cff" stroke-width="1.5"/>
+        <text x="48" y="310" fill="#b57cff" font-size="12.5" font-weight="800">
+          OPPOSITE STRIPS (STRIP B ↑ IN TUBE 1 &amp; TUBE 2 — Bottom 5m to Top 0m):
+        </text>
+        <text x="48" y="325" fill="#cbd5e1" font-size="10.5">
+          Because Strip B runs UPWARD from the bottom end, its 3 segments start at 900, 600, and 300 LEDs down!
+        </text>
+
+        <!-- Pin D7: Strip B Segment 3 (Starts 300 LEDs / 1.67m down, runs UP to 0.00m) -->
+        <rect x="46" y="338" width="64" height="26" rx="4" fill="#1b112c" stroke="#38bdf8"/>
+        <text x="78" y="355" fill="#38bdf8" font-size="11.5" font-weight="800" text-anchor="middle">PIN D7</text>
+        <line x1="110" y1="351" x2="132" y2="351" stroke="#38bdf8" stroke-width="2.5"/>
+        <rect x="132" y="338" width="64" height="26" rx="4" fill="#132a1f" stroke="#38bdf8" stroke-width="1.8"/>
+        <text x="164" y="355" fill="#38bdf8" font-size="12" font-weight="900" text-anchor="middle">33Ω</text>
+        <text x="206" y="350" fill="#f8fafc" font-size="11.5" font-weight="700">Strip B Top-Seg (1.67m / 300 LEDs Down ↑)</text>
+        <text x="206" y="364" fill="#94a3b8" font-size="10.5">Total 30 AWG Wire: 2.67m (Runs 300 LEDs down)</text>
+
+        <!-- Pin D6: Strip B Segment 2 (Starts 600 LEDs / 3.33m down, runs UP to 1.67m) -->
+        <rect x="46" y="388" width="64" height="26" rx="4" fill="#1b112c" stroke="#ff66cc"/>
+        <text x="78" y="405" fill="#ff66cc" font-size="11.5" font-weight="800" text-anchor="middle">PIN D6</text>
+        <line x1="110" y1="401" x2="132" y2="401" stroke="#ff66cc" stroke-width="2.5"/>
+        <rect x="132" y="388" width="64" height="26" rx="4" fill="#2b2111" stroke="#ff66cc" stroke-width="1.8"/>
+        <text x="164" y="405" fill="#ff66cc" font-size="11.5" font-weight="900" text-anchor="middle">30Ω/27Ω</text>
+        <text x="206" y="400" fill="#f8fafc" font-size="11.5" font-weight="700">Strip B Mid-Seg (3.33m / 600 LEDs Down ↑)</text>
+        <text x="206" y="414" fill="#94a3b8" font-size="10.5">Total 30 AWG Wire: 4.33m (Runs 600 LEDs down)</text>
+
+        <!-- Pin D5: Strip B Segment 1 (Starts at Far End 900 LEDs / 5.00m down, runs UP to 3.33m) -->
+        <rect x="46" y="438" width="64" height="26" rx="4" fill="#1b112c" stroke="#b57cff"/>
+        <text x="78" y="455" fill="#b57cff" font-size="11.5" font-weight="800" text-anchor="middle">PIN D5</text>
+        <line x1="110" y1="451" x2="132" y2="451" stroke="#b57cff" stroke-width="2.5"/>
+        <rect x="132" y="438" width="64" height="26" rx="4" fill="#231738" stroke="#b57cff" stroke-width="1.8"/>
+        <text x="164" y="455" fill="#b57cff" font-size="12" font-weight="900" text-anchor="middle">22Ω/27Ω</text>
+        <text x="206" y="450" fill="#f8fafc" font-size="11.5" font-weight="700">Strip B End-Seg (5.00m / 900 LEDs End ↑)</text>
+        <text x="206" y="464" fill="#94a3b8" font-size="10.5">Total 30 AWG Wire: 6.00m (All the way to end!)</text>
+
+
+        <!-- 2. MEAN WELL 5V 40A POWER SUPPLY (X=20, Y=535..805) -->
+        <rect x="20" y="535" width="435" height="270" rx="12" fill="url(#cardGrad)" stroke="#ff3355" stroke-width="2"/>
+        <text x="237" y="564" fill="#ffffff" font-size="16" font-weight="900" text-anchor="middle">
+          2. MEAN WELL 5V 40A POWER SUPPLY (200W)
+        </text>
+        <text x="237" y="582" fill="#fda4af" font-size="11.5" text-anchor="middle">
+          Two Output Terminal Sets • 1.00m 14 AWG Leads to Tube Base Connectors
+        </text>
+
+        <rect x="36" y="598" width="403" height="86" rx="8" fill="#090d16" stroke="#ff3355" stroke-width="1.5"/>
+        <text x="50" y="620" fill="#ff6b81" font-size="13" font-weight="800">TERMINAL SET #1 (V+ #1 &amp; V- #1) → FEEDS TUBE 1</text>
+        <text x="50" y="640" fill="#e2e8f0" font-size="11.5">• 14 AWG Red (+5V) &amp; Black (GND) — 1.00m run to Tube 1 Plug</text>
+        <text x="50" y="658" fill="#94a3b8" font-size="11">• Also ties V- #1 (GND) directly to Arduino GND (Common Signal Reference)</text>
+
+        <rect x="36" y="698" width="403" height="86" rx="8" fill="#090d16" stroke="#ff3355" stroke-width="1.5"/>
+        <text x="50" y="720" fill="#ff6b81" font-size="13" font-weight="800">TERMINAL SET #2 (V+ #2 &amp; V- #2) → FEEDS TUBE 2</text>
+        <text x="50" y="740" fill="#e2e8f0" font-size="11.5">• 14 AWG Red (+5V) &amp; Black (GND) — 1.00m run to Tube 2 Plug</text>
+        <text x="50" y="758" fill="#94a3b8" font-size="11">• Balances 40A load evenly across both terminal pairs</text>
+
+
+        <!-- 3. WIRE CUT-LENGTH & ELEVATION SUMMARY BOX (X=20, Y=830..1350) -->
+        <rect x="20" y="830" width="435" height="520" rx="12" fill="url(#cardGrad)" stroke="#00ff88" stroke-width="2"/>
+        <text x="237" y="860" fill="#00ff88" font-size="15.5" font-weight="900" text-anchor="middle">
+          3. WIRE CUT-LIST FOR EACH 5.0m TUBE
+        </text>
+        <text x="237" y="878" fill="#cbd5e1" font-size="11.5" text-anchor="middle">
+          Exact Lengths Measured from Tube Base Connector (0.00m) Down the Tube
+        </text>
+
+        <g font-size="11.5" fill="#f8fafc">
+          <rect x="36" y="894" width="403" height="62" rx="6" fill="#070d19" stroke="#00f0ff"/>
+          <text x="48" y="914" fill="#00f0ff" font-weight="800">① Strip A Top Tap (LED 0 @ 0.00m — Enters Top):</text>
+          <text x="48" y="932" fill="#cbd5e1">• Inside Tube: <tspan fill="#fff" font-weight="700">0.05 m (2 in)</tspan> | Total from Arduino: <tspan fill="#00f0ff" font-weight="800">1.00 m</tspan></text>
+          <text x="48" y="948" fill="#00ff88" font-weight="700">• Resistor at Arduino: 47Ω (38Ω – 47Ω range)</text>
+
+          <rect x="36" y="966" width="403" height="76" rx="6" fill="#070d19" stroke="#00ff88"/>
+          <text x="48" y="986" fill="#00ff88" font-weight="800">② 300-LED Taps (@ 1.67m Down — TWO 30 AWG Wires):</text>
+          <text x="48" y="1004" fill="#cbd5e1">• Wire 2A (Strip A LED 300 ↓) &amp; Wire 2B (Strip B LED 600 ↑)</text>
+          <text x="48" y="1020" fill="#cbd5e1">• Inside Tube: <tspan fill="#fff" font-weight="700">1.67 m</tspan> | Total from Arduino: <tspan fill="#00ff88" font-weight="800">2.67 m</tspan></text>
+          <text x="48" y="1035" fill="#00ff88" font-weight="700">• Resistor at Arduino: 33Ω each (28Ω – 44Ω range)</text>
+
+          <rect x="36" y="1052" width="403" height="76" rx="6" fill="#070d19" stroke="#ffaa00"/>
+          <text x="48" y="1072" fill="#ffaa00" font-weight="800">③ 600-LED Taps (@ 3.33m Down — TWO 30 AWG Wires):</text>
+          <text x="48" y="1090" fill="#cbd5e1">• Wire 3A (Strip A LED 600 ↓) &amp; Wire 3B (Strip B LED 300 ↑)</text>
+          <text x="48" y="1106" fill="#cbd5e1">• Inside Tube: <tspan fill="#fff" font-weight="700">3.33 m</tspan> | Total from Arduino: <tspan fill="#ffaa00" font-weight="800">4.33 m</tspan></text>
+          <text x="48" y="1121" fill="#00ff88" font-weight="700">• Resistor at Arduino: 30Ω or 27Ω each (26Ω – 34Ω range)</text>
+
+          <rect x="36" y="1138" width="403" height="76" rx="6" fill="#070d19" stroke="#b57cff"/>
+          <text x="48" y="1158" fill="#b57cff" font-weight="800">④ Far-End 900-LED Tap (@ 5.00m Bottom — Strip B Start ↑):</text>
+          <text x="48" y="1176" fill="#cbd5e1">• Feeds Strip B LED 0 at the bottom so Strip B runs UPWARD!</text>
+          <text x="48" y="1192" fill="#cbd5e1">• Inside Tube: <tspan fill="#fff" font-weight="700">5.00 m</tspan> | Total from Arduino: <tspan fill="#b57cff" font-weight="800">6.00 m</tspan></text>
+          <text x="48" y="1207" fill="#00ff88" font-weight="700">• Resistor at Arduino: 22Ω or 27Ω (20Ω – 28Ω range)</text>
+
+          <rect x="36" y="1224" width="403" height="110" rx="6" fill="#1a0f1a" stroke="#ff3355"/>
+          <text x="48" y="1244" fill="#ff6b81" font-weight="800">⑤ Internal 14–16 AWG Power Bus Inside Each 5.0m Tube:</text>
+          <text x="48" y="1262" fill="#cbd5e1">• Runs 5.00m from Tube Base Plug to Far End (+5V &amp; GND).</text>
+          <text x="48" y="1280" fill="#fde047" font-weight="700">• 3-Tap Mode: Taps Both Strips at 0.00m, 2.50m (Center), 5.00m.</text>
+          <text x="48" y="1298" fill="#94a3b8">• 4-Tap Mode: Taps 5–6 pads AFTER data cuts (0, 1.80m, 3.47m, 5.00m).</text>
+          <text x="48" y="1316" fill="#00ff88" font-weight="700">• Both strips inside a tube share the same internal +5V/GND bus!</text>
+        </g>
+
+
+        <!-- ================= COLUMN 2 (CENTER, X=475..880): CONNECTORS & HORIZONTAL CALLOUT LINES ================= -->
+
+        <!-- TUBE 1 & TUBE 2 QUICK-DISCONNECT PLUGS AT TOP OF TUBES (Y=60..205) -->
+        <g id="connBoxHybrid">
+          <!-- Tube 1 Hybrid 2+6 Plug -->
+          <rect x="520" y="45" width="165" height="135" rx="10" fill="#17152b" stroke="#00f0ff" stroke-width="2.5"/>
+          <text x="602" y="66" fill="#00f0ff" font-size="12" font-weight="900" text-anchor="middle">TUBE 1 PLUG (2P+6D)</text>
+          <text x="602" y="81" fill="#cbd5e1" font-size="10" text-anchor="middle">At 0.00m Top Entry (1m from Arduino)</text>
+          <circle cx="555" cy="105" r="11" fill="#ff3355" stroke="#fde047" stroke-width="2"/><text x="555" y="109" fill="#fff" font-size="9" font-weight="900" text-anchor="middle">+5V</text>
+          <circle cx="585" cy="105" r="11" fill="#475569" stroke="#fde047" stroke-width="2"/><text x="585" y="109" fill="#fff" font-size="9" font-weight="900" text-anchor="middle">GND</text>
+          <text x="638" y="102" fill="#00f0ff" font-size="9.5" font-weight="800" text-anchor="middle">D1 D2 D3 (↓)</text>
+          <text x="638" y="116" fill="#b57cff" font-size="9.5" font-weight="800" text-anchor="middle">D4 D5 D6 (↑)</text>
+          <text x="602" y="165" fill="#00ff88" font-size="10.5" font-weight="700" text-anchor="middle">1 Click Unplugs Tube 1</text>
+
+          <!-- Tube 2 Hybrid 2+6 Plug -->
+          <rect x="705" y="45" width="165" height="135" rx="10" fill="#17152b" stroke="#b57cff" stroke-width="2.5"/>
+          <text x="787" y="66" fill="#b57cff" font-size="12" font-weight="900" text-anchor="middle">TUBE 2 PLUG (2P+6D)</text>
+          <text x="787" y="81" fill="#cbd5e1" font-size="10" text-anchor="middle">At 0.00m Top Entry (1m from Arduino)</text>
+          <circle cx="740" cy="105" r="11" fill="#ff3355" stroke="#fde047" stroke-width="2"/><text x="740" y="109" fill="#fff" font-size="9" font-weight="900" text-anchor="middle">+5V</text>
+          <circle cx="770" cy="105" r="11" fill="#475569" stroke="#fde047" stroke-width="2"/><text x="770" y="109" fill="#fff" font-size="9" font-weight="900" text-anchor="middle">GND</text>
+          <text x="823" y="102" fill="#00f0ff" font-size="9.5" font-weight="800" text-anchor="middle">D1 D2 D3 (↓)</text>
+          <text x="823" y="116" fill="#b57cff" font-size="9.5" font-weight="800" text-anchor="middle">D4 D5 D6 (↑)</text>
+          <text x="787" y="165" fill="#00ff88" font-size="10.5" font-weight="700" text-anchor="middle">1 Click Unplugs Tube 2</text>
+        </g>
+
+        <g id="connBoxSplit" style="display:none;">
+          <!-- Tube 1 Split Plugs -->
+          <rect x="520" y="40" width="165" height="68" rx="8" fill="#29121d" stroke="#ff3355" stroke-width="2"/>
+          <text x="602" y="60" fill="#ff6b81" font-size="11" font-weight="800" text-anchor="middle">TUBE 1: 2-PIN POWER PLUG</text>
+          <text x="602" y="76" fill="#cbd5e1" font-size="10" text-anchor="middle">XT60 / Anderson (+5V &amp; GND)</text>
+          <rect x="520" y="114" width="165" height="68" rx="8" fill="#0c192c" stroke="#00f0ff" stroke-width="2"/>
+          <text x="602" y="134" fill="#00f0ff" font-size="11" font-weight="800" text-anchor="middle">TUBE 1: 3-PIN DATA PLUGS</text>
+          <text x="602" y="150" fill="#cbd5e1" font-size="10" text-anchor="middle">Plug A (↓ D2,D3,D4) + Plug B (↑ D5,D6,D7)</text>
+
+          <!-- Tube 2 Split Plugs -->
+          <rect x="705" y="40" width="165" height="68" rx="8" fill="#29121d" stroke="#ff3355" stroke-width="2"/>
+          <text x="787" y="60" fill="#ff6b81" font-size="11" font-weight="800" text-anchor="middle">TUBE 2: 2-PIN POWER PLUG</text>
+          <text x="787" y="76" fill="#cbd5e1" font-size="10" text-anchor="middle">XT60 / Anderson (+5V &amp; GND)</text>
+          <rect x="705" y="114" width="165" height="68" rx="8" fill="#0c192c" stroke="#b57cff" stroke-width="2"/>
+          <text x="787" y="134" fill="#b57cff" font-size="11" font-weight="800" text-anchor="middle">TUBE 2: 3-PIN DATA PLUGS</text>
+          <text x="787" y="150" fill="#cbd5e1" font-size="10" text-anchor="middle">Plug A (↓ D2,D3,D4) + Plug B (↑ D5,D6,D7)</text>
+        </g>
+
+        <!-- Umbilical Bundle Lines from Arduino/PSU (Left) into Tube Plugs -->
+        <path d="M 455 130 L 520 130" stroke="#00f0ff" stroke-width="3"/>
+        <path d="M 455 155 L 705 155" stroke="#b57cff" stroke-width="3"/>
+
+
+        <!-- ================= ELEVATION CALLOUTS IN CENTER COLUMN (ALIGNED WITH 0.00m, 1.67m, 2.50m, 3.33m, 5.00m) ================= -->
+
+        <!-- ELEVATION 0.00m (Y=220): TOP START OF TUBES -->
+        <rect x="485" y="200" width="385" height="82" rx="8" fill="#0b1528" stroke="#00f0ff" stroke-width="2"/>
+        <text x="500" y="222" fill="#00f0ff" font-size="13" font-weight="900">📍 0.00 METERS — TOP ENTRY OF TUBES (LED 0)</text>
+        <text x="500" y="241" fill="#f8fafc" font-size="11.5">• <tspan fill="#00f0ff" font-weight="800">Strip A (↓) DIN #1</tspan>: 1.00m 30 AWG wire → <tspan fill="#00ff88" font-weight="800">47Ω Resistor</tspan></text>
+        <text x="500" y="258" fill="#cbd5e1" font-size="11">• <tspan fill="#38bdf8" font-weight="700">Strip B (↑) DOUT End</tspan>: Strip B finishes its upward run here (LED 899)</text>
+        <text x="500" y="274" fill="#ff6b81" font-size="11" font-weight="700">• ⚡ Power Tap #1 (+5V &amp; GND + 1000µF Cap): 5–6 pads after LED 0</text>
+        <!-- Pointer Line to Y=220 on Tubes -->
+        <line x1="870" y1="220" x2="945" y2="220" stroke="#00f0ff" stroke-width="2.5"/>
+        <circle cx="945" cy="220" r="5" fill="#00f0ff"/>
+
+        <!-- ELEVATION 1.67m (Y=560): 300 LEDs DOWN FROM TOP -->
+        <rect x="485" y="520" width="385" height="96" rx="8" fill="#0b1528" stroke="#00ff88" stroke-width="2"/>
+        <text x="500" y="542" fill="#00ff88" font-size="13" font-weight="900">📍 1.67 METERS — 300 LEDs DOWN TUBE</text>
+        <text x="500" y="561" fill="#f8fafc" font-size="11.5">• <tspan fill="#00ff88" font-weight="800">Strip A (↓) DIN #2 (LED 300)</tspan>: 2.67m wire (1m + 1.67m) → <tspan fill="#00ff88" font-weight="800">33Ω</tspan></text>
+        <text x="500" y="579" fill="#f8fafc" font-size="11.5">• <tspan fill="#38bdf8" font-weight="800">Strip B (↑) DIN #3 (LED 600 ↑)</tspan>: 2.67m wire (1m + 1.67m) → <tspan fill="#38bdf8" font-weight="800">33Ω</tspan></text>
+        <text id="calloutPwr300" x="500" y="598" fill="#94a3b8" font-size="11">• (In 3-Tap Power Mode: NO power connector here — zero crowding!)</text>
+        <!-- Pointer Line to Y=560 on Tubes -->
+        <line x1="870" y1="560" x2="945" y2="560" stroke="#00ff88" stroke-width="2.5"/>
+        <circle cx="945" cy="560" r="5" fill="#00ff88"/>
+
+        <!-- ELEVATION 2.50m (Y=730): 450 LEDs — EXACT CENTER OF 5.0m TUBE -->
+        <g id="centerPowerCallout">
+          <rect x="485" y="695" width="385" height="76" rx="8" fill="#29121d" stroke="#ff3355" stroke-width="2.5"/>
+          <text x="500" y="718" fill="#fde047" font-size="13" font-weight="900">⚡ 2.50 METERS — VERY CENTER OF TUBE (LED 450)</text>
+          <text x="500" y="737" fill="#f8fafc" font-size="11.5">• <tspan fill="#ff6b81" font-weight="800">Power Tap #2 (Center +5V &amp; GND + 1000µF Cap)</tspan></text>
+          <text x="500" y="755" fill="#00ff88" font-size="11" font-weight="700">• 150 LEDs (83 cm) clear of BOTH 300 &amp; 600 data joints!</text>
+          <line x1="870" y1="730" x2="945" y2="730" stroke="#ff3355" stroke-width="3"/>
+          <circle cx="945" cy="730" r="6" fill="#ff3355" stroke="#fde047" stroke-width="2"/>
+        </g>
+
+        <!-- ELEVATION 3.33m (Y=900): 600 LEDs DOWN FROM TOP -->
+        <rect x="485" y="860" width="385" height="96" rx="8" fill="#0b1528" stroke="#ffaa00" stroke-width="2"/>
+        <text x="500" y="882" fill="#ffaa00" font-size="13" font-weight="900">📍 3.33 METERS — 600 LEDs DOWN TUBE</text>
+        <text x="500" y="901" fill="#f8fafc" font-size="11.5">• <tspan fill="#ffaa00" font-weight="800">Strip A (↓) DIN #3 (LED 600)</tspan>: 4.33m wire (1m + 3.33m) → <tspan fill="#00ff88" font-weight="800">30Ω / 27Ω</tspan></text>
+        <text x="500" y="919" fill="#f8fafc" font-size="11.5">• <tspan fill="#ff66cc" font-weight="800">Strip B (↑) DIN #2 (LED 300 ↑)</tspan>: 4.33m wire (1m + 3.33m) → <tspan fill="#ff66cc" font-weight="800">30Ω / 27Ω</tspan></text>
+        <text id="calloutPwr600" x="500" y="938" fill="#94a3b8" font-size="11">• (In 3-Tap Power Mode: NO power connector here — zero crowding!)</text>
+        <!-- Pointer Line to Y=900 on Tubes -->
+        <line x1="870" y1="900" x2="945" y2="900" stroke="#ffaa00" stroke-width="2.5"/>
+        <circle cx="945" cy="900" r="5" fill="#ffaa00"/>
+
+        <!-- ELEVATION 5.00m (Y=1240): 900 LEDs — FAR BOTTOM END OF TUBES -->
+        <rect x="485" y="1195" width="385" height="96" rx="8" fill="#1b112c" stroke="#b57cff" stroke-width="2.5"/>
+        <text x="500" y="1218" fill="#b57cff" font-size="13" font-weight="900">📍 5.00 METERS — FAR END OF TUBE (900 LEDs DOWN)</text>
+        <text x="500" y="1237" fill="#f8fafc" font-size="11.5">• <tspan fill="#b57cff" font-weight="800">Strip B (↑) DIN #1 (Strip B LED 0 Start!)</tspan>: 6.00m wire → <tspan fill="#00ff88" font-weight="800">22Ω / 27Ω</tspan></text>
+        <text x="500" y="1255" fill="#cbd5e1" font-size="11">• <tspan fill="#00f0ff" font-weight="700">Strip A (↓) DOUT End</tspan>: Strip A finishes its downward run here (LED 899)</text>
+        <text x="500" y="1273" fill="#ff6b81" font-size="11" font-weight="700">• ⚡ End Power Tap (+5V &amp; GND + 1000µF Cap): 5–6 pads before end</text>
+        <!-- Pointer Line to Y=1240 on Tubes -->
+        <line x1="870" y1="1240" x2="945" y2="1240" stroke="#b57cff" stroke-width="2.5"/>
+        <circle cx="945" cy="1240" r="5" fill="#b57cff"/>
+
+
+        <!-- ================= COLUMN 3 (RIGHT SIDE, X=910..1420): TWO 5.0m TUBES RUNNING STRAIGHT DOWN THE PAGE ================= -->
+
+        <!-- Meter Scale Ruler at X=915 -->
+        <line x1="915" y1="220" x2="915" y2="1240" stroke="#64748b" stroke-width="2"/>
+        <g fill="#94a3b8" font-size="10.5" font-weight="800" text-anchor="end">
+          <text x="908" y="224">0.0m</text>
+          <text x="908" y="564">1.67m</text>
+          <text x="908" y="734" fill="#fde047">2.50m</text>
+          <text x="908" y="904">3.33m</text>
+          <text x="908" y="1244">5.00m</text>
+        </g>
+
+        <!-- ==================== TUBE 1 (X=955..1165, Y=190..1275) ==================== -->
+        <rect x="955" y="185" width="215" height="1100" rx="18" fill="#09101d" stroke="#00f0ff" stroke-width="2.5"/>
+        <text x="1062" y="155" fill="#00f0ff" font-size="15" font-weight="900" text-anchor="middle">TUBE 1 (5.00m / 900 LEDs)</text>
+        <text x="1062" y="173" fill="#94a3b8" font-size="11" text-anchor="middle">Strip 1A (↓ Down) | Strip 1B (↑ Up)</text>
+
+        <!-- Internal 14 AWG Power Spine inside Tube 1 (Center between Strip A and Strip B, X=1062) -->
+        <line x1="1059" y1="185" x2="1059" y2="1245" stroke="#ff3355" stroke-width="4"/>
+        <line x1="1065" y1="185" x2="1065" y2="1245" stroke="#64748b" stroke-width="4"/>
+
+        <!-- TUBE 1 — STRIP 1A (LEFT SIDE OF TUBE 1, X=995..1040, RUNNING DOWN ↓) -->
+        <rect x="995" y="220" width="46" height="1020" rx="4" fill="url(#stripDownGrad)" stroke="#00f0ff" stroke-width="1.5"/>
+        <!-- Section Cuts on Strip 1A at Y=560 (300 LEDs) and Y=900 (600 LEDs) -->
+        <line x1="995" y1="560" x2="1041" y2="560" stroke="#fff" stroke-width="2.5" stroke-dasharray="3,2"/>
+        <line x1="995" y1="900" x2="1041" y2="900" stroke="#fff" stroke-width="2.5" stroke-dasharray="3,2"/>
+        <!-- Downward Flow Arrows & Labels on Strip 1A -->
+        <g fill="#ffffff" font-size="11" font-weight="800" text-anchor="middle">
+          <text x="1018" y="242" fill="#00f0ff">LED 0</text>
+          <text x="1018" y="370">STRIP 1A</text>
+          <text x="1018" y="392" font-size="16" fill="#00f0ff">↓</text>
+          <text x="1018" y="414" font-size="9.5" fill="#cbd5e1">(0..299)</text>
+
+          <text x="1018" y="580" fill="#00ff88">LED 300</text>
+          <text x="1018" y="710">STRIP 1A</text>
+          <text x="1018" y="732" font-size="16" fill="#00ff88">↓</text>
+          <text x="1018" y="754" font-size="9.5" fill="#cbd5e1">(300..599)</text>
+
+          <text x="1018" y="920" fill="#ffaa00">LED 600</text>
+          <text x="1018" y="1050">STRIP 1A</text>
+          <text x="1018" y="1072" font-size="16" fill="#ffaa00">↓</text>
+          <text x="1018" y="1094" font-size="9.5" fill="#cbd5e1">(600..899)</text>
+          <text x="1018" y="1232" font-size="9.5" fill="#94a3b8">End 899</text>
+        </g>
+
+        <!-- 30 AWG Data Wires Running Down Left Channel of Tube 1 for Strip 1A -->
+        <!-- D1 (1.00m) -> Y=220 -->
+        <path d="M 565 180 L 966 180 L 966 220 L 995 220" stroke="#00f0ff" stroke-width="2" fill="none"/>
+        <circle cx="995" cy="220" r="4.5" fill="#00f0ff" stroke="#fff"/>
+        <!-- D2 (2.67m) -> Y=560 -->
+        <path d="M 575 180 L 974 180 L 974 560 L 995 560" stroke="#00ff88" stroke-width="2" stroke-dasharray="3,2" fill="none"/>
+        <circle cx="995" cy="560" r="4.5" fill="#00ff88" stroke="#fff"/>
+        <!-- D3 (4.33m) -> Y=900 -->
+        <path d="M 585 180 L 982 180 L 982 900 L 995 900" stroke="#ffaa00" stroke-width="2" stroke-dasharray="3,2" fill="none"/>
+        <circle cx="995" cy="900" r="4.5" fill="#ffaa00" stroke="#fff"/>
+
+        <!-- TUBE 1 — STRIP 1B (RIGHT SIDE OF TUBE 1, X=1084..1130, RUNNING UP ↑ IN OPPOSITE DIRECTION!) -->
+        <rect x="1084" y="220" width="46" height="1020" rx="4" fill="url(#stripUpGrad)" stroke="#b57cff" stroke-width="1.5"/>
+        <!-- Section Cuts on Strip 1B at Y=560 (600 LEDs up from bottom) and Y=900 (300 LEDs up from bottom) -->
+        <line x1="1084" y1="560" x2="1130" y2="560" stroke="#fff" stroke-width="2.5" stroke-dasharray="3,2"/>
+        <line x1="1084" y1="900" x2="1130" y2="900" stroke="#fff" stroke-width="2.5" stroke-dasharray="3,2"/>
+        <!-- Upward Flow Arrows & Labels on Strip 1B -->
+        <g fill="#ffffff" font-size="11" font-weight="800" text-anchor="middle">
+          <text x="1107" y="236" font-size="9.5" fill="#94a3b8">End 899</text>
+          <text x="1107" y="370">STRIP 1B</text>
+          <text x="1107" y="392" font-size="16" fill="#38bdf8">↑</text>
+          <text x="1107" y="414" font-size="9.5" fill="#cbd5e1">(600..899)</text>
+          <text x="1107" y="550" fill="#38bdf8">DIN 600↑</text>
+
+          <text x="1107" y="710">STRIP 1B</text>
+          <text x="1107" y="732" font-size="16" fill="#ff66cc">↑</text>
+          <text x="1107" y="754" font-size="9.5" fill="#cbd5e1">(300..599)</text>
+          <text x="1107" y="890" fill="#ff66cc">DIN 300↑</text>
+
+          <text x="1107" y="1050">STRIP 1B</text>
+          <text x="1107" y="1072" font-size="16" fill="#b57cff">↑</text>
+          <text x="1107" y="1094" font-size="9.5" fill="#cbd5e1">(0..299)</text>
+          <text x="1107" y="1232" fill="#b57cff">DIN LED 0↑</text>
+        </g>
+
+        <!-- 30 AWG Data Wires Running Down Right Channel of Tube 1 for Strip 1B (300, 600, and ALL THE WAY TO 900 END!) -->
+        <!-- D6 (2.67m, 300 LEDs down) -> Y=560 -->
+        <path d="M 615 180 L 1140 180 L 1140 560 L 1130 560" stroke="#38bdf8" stroke-width="2" stroke-dasharray="3,2" fill="none"/>
+        <circle cx="1130" cy="560" r="4.5" fill="#38bdf8" stroke="#fff"/>
+        <!-- D5 (4.33m, 600 LEDs down) -> Y=900 -->
+        <path d="M 625 180 L 1149 180 L 1149 900 L 1130 900" stroke="#ff66cc" stroke-width="2" stroke-dasharray="3,2" fill="none"/>
+        <circle cx="1130" cy="900" r="4.5" fill="#ff66cc" stroke="#fff"/>
+        <!-- D4 (6.00m, ALL THE WAY TO 900 END!) -> Y=1240 -->
+        <path d="M 635 180 L 1158 180 L 1158 1240 L 1130 1240" stroke="#b57cff" stroke-width="2.5" stroke-dasharray="4,2" fill="none"/>
+        <circle cx="1130" cy="1240" r="5" fill="#b57cff" stroke="#fff"/>
+
+
+        <!-- ==================== TUBE 2 (X=1200..1410, Y=190..1275) ==================== -->
+        <rect x="1200" y="185" width="215" height="1100" rx="18" fill="#09101d" stroke="#b57cff" stroke-width="2.5"/>
+        <text x="1307" y="155" fill="#b57cff" font-size="15" font-weight="900" text-anchor="middle">TUBE 2 (5.00m / 900 LEDs)</text>
+        <text x="1307" y="173" fill="#94a3b8" font-size="11" text-anchor="middle">Strip 2A (↓ Down) | Strip 2B (↑ Up)</text>
+
+        <!-- Internal 14 AWG Power Spine inside Tube 2 (X=1307) -->
+        <line x1="1304" y1="185" x2="1304" y2="1245" stroke="#ff3355" stroke-width="4"/>
+        <line x1="1310" y1="185" x2="1310" y2="1245" stroke="#64748b" stroke-width="4"/>
+
+        <!-- TUBE 2 — STRIP 2A (LEFT SIDE OF TUBE 2, X=1240..1286, RUNNING DOWN ↓) -->
+        <rect x="1240" y="220" width="46" height="1020" rx="4" fill="url(#stripDownGrad)" stroke="#00f0ff" stroke-width="1.5"/>
+        <line x1="1240" y1="560" x2="1286" y2="560" stroke="#fff" stroke-width="2.5" stroke-dasharray="3,2"/>
+        <line x1="1240" y1="900" x2="1286" y2="900" stroke="#fff" stroke-width="2.5" stroke-dasharray="3,2"/>
+        <g fill="#ffffff" font-size="11" font-weight="800" text-anchor="middle">
+          <text x="1263" y="242" fill="#00f0ff">LED 0</text>
+          <text x="1263" y="370">STRIP 2A</text>
+          <text x="1263" y="392" font-size="16" fill="#00f0ff">↓</text>
+          <text x="1263" y="414" font-size="9.5" fill="#cbd5e1">(0..299)</text>
+
+          <text x="1263" y="580" fill="#00ff88">LED 300</text>
+          <text x="1263" y="710">STRIP 2A</text>
+          <text x="1263" y="732" font-size="16" fill="#00ff88">↓</text>
+          <text x="1263" y="754" font-size="9.5" fill="#cbd5e1">(300..599)</text>
+
+          <text x="1263" y="920" fill="#ffaa00">LED 600</text>
+          <text x="1263" y="1050">STRIP 2A</text>
+          <text x="1263" y="1072" font-size="16" fill="#ffaa00">↓</text>
+          <text x="1263" y="1094" font-size="9.5" fill="#cbd5e1">(600..899)</text>
+          <text x="1263" y="1232" font-size="9.5" fill="#94a3b8">End 899</text>
+        </g>
+
+        <!-- 30 AWG Data Wires for Strip 2A -->
+        <path d="M 750 180 L 1211 180 L 1211 220 L 1240 220" stroke="#00f0ff" stroke-width="2" fill="none"/>
+        <circle cx="1240" cy="220" r="4.5" fill="#00f0ff" stroke="#fff"/>
+        <path d="M 760 180 L 1219 180 L 1219 560 L 1240 560" stroke="#00ff88" stroke-width="2" stroke-dasharray="3,2" fill="none"/>
+        <circle cx="1240" cy="560" r="4.5" fill="#00ff88" stroke="#fff"/>
+        <path d="M 770 180 L 1227 180 L 1227 900 L 1240 900" stroke="#ffaa00" stroke-width="2" stroke-dasharray="3,2" fill="none"/>
+        <circle cx="1240" cy="900" r="4.5" fill="#ffaa00" stroke="#fff"/>
+
+        <!-- TUBE 2 — STRIP 2B (RIGHT SIDE OF TUBE 2, X=1329..1375, RUNNING UP ↑ IN OPPOSITE DIRECTION!) -->
+        <rect x="1329" y="220" width="46" height="1020" rx="4" fill="url(#stripUpGrad)" stroke="#b57cff" stroke-width="1.5"/>
+        <line x1="1329" y1="560" x2="1375" y2="560" stroke="#fff" stroke-width="2.5" stroke-dasharray="3,2"/>
+        <line x1="1329" y1="900" x2="1375" y2="900" stroke="#fff" stroke-width="2.5" stroke-dasharray="3,2"/>
+        <g fill="#ffffff" font-size="11" font-weight="800" text-anchor="middle">
+          <text x="1352" y="236" font-size="9.5" fill="#94a3b8">End 899</text>
+          <text x="1352" y="370">STRIP 2B</text>
+          <text x="1352" y="392" font-size="16" fill="#38bdf8">↑</text>
+          <text x="1352" y="414" font-size="9.5" fill="#cbd5e1">(600..899)</text>
+          <text x="1352" y="550" fill="#38bdf8">DIN 600↑</text>
+
+          <text x="1352" y="710">STRIP 2B</text>
+          <text x="1352" y="732" font-size="16" fill="#ff66cc">↑</text>
+          <text x="1352" y="754" font-size="9.5" fill="#cbd5e1">(300..599)</text>
+          <text x="1352" y="890" fill="#ff66cc">DIN 300↑</text>
+
+          <text x="1352" y="1050">STRIP 2B</text>
+          <text x="1352" y="1072" font-size="16" fill="#b57cff">↑</text>
+          <text x="1352" y="1094" font-size="9.5" fill="#cbd5e1">(0..299)</text>
+          <text x="1352" y="1232" fill="#b57cff">DIN LED 0↑</text>
+        </g>
+
+        <!-- 30 AWG Data Wires for Strip 2B (300, 600, and ALL THE WAY TO 900 END!) -->
+        <path d="M 800 180 L 1385 180 L 1385 560 L 1375 560" stroke="#38bdf8" stroke-width="2" stroke-dasharray="3,2" fill="none"/>
+        <circle cx="1375" cy="560" r="4.5" fill="#38bdf8" stroke="#fff"/>
+        <path d="M 810 180 L 1394 180 L 1394 900 L 1375 900" stroke="#ff66cc" stroke-width="2" stroke-dasharray="3,2" fill="none"/>
+        <circle cx="1375" cy="900" r="4.5" fill="#ff66cc" stroke="#fff"/>
+        <path d="M 820 180 L 1403 180 L 1403 1240 L 1375 1240" stroke="#b57cff" stroke-width="2.5" stroke-dasharray="4,2" fill="none"/>
+        <circle cx="1375" cy="1240" r="5" fill="#b57cff" stroke="#fff"/>
+
+
+        <!-- ================= POWER TAP NODES ON BOTH TUBES (SWITCHABLE 3-TAP VS 4-TAP) ================= -->
+        <!-- 1. Top Power Tap (Y=250, +5-6 pads after Top) & Bottom Power Tap (Y=1215, 5-6 pads before Bottom) are always active -->
+        <g>
+          <!-- Tube 1 Top Power Bridge -->
+          <line x1="1041" y1="250" x2="1084" y2="250" stroke="#ff3355" stroke-width="3.5"/>
+          <circle cx="1062" cy="250" r="6" fill="#ff3355" stroke="#fde047" stroke-width="2"/>
+          <!-- Tube 2 Top Power Bridge -->
+          <line x1="1286" y1="250" x2="1329" y2="250" stroke="#ff3355" stroke-width="3.5"/>
+          <circle cx="1307" cy="250" r="6" fill="#ff3355" stroke="#fde047" stroke-width="2"/>
+
+          <!-- Tube 1 Bottom Power Bridge -->
+          <line x1="1041" y1="1210" x2="1084" y2="1210" stroke="#ff3355" stroke-width="3.5"/>
+          <circle cx="1062" cy="1210" r="6" fill="#ff3355" stroke="#fde047" stroke-width="2"/>
+          <!-- Tube 2 Bottom Power Bridge -->
+          <line x1="1286" y1="1210" x2="1329" y2="1210" stroke="#ff3355" stroke-width="3.5"/>
+          <circle cx="1307" cy="1210" r="6" fill="#ff3355" stroke="#fde047" stroke-width="2"/>
+        </g>
+
+        <!-- 3-TAP MODE: CENTER POWER BRIDGE AT Y=730 (2.50m / LED 450) -->
+        <g id="tubePwr3Tap" style="display:none;">
+          <line x1="1041" y1="730" x2="1084" y2="730" stroke="#ff3355" stroke-width="4"/>
+          <circle cx="1062" cy="730" r="8" fill="#ff3355" stroke="#fde047" stroke-width="2.5"/>
+          <line x1="1286" y1="730" x2="1329" y2="730" stroke="#ff3355" stroke-width="4"/>
+          <circle cx="1307" cy="730" r="8" fill="#ff3355" stroke="#fde047" stroke-width="2.5"/>
+        </g>
+
+        <!-- 5-TAP MODE: EVEN 1.25m SPACING AT Y=475 (1.25m / LED 225), Y=730 (2.50m / LED 450), Y=985 (3.75m / LED 675) -->
+        <g id="tubePwr5Tap">
+          <!-- 1.25m / LED 225 Tap (Y=475 — 41.7cm / 75 LEDs clear of Data 300!) -->
+          <line x1="480" y1="475" x2="1420" y2="475" stroke="#3b1d2e" stroke-width="1" stroke-dasharray="3,3"/>
+          <text x="908" y="479" fill="#fde047" font-size="10" font-weight="800" text-anchor="end">1.25m</text>
+          <line x1="1041" y1="471" x2="1059" y2="471" stroke="#ff3355" stroke-width="3.5"/>
+          <line x1="1065" y1="479" x2="1084" y2="479" stroke="#94a3b8" stroke-width="3.5"/>
+          <circle cx="1062" cy="475" r="7" fill="#ff3355" stroke="#fde047" stroke-width="2"/>
+          <line x1="1286" y1="471" x2="1304" y2="471" stroke="#ff3355" stroke-width="3.5"/>
+          <line x1="1310" y1="479" x2="1329" y2="479" stroke="#94a3b8" stroke-width="3.5"/>
+          <circle cx="1307" cy="475" r="7" fill="#ff3355" stroke="#fde047" stroke-width="2"/>
+
+          <!-- 2.50m / LED 450 Center Tap (Y=730) -->
+          <line x1="1041" y1="726" x2="1059" y2="726" stroke="#ff3355" stroke-width="4"/>
+          <line x1="1065" y1="734" x2="1084" y2="734" stroke="#94a3b8" stroke-width="4"/>
+          <circle cx="1062" cy="730" r="8" fill="#ff3355" stroke="#fde047" stroke-width="2.5"/>
+          <line x1="1286" y1="726" x2="1304" y2="726" stroke="#ff3355" stroke-width="4"/>
+          <line x1="1310" y1="734" x2="1329" y2="734" stroke="#94a3b8" stroke-width="4"/>
+          <circle cx="1307" cy="730" r="8" fill="#ff3355" stroke="#fde047" stroke-width="2.5"/>
+
+          <!-- 3.75m / LED 675 Tap (Y=985 — 41.7cm / 75 LEDs clear of Data 600!) -->
+          <line x1="480" y1="985" x2="1420" y2="985" stroke="#3b1d2e" stroke-width="1" stroke-dasharray="3,3"/>
+          <text x="908" y="989" fill="#fde047" font-size="10" font-weight="800" text-anchor="end">3.75m</text>
+          <line x1="1041" y1="981" x2="1059" y2="981" stroke="#ff3355" stroke-width="3.5"/>
+          <line x1="1065" y1="989" x2="1084" y2="989" stroke="#94a3b8" stroke-width="3.5"/>
+          <circle cx="1062" cy="985" r="7" fill="#ff3355" stroke="#fde047" stroke-width="2"/>
+          <line x1="1286" y1="981" x2="1304" y2="981" stroke="#ff3355" stroke-width="3.5"/>
+          <line x1="1310" y1="989" x2="1329" y2="989" stroke="#94a3b8" stroke-width="3.5"/>
+          <circle cx="1307" cy="985" r="7" fill="#ff3355" stroke="#fde047" stroke-width="2"/>
+        </g>
+
+        <!-- 4-TAP MODE: STAGGERED POWER BRIDGES AT Y=590 (+5-6 pads after 300) & Y=930 (+5-6 pads after 600) -->
+        <g id="tubePwr4Tap" style="display:none;">
+          <line x1="1041" y1="590" x2="1084" y2="590" stroke="#ff3355" stroke-width="3.5"/>
+          <circle cx="1062" cy="590" r="6.5" fill="#ff3355" stroke="#fde047" stroke-width="2"/>
+          <line x1="1286" y1="590" x2="1329" y2="590" stroke="#ff3355" stroke-width="3.5"/>
+          <circle cx="1307" cy="590" r="6.5" fill="#ff3355" stroke="#fde047" stroke-width="2"/>
+
+          <line x1="1041" y1="930" x2="1084" y2="930" stroke="#ff3355" stroke-width="3.5"/>
+          <circle cx="1062" cy="930" r="6.5" fill="#ff3355" stroke="#fde047" stroke-width="2"/>
+          <line x1="1286" y1="930" x2="1329" y2="930" stroke="#ff3355" stroke-width="3.5"/>
+          <circle cx="1307" cy="930" r="6.5" fill="#ff3355" stroke="#fde047" stroke-width="2"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- COMPLETE WIRE & RESISTOR MASTER TABLE FOR BOTH OPPOSITE STRIPS -->
+  <div class="card">
+    <div class="card-header">
+      <h2>2. Complete Wire Length &amp; Resistor Table for Each Tube (Strip A ↓ Forward + Strip B ↑ Opposite)</h2>
+      <span style="font-size:12px; color:var(--emerald);">Assumes 1.00m between Arduino and Tube Top (0.00m) + 5.00m (900-LED) Tube Length</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Strip &amp; Direction Inside Tube</th>
+          <th>Segment Driven</th>
+          <th>Where Wire Lands Along 5m Tube</th>
+          <th>Length Inside Tube</th>
+          <th>Total 30 AWG Length (with 1m Lead)</th>
+          <th>Arduino Pin</th>
+          <th>Calculated Ideal Range</th>
+          <th>Resistor to Solder at Arduino</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:var(--cyan);">Strip A (↓ Forward: Top → Bottom)</strong></td>
+          <td>LEDs 0 – 299 (Top Third)</td>
+          <td><strong>0.00 m (Top Entry)</strong></td>
+          <td>0.00 m</td>
+          <td><span class="len-pill">1.00 m</span></td>
+          <td><code>Pin D2</code></td>
+          <td>38Ω – 47Ω</td>
+          <td><span class="res-pill">47Ω</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--emerald);">Strip A (↓ Forward: Top → Bottom)</strong></td>
+          <td>LEDs 300 – 599 (Middle Third)</td>
+          <td><strong>1.67 m (300 LEDs Down)</strong></td>
+          <td>1.67 m</td>
+          <td><span class="len-pill">2.67 m</span></td>
+          <td><code>Pin D3</code></td>
+          <td>28Ω – 44Ω</td>
+          <td><span class="res-pill">33Ω (or 39Ω)</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--amber);">Strip A (↓ Forward: Top → Bottom)</strong></td>
+          <td>LEDs 600 – 899 (Bottom Third)</td>
+          <td><strong>3.33 m (600 LEDs Down)</strong></td>
+          <td>3.33 m</td>
+          <td><span class="len-pill">4.33 m</span></td>
+          <td><code>Pin D4</code></td>
+          <td>26Ω – 34Ω</td>
+          <td><span class="res-pill">30Ω (or 27Ω)</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--purple);">Strip B (↑ Opposite: Bottom → Top)</strong></td>
+          <td>Strip B LEDs 0 – 299 (Starts at Bottom End ↑)</td>
+          <td><strong>5.00 m (All the Way at 900-LED End!)</strong></td>
+          <td>5.00 m</td>
+          <td><span class="len-pill">6.00 m</span></td>
+          <td><code>Pin D5</code></td>
+          <td>20Ω – 28Ω</td>
+          <td><span class="res-pill">22Ω (or 27Ω)</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--pink);">Strip B (↑ Opposite: Bottom → Top)</strong></td>
+          <td>Strip B LEDs 300 – 599 (Middle Third ↑)</td>
+          <td><strong>3.33 m (600 LEDs Down from Top)</strong></td>
+          <td>3.33 m</td>
+          <td><span class="len-pill">4.33 m</span></td>
+          <td><code>Pin D6</code></td>
+          <td>26Ω – 34Ω</td>
+          <td><span class="res-pill">30Ω (or 27Ω)</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:#38bdf8;">Strip B (↑ Opposite: Bottom → Top)</strong></td>
+          <td>Strip B LEDs 600 – 899 (Top Third ↑)</td>
+          <td><strong>1.67 m (300 LEDs Down from Top)</strong></td>
+          <td>1.67 m</td>
+          <td><span class="len-pill">2.67 m</span></td>
+          <td><code>Pin D7</code></td>
+          <td>28Ω – 44Ω</td>
+          <td><span class="res-pill">33Ω (or 39Ω)</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 3-TAP VS 4-TAP VS 5-TAP & WIRE_LOCK OFFSET ANALYSIS CARD -->
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header">
+        <h2>3. 3 Taps vs. 4 Taps vs. 5 Power Taps — Performance Comparison</h2>
+        <span style="font-size:12px; color:var(--emerald);">Why 5 Taps Gives the Best of Both Worlds</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Power Tap Topology</th>
+            <th>Tap Positions (Along 5m Tube)</th>
+            <th>Span Between Taps (Max Feed Dist)</th>
+            <th>Clearance from 300 &amp; 600 Data Pads</th>
+            <th>Max Strip Trace Voltage Drop (Full White)</th>
+            <th>Current per Clip (at 20A/Tube)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>3 Power Taps</strong><br><span style="color:var(--muted); font-size:11px;">(Start, Center, End)</span></td>
+            <td><code>0.00m</code>, <code>2.50m (LED 450)</code>, <code>5.00m</code></td>
+            <td>450 LEDs (2.50m)<br><strong>Max feed: 225 LEDs</strong></td>
+            <td><span class="res-pill">83.3 cm (150 LEDs)</span></td>
+            <td>~0.70V drop<br>(<strong style="color:var(--amber);">~4.30V min</strong>)</td>
+            <td>~4.5A ends<br><strong>~9.0A center</strong></td>
+          </tr>
+          <tr>
+            <td><strong>4 Power Taps</strong><br><span style="color:var(--muted); font-size:11px;">(Near Data Taps)</span></td>
+            <td><code>0.00m</code>, <code>1.67m (300)</code>, <code>3.33m (600)</code>, <code>5.00m</code></td>
+            <td>300 LEDs (1.67m)<br><strong>Max feed: 150 LEDs</strong></td>
+            <td><span style="color:var(--red); font-weight:700;">Crowded! Must offset 5–6 pads (~3 cm)</span></td>
+            <td>~0.31V drop<br>(<strong style="color:var(--cyan);">~4.69V min</strong>)</td>
+            <td>~3.3A ends<br><strong>~6.7A inner</strong></td>
+          </tr>
+          <tr style="background: rgba(0, 255, 136, 0.06);">
+            <td><strong style="color:var(--emerald);">★ 5 Power Taps</strong><br><span style="color:var(--emerald); font-size:11px;">(Every 225 LEDs / 1.25m)</span></td>
+            <td><code>0.00m</code>, <code>1.25m (225)</code>, <code>2.50m (450)</code>, <code>3.75m (675)</code>, <code>5.00m</code></td>
+            <td>225 LEDs (1.25m)<br><strong>Max feed: 112 LEDs!</strong></td>
+            <td><span class="res-pill">41.7 cm (75 LEDs)!</span></td>
+            <td><strong>~0.17V drop!</strong><br>(<strong style="color:var(--emerald);">~4.83V min — 75% less drop than 3 taps!</strong>)</td>
+            <td>~2.5A ends<br><strong>~5.0A inner</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h2>4. 3D-Printed <code>wire_lock</code> Clip: Staggered +5V &amp; GND Offset (22.2 mm)</h2>
+        <span style="font-size:12px; color:var(--cyan);">Verified from <code>wire_lock_1.stl</code> (44.35mm × Ø11.36mm) &amp; <code>wire_lock_2.stl</code></span>
+      </div>
+      <div class="callout" style="margin-top:0;">
+        <strong style="color:var(--emerald);">✓ YES — Offsetting +5V (Red) and GND (Black) along the strip is 100% electrically safe and mechanically ideal!</strong><br><br>
+        • In your <code>wire_lock_1.stl</code> model (<strong>44.35 mm</strong> long × <strong>11.36 mm</strong> outer diameter), the two side solder windows are intentionally staggered along the length of the sleeve: <strong>Window 1 sits at Y = 7.4–16.1 mm (center ~11.9 mm)</strong> and <strong>Window 2 sits at Y = 29.5–38.0 mm (center ~34.1 mm)</strong> — a <strong>22.2 mm (~4 LEDs / 1 cut-pad) longitudinal offset</strong>.<br>
+        • <strong>Why it works electrically:</strong> Both <code>+5V</code> and <code>GND</code> on your FCOB strip are continuous full-length copper busbars. A <strong>22.2 mm (2.2 cm)</strong> offset between where <code>+5V</code> touches the strip and where <code>GND</code> touches the strip adds only <strong>~0.004 Ω (4 milliohms)</strong> of copper trace, which is less than <strong>0.02V</strong> even under heavy load — completely invisible!<br>
+        • <strong>Why it is better mechanically:</strong> Staggering the two side windows by 22.2 mm keeps the 11.36 mm cylinder wall super strong (cutting both windows at the exact same Y position would slice through both sides of the tube at once) and prevents the Red and Black power joints from ever touching or shorting inside the narrow tube.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function setPowerMode(mode) {
+      const p3 = document.getElementById("tubePwr3Tap");
+      const p4 = document.getElementById("tubePwr4Tap");
+      const p5 = document.getElementById("tubePwr5Tap");
+      const centerCallout = document.getElementById("centerPowerCallout");
+      const c300 = document.getElementById("calloutPwr300");
+      const c600 = document.getElementById("calloutPwr600");
+      const b3 = document.getElementById("btnPwr3");
+      const b4 = document.getElementById("btnPwr4");
+      const b5 = document.getElementById("btnPwr5");
+
+      b3.classList.remove("active");
+      b4.classList.remove("active");
+      b5.classList.remove("active");
+
+      if (mode === 3) {
+        p3.style.display = "block";
+        p4.style.display = "none";
+        p5.style.display = "none";
+        centerCallout.style.display = "block";
+        b3.classList.add("active");
+        c300.textContent = "• (In 3-Tap Power Mode: NO power connector here — zero crowding!)";
+        c300.setAttribute("fill", "#94a3b8");
+        c600.textContent = "• (In 3-Tap Power Mode: NO power connector here — zero crowding!)";
+        c600.setAttribute("fill", "#94a3b8");
+      } else if (mode === 5) {
+        p3.style.display = "none";
+        p4.style.display = "none";
+        p5.style.display = "block";
+        centerCallout.style.display = "block";
+        b5.classList.add("active");
+        c300.textContent = "• ★ 5-Tap Mode: Power Tap #2 sits at 1.25m (LED 225) — 42cm clear of Data 300!";
+        c300.setAttribute("fill", "#fde047");
+        c600.textContent = "• ★ 5-Tap Mode: Power Tap #4 sits at 3.75m (LED 675) — 42cm clear of Data 600!";
+        c600.setAttribute("fill", "#fde047");
+      } else {
+        p3.style.display = "none";
+        p4.style.display = "block";
+        p5.style.display = "none";
+        centerCallout.style.display = "none";
+        b4.classList.add("active");
+        c300.textContent = "• ⚡ Power Tap #2: Staggered 5–6 pads AFTER Data 300 (~1.80m)";
+        c300.setAttribute("fill", "#ff6b81");
+        c600.textContent = "• ⚡ Power Tap #3: Staggered 5–6 pads AFTER Data 600 (~3.47m)";
+        c600.setAttribute("fill", "#ff6b81");
+      }
+    }
+
+    function setConnMode(mode) {
+      const h = document.getElementById("connBoxHybrid");
+      const s = document.getElementById("connBoxSplit");
+      const bh = document.getElementById("btnConnHybrid");
+      const bs = document.getElementById("btnConnSplit");
+      if (mode === "hybrid") {
+        h.style.display = "block";
+        s.style.display = "none";
+        bh.classList.add("active");
+        bs.classList.remove("active");
+      } else {
+        h.style.display = "none";
+        s.style.display = "block";
+        bh.classList.remove("active");
+        bs.classList.add("active");
+      }
+    }
+  </script>
+</body>
+</html>

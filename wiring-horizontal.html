@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Light Loop 26 — Horizontal Compressed Connection & Pad Map (5-Wire Channel)</title>
+  <style>
+    :root {
+      --bg: #0b0f17;
+      --card: #111827;
+      --border: #1f2937;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --pwr: #ef4444;     /* Red: +5V Power */
+      --gnd: #cbd5e1;     /* Silver/White: GND */
+      --dataA: #38bdf8;   /* Cyan: Strip A Data (Forward ->) */
+      --dataB: #f59e0b;   /* Amber: Strip B Data (Reverse <-) */
+      --pad: #d97706;     /* Copper Pad Accent */
+      --ok: #10b981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+      padding: 20px 28px 60px;
+      line-height: 1.45;
+    }
+    .nav-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+    .nav-tab {
+      text-decoration: none;
+      padding: 9px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      background: #111827;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      transition: all 0.15s ease;
+    }
+    .nav-tab:hover { color: var(--text); border-color: var(--dataA); }
+    .nav-tab.active {
+      background: rgba(56, 189, 248, 0.14);
+      color: var(--dataA);
+      border-color: var(--dataA);
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 14px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    h1 {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      color: #ffffff;
+    }
+    .subtitle {
+      color: var(--muted);
+      font-size: 13.5px;
+      margin-top: 4px;
+    }
+    .legend-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 18px;
+      margin-bottom: 18px;
+    }
+    .legend-items {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .legend-dot {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+    .btn-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .topo-btn {
+      cursor: pointer;
+      padding: 7px 13px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      font-weight: 700;
+      background: #0b0f17;
+      color: var(--muted);
+      border: 1px solid #374151;
+    }
+    .topo-btn.active {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border-color: #10b981;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 22px;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .card-header h2 {
+      font-size: 15.5px;
+      font-weight: 800;
+      color: #f8fafc;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .svg-wrap {
+      width: 100%;
+      overflow-x: auto;
+      background: #070a10;
+      border: 1px solid #1f2937;
+      border-radius: 8px;
+      padding: 10px;
+    }
+    svg.horiz-diagram {
+      width: 100%;
+      min-width: 1460px;
+      height: auto;
+      display: block;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    th, td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    th {
+      background: #0b0f17;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .pad-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: "SF Mono", Menlo, monospace;
+      font-weight: 800;
+      font-size: 12.5px;
+      background: rgba(239, 68, 68, 0.15);
+      color: #fca5a5;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+    }
+    .pad-badge.gnd {
+      background: rgba(203, 213, 225, 0.12);
+      color: #e2e8f0;
+      border-color: rgba(203, 213, 225, 0.4);
+    }
+    .pad-badge.dataA {
+      background: rgba(56, 189, 248, 0.15);
+      color: #7dd3fc;
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+    .pad-badge.dataB {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fcd34d;
+      border-color: rgba(245, 158, 11, 0.4);
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+      gap: 20px;
+    }
+  
+  /* Unified Light Loop Drive Bundle Top Nav */
+  .ll-bundle-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    background: #060911;
+    border: 1px solid #1e293b;
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+  }
+  .ll-bundle-brand {
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #00f0ff;
+    padding-right: 10px;
+    border-right: 1px solid #334155;
+    margin-right: 4px;
+  }
+  .ll-bundle-link {
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 11px;
+    border-radius: 6px;
+    background: #111827;
+    color: #cbd5e1;
+    border: 1px solid #334155;
+    transition: all 0.14s ease;
+  }
+  .ll-bundle-link:hover {
+    color: #ffffff;
+    border-color: #38bdf8;
+    background: #1e293b;
+  }
+  .ll-bundle-link.active {
+    background: rgba(56, 189, 248, 0.18);
+    color: #38bdf8;
+    border-color: #38bdf8;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
+  }
+
+  </style>
+</head>
+<body>
+  <div class="ll-bundle-nav"><span class="ll-bundle-brand">LIGHT LOOP v2.545.0 PACK</span><a class="ll-bundle-link" href="00_START_HERE_BUILDER_GUIDE.html">00. Start Here: Builder & SW Guide</a><a class="ll-bundle-link" href="electro-cookie-interactive-wiring.html">01. ElectroCookie Shield Explorer</a><a class="ll-bundle-link active" href="wiring-horizontal.html">02. Horizontal Tube Pad Map</a><a class="ll-bundle-link" href="checklist.html">03. 51-Step Solder Checklist</a><a class="ll-bundle-link" href="wiring.html">04. 5m Master Vertical Blueprint</a><a class="ll-bundle-link" href="wiring-split.html">05. Split Connectors (Opt A)</a><a class="ll-bundle-link" href="wiring-hybrid.html">06. Hybrid 2P+6D Connector (Opt B)</a></div>
+
+  <nav class="nav-tabs">
+    <a class="nav-tab" href="checklist.html" style="border-color:#10b981;color:#34d399;">0. Interactive Mobile Solder Checklist (51 Steps)</a>
+    <a class="nav-tab active" href="wiring-horizontal.html">★ 1. Horizontal Compressed Connection &amp; Pad Map (Simple Colors, Zero Empty Space)</a>
+    <a class="nav-tab" href="wiring.html">2. Full 5m Vertical Straight-Line Blueprint</a>
+    <a class="nav-tab" href="wiring-split.html">3. Split Connectors (2-Pin Power + 3-Pin Data)</a>
+    <a class="nav-tab" href="wiring-hybrid.html">4. Hybrid 2P+6D Connector</a>
+  </nav>
+
+  <header>
+    <div>
+      <h1>HORIZONTAL COMPRESSED CONNECTION DIAGRAM — EXACT DATA &amp; POWER PAD MAP</h1>
+      <div class="subtitle">
+        Empty strip spans removed (`//`) so only the actual connection zones are shown • Simple 4-Color Palette • Shows the 5 Data Lines in the Center Channel &amp; Exact Power Pad Numbers
+      </div>
+    </div>
+  </header>
+
+  <!-- SIMPLE 4-COLOR LEGEND + POWER TAP MODE SWITCHER -->
+  <div class="legend-bar">
+    <div class="legend-items">
+      <span><span class="legend-dot" style="background:#ef4444;"></span>+5V Power Pad / Bus (Red)</span>
+      <span><span class="legend-dot" style="background:#cbd5e1;"></span>GND Pad / Bus (White/Gray — Offset +4 Pads in <code>wire_lock</code>)</span>
+      <span><span class="legend-dot" style="background:#38bdf8;"></span>Strip A Data → (Cyan — Top Strip, Left-to-Right)</span>
+      <span><span class="legend-dot" style="background:#f59e0b;"></span>Strip B Data ← (Amber — Bottom Strip, Right-to-Left)</span>
+    </div>
+    <div class="btn-group">
+      <span style="font-size:12px; color:var(--muted); font-weight:700;">Power Tap Mode:</span>
+      <button id="btnMode5" class="topo-btn active" onclick="setHorizMode(5)">5 Power Taps (Pads 6/10, 223/227, 448/452, 673/677, 890/894)</button>
+      <button id="btnMode3" class="topo-btn" onclick="setHorizMode(3)">3 Power Taps (Start 6/10, Center 448/452, End 890/894)</button>
+    </div>
+  </div>
+
+  <!-- ================= MAIN HORIZONTAL COMPRESSED SCHEMATIC ================= -->
+  <div class="card">
+    <div class="card-header">
+      <h2 id="diagramTitle">
+        1. Horizontal Connection Map (7 Connection Zones Left-to-Right • Empty LED Spans Compressed Out)
+      </h2>
+      <span style="font-size:12.5px; color:#34d399; font-weight:700;">
+        Max 5 Data Wires (Lines 1–5) Inside the 1.58mm × 2.66mm Center Channel → Dropping to 3 Wires → Then 1 Wire!
+      </span>
+    </div>
+
+    <div class="svg-wrap">
+      <svg class="horiz-diagram" viewBox="0 0 1560 660" xmlns="http://www.w3.org/2000/svg">
+        <!-- Dark Slate Background -->
+        <rect x="0" y="0" width="1560" height="660" fill="#070a10"/>
+
+        <!-- ================= LEFT ENTRY HEADER BOX (ARDUINO RESISTORS + PSU AT 0.00m) ================= -->
+        <rect x="14" y="24" width="215" height="612" rx="10" fill="#111827" stroke="#374151" stroke-width="2"/>
+        <text x="121" y="48" fill="#ffffff" font-size="13.5" font-weight="800" text-anchor="middle">TUBE ENTRY (0.00m)</text>
+        <text x="121" y="65" fill="#94a3b8" font-size="11" text-anchor="middle">1.0m from Arduino &amp; PSU</text>
+
+        <!-- Direct Entry Wire (Does NOT enter 5-wire channel) -->
+        <rect x="26" y="84" width="190" height="54" rx="6" fill="#0b1320" stroke="#38bdf8" stroke-width="1.5"/>
+        <text x="36" y="103" fill="#38bdf8" font-size="11.5" font-weight="800">Entry Wire (Lands at Pad 0)</text>
+        <text x="36" y="119" fill="#e2e8f0" font-size="11">Pin D2 → <tspan fill="#34d399" font-weight="800">47Ω</tspan> (1.00m total)</text>
+        <text x="36" y="132" fill="#94a3b8" font-size="10">Stops at Pad 0 (Not in channel)</text>
+
+        <!-- THE 5 CHANNEL WIRES (Lines 1 to 5 inside wire_lock_2.stl) -->
+        <rect x="26" y="152" width="190" height="315" rx="6" fill="#0b0f17" stroke="#4b5563" stroke-width="1.5"/>
+        <text x="121" y="172" fill="#ffffff" font-size="11.5" font-weight="800" text-anchor="middle">
+          5 WIRES IN CENTER CHANNEL
+        </text>
+        <text x="121" y="186" fill="#94a3b8" font-size="10" text-anchor="middle">
+          (Fits 1.58mm × 2.66mm C-Channel)
+        </text>
+
+        <!-- Line 1 -->
+        <rect x="36" y="198" width="170" height="44" rx="4" fill="#0f172a" stroke="#38bdf8"/>
+        <text x="44" y="215" fill="#38bdf8" font-size="11" font-weight="800">Line 1: Strip A Pad 300 →</text>
+        <text x="44" y="232" fill="#cbd5e1" font-size="10.5">Pin D3 • <tspan fill="#34d399" font-weight="800">33Ω</tspan> • 2.67m wire</text>
+
+        <!-- Line 2 -->
+        <rect x="36" y="250" width="170" height="44" rx="4" fill="#0f172a" stroke="#f59e0b"/>
+        <text x="44" y="267" fill="#f59e0b" font-size="11" font-weight="800">Line 2: Strip B Pad 600 ←</text>
+        <text x="44" y="284" fill="#cbd5e1" font-size="10.5">Pin D7 • <tspan fill="#34d399" font-weight="800">33Ω</tspan> • 2.67m wire</text>
+
+        <!-- Line 3 -->
+        <rect x="36" y="302" width="170" height="44" rx="4" fill="#0f172a" stroke="#38bdf8"/>
+        <text x="44" y="319" fill="#38bdf8" font-size="11" font-weight="800">Line 3: Strip A Pad 600 →</text>
+        <text x="44" y="336" fill="#cbd5e1" font-size="10.5">Pin D4 • <tspan fill="#34d399" font-weight="800">30Ω</tspan> • 4.33m wire</text>
+
+        <!-- Line 4 -->
+        <rect x="36" y="354" width="170" height="44" rx="4" fill="#0f172a" stroke="#f59e0b"/>
+        <text x="44" y="371" fill="#f59e0b" font-size="11" font-weight="800">Line 4: Strip B Pad 300 ←</text>
+        <text x="44" y="388" fill="#cbd5e1" font-size="10.5">Pin D6 • <tspan fill="#34d399" font-weight="800">30Ω</tspan> • 4.33m wire</text>
+
+        <!-- Line 5 -->
+        <rect x="36" y="406" width="170" height="48" rx="4" fill="#0f172a" stroke="#f59e0b" stroke-width="1.5"/>
+        <text x="44" y="423" fill="#f59e0b" font-size="11" font-weight="800">Line 5: Strip B Pad 0 Start ←</text>
+        <text x="44" y="440" fill="#cbd5e1" font-size="10.5">Pin D5 • <tspan fill="#34d399" font-weight="800">22Ω</tspan> • 6.00m wire</text>
+
+        <!-- Power Bus Box -->
+        <rect x="26" y="482" width="190" height="138" rx="6" fill="#181115" stroke="#ef4444" stroke-width="1.5"/>
+        <text x="121" y="504" fill="#ef4444" font-size="12" font-weight="800" text-anchor="middle">14 AWG POWER BUS</text>
+        <text x="38" y="526" fill="#fca5a5" font-size="11" font-weight="700">• Red (+5V): Outer Bore #1</text>
+        <text x="38" y="544" fill="#cbd5e1" font-size="11" font-weight="700">• Gray (GND): Outer Bore #2</text>
+        <text x="38" y="568" fill="#94a3b8" font-size="10.5">Each wire_lock_1 sleeve offsets</text>
+        <text x="38" y="583" fill="#94a3b8" font-size="10.5">+5V and GND by 22mm (4 pads):</text>
+        <text x="38" y="602" fill="#34d399" font-size="10.5" font-weight="700">Bridges BOTH Strip A &amp; Strip B!</text>
+
+
+        <!-- ================= 7 HORIZONTAL CONNECTION STATIONS (X=250 TO 1540) ================= -->
+        <!--
+          Station X-Positions (No empty space! Divided by clean "//" schematic breaks):
+          S1 (Left Entry & Pwr Tap #1, Pads 0..10):      X = 255 .. 425 (width 170)
+          S2 (Power Tap #2 @ 1.25m, Pads 223..227):      X = 445 .. 595 (width 150)
+          S3 (Data Cut #1 @ 1.67m, Pads 299 | 300):      X = 615 .. 795 (width 180)
+          S4 (Center Power Tap #3 @ 2.50m, Pads 448..452): X = 815 .. 965 (width 150)
+          S5 (Data Cut #2 @ 3.33m, Pads 599 | 600):      X = 985 .. 1165 (width 180)
+          S6 (Power Tap #4 @ 3.75m, Pads 673..677):      X = 1185 .. 1335 (width 150)
+          S7 (Far Right End @ 5.00m, Pads 890..900):     X = 1355 .. 1535 (width 180)
+        -->
+
+        <!-- TOP ROW: STRIP A (FORWARD -> LEFT TO RIGHT, Y=115..195) -->
+        <text x="255" y="102" fill="#38bdf8" font-size="13.5" font-weight="800">
+          STRIP A (FORWARD → LEFT TO RIGHT: PAD 0 AT LEFT → PAD 900 AT RIGHT)
+        </text>
+
+        <!-- BOTTOM ROW: STRIP B (OPPOSITE <- RIGHT TO LEFT, Y=465..545) -->
+        <text x="255" y="572" fill="#f59e0b" font-size="13.5" font-weight="800">
+          STRIP B (OPPOSITE ← RIGHT TO LEFT: STARTS AT PAD 900 RIGHT END [B-PAD 0] → RUNS LEFT TO PAD 0)
+        </text>
+
+        <!-- CENTER DATA CHANNEL BACKGROUND (wire_lock_2.stl, Y=260..375) -->
+        <rect x="245" y="255" width="1295" height="122" rx="6" fill="#0d131f" stroke="#334155" stroke-width="1.5" stroke-dasharray="6,4"/>
+        <text x="258" y="273" fill="#94a3b8" font-size="11" font-weight="700">
+          INTERNAL DATA CHANNEL (wire_lock_2.stl • 1.58mm × 2.66mm):
+        </text>
+        <!-- Wire Count Badges Along Channel -->
+        <rect x="650" y="259" width="115" height="18" rx="4" fill="#1e293b"/>
+        <text x="707" y="272" fill="#38bdf8" font-size="10.5" font-weight="800" text-anchor="middle">5 WIRES HERE →</text>
+        <rect x="1020" y="259" width="115" height="18" rx="4" fill="#1e293b"/>
+        <text x="1077" y="272" fill="#38bdf8" font-size="10.5" font-weight="800" text-anchor="middle">3 WIRES HERE →</text>
+        <rect x="1370" y="259" width="115" height="18" rx="4" fill="#1e293b"/>
+        <text x="1427" y="272" fill="#f59e0b" font-size="10.5" font-weight="800" text-anchor="middle">1 WIRE HERE →</text>
+
+        <!-- POWER BUS RAILS (+5V Red at Y=405, GND Silver at Y=425) -->
+        <line x1="216" y1="405" x2="1520" y2="405" stroke="#ef4444" stroke-width="4"/>
+        <text x="258" y="398" fill="#ef4444" font-size="10.5" font-weight="800">14 AWG +5V BUS (RED)</text>
+        <line x1="216" y1="425" x2="1520" y2="425" stroke="#cbd5e1" stroke-width="4"/>
+        <text x="258" y="440" fill="#cbd5e1" font-size="10.5" font-weight="800">14 AWG GND BUS (GRAY/WHITE)</text>
+
+
+        <!-- ==================== STATION 1: 0.00m ENTRY (PADS 0 .. 10) ==================== -->
+        <g>
+          <!-- Strip A Segment 1 -->
+          <rect x="255" y="115" width="170" height="76" rx="6" fill="#162032" stroke="#38bdf8" stroke-width="2"/>
+          <text x="340" y="133" fill="#ffffff" font-size="11" font-weight="800" text-anchor="middle">0.00m START (→)</text>
+          <!-- Pad 0 Data on Strip A -->
+          <rect x="263" y="142" width="44" height="40" rx="4" fill="#0c2436" stroke="#38bdf8" stroke-width="2"/>
+          <text x="285" y="159" fill="#38bdf8" font-size="10.5" font-weight="900" text-anchor="middle">PAD 0</text>
+          <text x="285" y="174" fill="#e2e8f0" font-size="9.5" font-weight="700" text-anchor="middle">DIN #1</text>
+          <!-- Pad 6 (+5V) on Strip A -->
+          <rect x="318" y="142" width="44" height="40" rx="4" fill="#3b1219" stroke="#ef4444" stroke-width="2"/>
+          <text x="340" y="159" fill="#fca5a5" font-size="10.5" font-weight="900" text-anchor="middle">PAD 6</text>
+          <text x="340" y="174" fill="#ef4444" font-size="10" font-weight="900" text-anchor="middle">+5V</text>
+          <!-- Pad 10 (GND) on Strip A -->
+          <rect x="371" y="142" width="46" height="40" rx="4" fill="#1e293b" stroke="#cbd5e1" stroke-width="2"/>
+          <text x="394" y="159" fill="#ffffff" font-size="10.5" font-weight="900" text-anchor="middle">PAD 10</text>
+          <text x="394" y="174" fill="#cbd5e1" font-size="10" font-weight="900" text-anchor="middle">GND</text>
+
+          <!-- Strip B Segment 1 (Bottom: Counts DOWN from 900 at Left to 0 at Right!) -->
+          <rect x="255" y="465" width="170" height="76" rx="6" fill="#1f1a14" stroke="#f59e0b" stroke-width="2"/>
+          <text x="340" y="532" fill="#f59e0b" font-size="10.5" font-weight="800" text-anchor="middle">0.00m (← Strip B End: Pad 900)</text>
+          <rect x="263" y="474" width="44" height="40" rx="4" fill="#18181b" stroke="#52525b" stroke-width="1.5"/>
+          <text x="285" y="492" fill="#94a3b8" font-size="9.5" font-weight="800" text-anchor="middle">PAD 900</text>
+          <text x="285" y="506" fill="#64748b" font-size="8.5" text-anchor="middle">(B-End)</text>
+          <!-- Pad 894 (+5V) on Strip B (Opposite Strip A Pad 6!) -->
+          <rect x="318" y="474" width="44" height="40" rx="4" fill="#3b1219" stroke="#ef4444" stroke-width="2"/>
+          <text x="340" y="491" fill="#fca5a5" font-size="10" font-weight="900" text-anchor="middle">PAD 894</text>
+          <text x="340" y="506" fill="#ef4444" font-size="10" font-weight="900" text-anchor="middle">+5V</text>
+          <!-- Pad 890 (GND) on Strip B (Opposite Strip A Pad 10!) -->
+          <rect x="371" y="474" width="46" height="40" rx="4" fill="#1e293b" stroke="#cbd5e1" stroke-width="2"/>
+          <text x="394" y="491" fill="#ffffff" font-size="10" font-weight="900" text-anchor="middle">PAD 890</text>
+          <text x="394" y="506" fill="#cbd5e1" font-size="10" font-weight="900" text-anchor="middle">GND</text>
+
+          <!-- Connections at Station 1 -->
+          <!-- Entry Wire (47 ohm) -> Strip A Pad 0 -->
+          <path d="M 216 108 L 285 108 L 285 142" stroke="#38bdf8" stroke-width="3" fill="none"/>
+          <circle cx="285" cy="142" r="4.5" fill="#38bdf8"/>
+          <!-- Power Tap #1: +5V at Pad 6, GND at Pad 10 -->
+          <line x1="340" y1="182" x2="340" y2="474" stroke="#ef4444" stroke-width="3"/>
+          <circle cx="340" cy="405" r="5.5" fill="#ef4444" stroke="#fff" stroke-width="1.5"/>
+          <line x1="394" y1="182" x2="394" y2="474" stroke="#cbd5e1" stroke-width="3"/>
+          <circle cx="394" cy="425" r="5.5" fill="#cbd5e1" stroke="#000" stroke-width="1.5"/>
+          <rect x="313" y="205" width="90" height="22" rx="4" fill="#3b1219" stroke="#ef4444"/>
+          <text x="358" y="220" fill="#fca5a5" font-size="10" font-weight="800" text-anchor="middle">PWR TAP #1</text>
+        </g>
+
+        <!-- BREAK SYMBOL 1 (//) -->
+        <text x="435" y="158" fill="#64748b" font-size="18" font-weight="900" text-anchor="middle">//</text>
+        <text x="435" y="508" fill="#64748b" font-size="18" font-weight="900" text-anchor="middle">//</text>
+
+
+        <!-- ==================== STATION 2: 1.25m POWER TAP #2 (PADS 223 & 227) ==================== -->
+        <g id="stationPwr2">
+          <!-- Strip A Segment 2 -->
+          <rect x="445" y="115" width="150" height="76" rx="6" fill="#162032" stroke="#ef4444" stroke-width="2"/>
+          <text x="520" y="133" fill="#fca5a5" font-size="11" font-weight="800" text-anchor="middle">1.25m (LED 225)</text>
+          <rect x="460" y="142" width="54" height="40" rx="4" fill="#3b1219" stroke="#ef4444" stroke-width="2"/>
+          <text x="487" y="159" fill="#fca5a5" font-size="10.5" font-weight="900" text-anchor="middle">PAD 223</text>
+          <text x="487" y="174" fill="#ef4444" font-size="10" font-weight="900" text-anchor="middle">+5V</text>
+          <rect x="526" y="142" width="54" height="40" rx="4" fill="#1e293b" stroke="#cbd5e1" stroke-width="2"/>
+          <text x="553" y="159" fill="#ffffff" font-size="10.5" font-weight="900" text-anchor="middle">PAD 227</text>
+          <text x="553" y="174" fill="#cbd5e1" font-size="10" font-weight="900" text-anchor="middle">GND</text>
+
+          <!-- Strip B Segment 2 (Opposite 223 & 227 are 677 & 673!) -->
+          <rect x="445" y="465" width="150" height="76" rx="6" fill="#1f1a14" stroke="#ef4444" stroke-width="2"/>
+          <text x="520" y="532" fill="#fca5a5" font-size="10.5" font-weight="800" text-anchor="middle">1.25m (Strip B Pads 677/673)</text>
+          <rect x="460" y="474" width="54" height="40" rx="4" fill="#3b1219" stroke="#ef4444" stroke-width="2"/>
+          <text x="487" y="491" fill="#fca5a5" font-size="10.5" font-weight="900" text-anchor="middle">PAD 677</text>
+          <text x="487" y="506" fill="#ef4444" font-size="10" font-weight="900" text-anchor="middle">+5V</text>
+          <rect x="526" y="474" width="54" height="40" rx="4" fill="#1e293b" stroke="#cbd5e1" stroke-width="2"/>
+          <text x="553" y="491" fill="#ffffff" font-size="10.5" font-weight="900" text-anchor="middle">PAD 673</text>
+          <text x="553" y="506" fill="#cbd5e1" font-size="10" font-weight="900" text-anchor="middle">GND</text>
+
+          <!-- Vertical Power Risers for Tap #2 -->
+          <line x1="487" y1="182" x2="487" y2="474" stroke="#ef4444" stroke-width="3"/>
+          <circle cx="487" cy="405" r="5.5" fill="#ef4444" stroke="#fff" stroke-width="1.5"/>
+          <line x1="553" y1="182" x2="553" y2="474" stroke="#cbd5e1" stroke-width="3"/>
+          <circle cx="553" cy="425" r="5.5" fill="#cbd5e1" stroke="#000" stroke-width="1.5"/>
+          <rect x="475" y="205" width="90" height="22" rx="4" fill="#3b1219" stroke="#ef4444"/>
+          <text x="520" y="220" fill="#fca5a5" font-size="10" font-weight="800" text-anchor="middle">PWR TAP #2</text>
+        </g>
+
+        <!-- BREAK SYMBOL 2 (//) -->
+        <text x="605" y="158" fill="#64748b" font-size="18" font-weight="900" text-anchor="middle">//</text>
+        <text x="605" y="508" fill="#64748b" font-size="18" font-weight="900" text-anchor="middle">//</text>
+
+
+        <!-- ==================== STATION 3: 1.67m DATA CUT #1 (PAD 300) ==================== -->
+        <g>
+          <!-- Strip A Segment 3 (Cut between 299 and 300) -->
+          <rect x="615" y="115" width="180" height="76" rx="6" fill="#162032" stroke="#38bdf8" stroke-width="2"/>
+          <text x="705" y="133" fill="#38bdf8" font-size="11" font-weight="800" text-anchor="middle">1.67m DATA CUT #1 (→)</text>
+          <!-- Pad 299 DOUT (Cut) -->
+          <rect x="625" y="142" width="58" height="40" rx="4" fill="#18181b" stroke="#52525b"/>
+          <text x="654" y="159" fill="#94a3b8" font-size="10" font-weight="800" text-anchor="middle">PAD 299</text>
+          <text x="654" y="173" fill="#64748b" font-size="9" text-anchor="middle">End Seg 1</text>
+          <!-- Scissors Cut Line -->
+          <line x1="695" y1="115" x2="695" y2="191" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="4,2"/>
+          <!-- Pad 300 DIN on Strip A -->
+          <rect x="707" y="142" width="76" height="40" rx="4" fill="#0c2436" stroke="#38bdf8" stroke-width="2.5"/>
+          <text x="745" y="159" fill="#38bdf8" font-size="11" font-weight="900" text-anchor="middle">PAD 300</text>
+          <text x="745" y="174" fill="#ffffff" font-size="9.5" font-weight="800" text-anchor="middle">Strip A DIN →</text>
+
+          <!-- Strip B Segment 3 (Cut between Pad 600 and Pad 599 on Strip B at 1.67m) -->
+          <rect x="615" y="465" width="180" height="76" rx="6" fill="#1f1a14" stroke="#f59e0b" stroke-width="2"/>
+          <text x="705" y="532" fill="#f59e0b" font-size="10.5" font-weight="800" text-anchor="middle">1.67m DATA CUT #1 (← Strip B)</text>
+          <!-- Strip B Pad 600 DIN (<-) runs LEFTWARD from the cut at 695! -->
+          <rect x="623" y="474" width="64" height="40" rx="4" fill="#2e1d09" stroke="#f59e0b" stroke-width="2.5"/>
+          <text x="655" y="491" fill="#f59e0b" font-size="10.5" font-weight="900" text-anchor="middle">PAD 600</text>
+          <text x="655" y="506" fill="#ffffff" font-size="9" font-weight="800" text-anchor="middle">← Strip B DIN</text>
+          <!-- Scissors Cut Line -->
+          <line x1="695" y1="465" x2="695" y2="541" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="4,2"/>
+          <rect x="707" y="474" width="76" height="40" rx="4" fill="#18181b" stroke="#52525b"/>
+          <text x="745" y="491" fill="#94a3b8" font-size="10" font-weight="800" text-anchor="middle">PAD 599</text>
+          <text x="745" y="505" fill="#64748b" font-size="9" text-anchor="middle">(← Seg 2 End)</text>
+        </g>
+
+        <!-- BREAK SYMBOL 3 (//) -->
+        <text x="805" y="158" fill="#64748b" font-size="18" font-weight="900" text-anchor="middle">//</text>
+        <text x="805" y="508" fill="#64748b" font-size="18" font-weight="900" text-anchor="middle">//</text>
+
+
+        <!-- ==================== STATION 4: 2.50m CENTER POWER TAP #3 (PADS 448 & 452) ==================== -->
+        <g>
+          <!-- Strip A Segment 4 -->
+          <rect x="815" y="115" width="150" height="76" rx="6" fill="#162032" stroke="#ef4444" stroke-width="2.5"/>
+          <text x="890" y="133" fill="#fde047" font-size="11" font-weight="900" text-anchor="middle">2.50m CENTER (450)</text>
+          <rect x="830" y="142" width="54" height="40" rx="4" fill="#3b1219" stroke="#ef4444" stroke-width="2"/>
+          <text x="857" y="159" fill="#fca5a5" font-size="10.5" font-weight="900" text-anchor="middle">PAD 448</text>
+          <text x="857" y="174" fill="#ef4444" font-size="10" font-weight="900" text-anchor="middle">+5V</text>
+          <rect x="896" y="142" width="54" height="40" rx="4" fill="#1e293b" stroke="#cbd5e1" stroke-width="2"/>
+          <text x="923" y="159" fill="#ffffff" font-size="10.5" font-weight="900" text-anchor="middle">PAD 452</text>
+          <text x="923" y="174" fill="#cbd5e1" font-size="10" font-weight="900" text-anchor="middle">GND</text>
+
+          <!-- Strip B Segment 4 (Opposite 448 & 452 are 452 & 448!) -->
+          <rect x="815" y="465" width="150" height="76" rx="6" fill="#1f1a14" stroke="#ef4444" stroke-width="2.5"/>
+          <text x="890" y="532" fill="#fde047" font-size="10.5" font-weight="900" text-anchor="middle">2.50m CENTER (Pads 452/448)</text>
+          <rect x="830" y="474" width="54" height="40" rx="4" fill="#3b1219" stroke="#ef4444" stroke-width="2"/>
+          <text x="857" y="491" fill="#fca5a5" font-size="10.5" font-weight="900" text-anchor="middle">PAD 452</text>
+          <text x="857" y="506" fill="#ef4444" font-size="10" font-weight="900" text-anchor="middle">+5V</text>
+          <rect x="896" y="474" width="54" height="40" rx="4" fill="#1e293b" stroke="#cbd5e1" stroke-width="2"/>
+          <text x="923" y="491" fill="#ffffff" font-size="10.5" font-weight="900" text-anchor="middle">PAD 448</text>
+          <text x="923" y="506" fill="#cbd5e1" font-size="10" font-weight="900" text-anchor="middle">GND</text>
+
+          <!-- Vertical Power Risers for Center Tap -->
+          <line x1="857" y1="182" x2="857" y2="474" stroke="#ef4444" stroke-width="3.5"/>
+          <circle cx="857" cy="405" r="6" fill="#ef4444" stroke="#fde047" stroke-width="2"/>
+          <line x1="923" y1="182" x2="923" y2="474" stroke="#cbd5e1" stroke-width="3.5"/>
+          <circle cx="923" cy="425" r="6" fill="#cbd5e1" stroke="#000" stroke-width="1.5"/>
+          <rect x="838" y="205" width="104" height="22" rx="4" fill="#3b1219" stroke="#fde047" stroke-width="1.5"/>
+          <text x="890" y="220" fill="#fde047" font-size="10" font-weight="900" text-anchor="middle">CENTER PWR TAP</text>
+        </g>
+
+        <!-- BREAK SYMBOL 4 (//) -->
+        <text x="975" y="158" fill="#64748b" font-size="18" font-weight="900" text-anchor="middle">//</text>
+        <text x="975" y="508" fill="#64748b" font-size="18" font-weight="900" text-anchor="middle">//</text>
+
+
+        <!-- ==================== STATION 5: 3.33m DATA CUT #2 (PAD 600) ==================== -->
+        <g>
+          <!-- Strip A Segment 5 (Cut between 599 and 600) -->
+          <rect x="985" y="115" width="180" height="76" rx="6" fill="#162032" stroke="#38bdf8" stroke-width="2"/>
+          <text x="1075" y="133" fill="#38bdf8" font-size="11" font-weight="800" text-anchor="middle">3.33m DATA CUT #2 (→)</text>
+          <rect x="995" y="142" width="58" height="40" rx="4" fill="#18181b" stroke="#52525b"/>
+          <text x="1024" y="159" fill="#94a3b8" font-size="10" font-weight="800" text-anchor="middle">PAD 599</text>
+          <text x="1024" y="173" fill="#64748b" font-size="9" text-anchor="middle">End Seg 2</text>
+          <!-- Scissors Cut Line -->
+          <line x1="1065" y1="115" x2="1065" y2="191" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="4,2"/>
+          <!-- Pad 600 DIN on Strip A -->
+          <rect x="1077" y="142" width="76" height="40" rx="4" fill="#0c2436" stroke="#38bdf8" stroke-width="2.5"/>
+          <text x="1115" y="159" fill="#38bdf8" font-size="11" font-weight="900" text-anchor="middle">PAD 600</text>
+          <text x="1115" y="174" fill="#ffffff" font-size="9.5" font-weight="800" text-anchor="middle">Strip A DIN →</text>
+
+          <!-- Strip B Segment 5 (Cut at 3.33m: Opposite Strip A 599/600 is Strip B Pad 300 DIN <- and Pad 299!) -->
+          <rect x="985" y="465" width="180" height="76" rx="6" fill="#1f1a14" stroke="#f59e0b" stroke-width="2"/>
+          <text x="1075" y="532" fill="#f59e0b" font-size="10.5" font-weight="800" text-anchor="middle">3.33m DATA CUT #2 (← Strip B)</text>
+          <rect x="993" y="474" width="64" height="40" rx="4" fill="#2e1d09" stroke="#f59e0b" stroke-width="2.5"/>
+          <text x="1025" y="491" fill="#f59e0b" font-size="10.5" font-weight="900" text-anchor="middle">PAD 300</text>
+          <text x="1025" y="506" fill="#ffffff" font-size="9" font-weight="800" text-anchor="middle">← Strip B DIN</text>
+          <!-- Scissors Cut Line -->
+          <line x1="1065" y1="465" x2="1065" y2="541" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="4,2"/>
+          <rect x="1077" y="474" width="76" height="40" rx="4" fill="#18181b" stroke="#52525b"/>
+          <text x="1115" y="491" fill="#94a3b8" font-size="10" font-weight="800" text-anchor="middle">PAD 299</text>
+          <text x="1115" y="505" fill="#64748b" font-size="9" text-anchor="middle">(← Seg 1 End)</text>
+        </g>
+
+        <!-- BREAK SYMBOL 5 (//) -->
+        <text x="1175" y="158" fill="#64748b" font-size="18" font-weight="900" text-anchor="middle">//</text>
+        <text x="1175" y="508" fill="#64748b" font-size="18" font-weight="900" text-anchor="middle">//</text>
+
+
+        <!-- ==================== STATION 6: 3.75m POWER TAP #4 (PADS 673 & 677) ==================== -->
+        <g id="stationPwr4">
+          <!-- Strip A Segment 6 -->
+          <rect x="1185" y="115" width="150" height="76" rx="6" fill="#162032" stroke="#ef4444" stroke-width="2"/>
+          <text x="1260" y="133" fill="#fca5a5" font-size="11" font-weight="800" text-anchor="middle">3.75m (LED 675)</text>
+          <rect x="1200" y="142" width="54" height="40" rx="4" fill="#3b1219" stroke="#ef4444" stroke-width="2"/>
+          <text x="1227" y="159" fill="#fca5a5" font-size="10.5" font-weight="900" text-anchor="middle">PAD 673</text>
+          <text x="1227" y="174" fill="#ef4444" font-size="10" font-weight="900" text-anchor="middle">+5V</text>
+          <rect x="1266" y="142" width="54" height="40" rx="4" fill="#1e293b" stroke="#cbd5e1" stroke-width="2"/>
+          <text x="1293" y="159" fill="#ffffff" font-size="10.5" font-weight="900" text-anchor="middle">PAD 677</text>
+          <text x="1293" y="174" fill="#cbd5e1" font-size="10" font-weight="900" text-anchor="middle">GND</text>
+
+          <!-- Strip B Segment 6 (Opposite 673 & 677 are 227 & 223!) -->
+          <rect x="1185" y="465" width="150" height="76" rx="6" fill="#1f1a14" stroke="#ef4444" stroke-width="2"/>
+          <text x="1260" y="532" fill="#fca5a5" font-size="10.5" font-weight="800" text-anchor="middle">3.75m (Strip B Pads 227/223)</text>
+          <rect x="1200" y="474" width="54" height="40" rx="4" fill="#3b1219" stroke="#ef4444" stroke-width="2"/>
+          <text x="1227" y="491" fill="#fca5a5" font-size="10.5" font-weight="900" text-anchor="middle">PAD 227</text>
+          <text x="1227" y="506" fill="#ef4444" font-size="10" font-weight="900" text-anchor="middle">+5V</text>
+          <rect x="1266" y="474" width="54" height="40" rx="4" fill="#1e293b" stroke="#cbd5e1" stroke-width="2"/>
+          <text x="1293" y="491" fill="#ffffff" font-size="10.5" font-weight="900" text-anchor="middle">PAD 223</text>
+          <text x="1293" y="506" fill="#cbd5e1" font-size="10" font-weight="900" text-anchor="middle">GND</text>
+
+          <!-- Vertical Power Risers for Tap #4 -->
+          <line x1="1227" y1="182" x2="1227" y2="474" stroke="#ef4444" stroke-width="3"/>
+          <circle cx="1227" cy="405" r="5.5" fill="#ef4444" stroke="#fff" stroke-width="1.5"/>
+          <line x1="1293" y1="182" x2="1293" y2="474" stroke="#cbd5e1" stroke-width="3"/>
+          <circle cx="1293" cy="425" r="5.5" fill="#cbd5e1" stroke="#000" stroke-width="1.5"/>
+          <rect x="1215" y="205" width="90" height="22" rx="4" fill="#3b1219" stroke="#ef4444"/>
+          <text x="1260" y="220" fill="#fca5a5" font-size="10" font-weight="800" text-anchor="middle">PWR TAP #4</text>
+        </g>
+
+        <!-- BREAK SYMBOL 6 (//) -->
+        <text x="1345" y="158" fill="#64748b" font-size="18" font-weight="900" text-anchor="middle">//</text>
+        <text x="1345" y="508" fill="#64748b" font-size="18" font-weight="900" text-anchor="middle">//</text>
+
+
+        <!-- ==================== STATION 7: 5.00m FAR RIGHT END (PADS 890..900) ==================== -->
+        <g>
+          <!-- Strip A Segment 7 (Ends at Pad 900) -->
+          <rect x="1355" y="115" width="180" height="76" rx="6" fill="#162032" stroke="#38bdf8" stroke-width="2"/>
+          <text x="1445" y="133" fill="#94a3b8" font-size="11" font-weight="800" text-anchor="middle">5.00m FAR END (→)</text>
+          <!-- Pad 890 (+5V) on Strip A -->
+          <rect x="1364" y="142" width="50" height="40" rx="4" fill="#3b1219" stroke="#ef4444" stroke-width="2"/>
+          <text x="1389" y="159" fill="#fca5a5" font-size="10" font-weight="900" text-anchor="middle">PAD 890</text>
+          <text x="1389" y="174" fill="#ef4444" font-size="10" font-weight="900" text-anchor="middle">+5V</text>
+          <!-- Pad 894 (GND) on Strip A -->
+          <rect x="1420" y="142" width="50" height="40" rx="4" fill="#1e293b" stroke="#cbd5e1" stroke-width="2"/>
+          <text x="1445" y="159" fill="#ffffff" font-size="10" font-weight="900" text-anchor="middle">PAD 894</text>
+          <text x="1445" y="174" fill="#cbd5e1" font-size="10" font-weight="900" text-anchor="middle">GND</text>
+          <!-- Pad 900 (End of Strip A) -->
+          <rect x="1476" y="142" width="50" height="40" rx="4" fill="#18181b" stroke="#52525b"/>
+          <text x="1501" y="159" fill="#94a3b8" font-size="9.5" font-weight="800" text-anchor="middle">PAD 900</text>
+          <text x="1501" y="173" fill="#64748b" font-size="8.5" text-anchor="middle">(A-End)</text>
+
+          <!-- Strip B Segment 7 (Strip B STARTS here at the Right End: Pad 0 DIN <-, Pad 6 GND, Pad 10 +5V!) -->
+          <rect x="1355" y="465" width="180" height="76" rx="6" fill="#1f1a14" stroke="#f59e0b" stroke-width="2.5"/>
+          <text x="1445" y="532" fill="#f59e0b" font-size="10.5" font-weight="900" text-anchor="middle">5.00m STRIP B START (← Pad 0)</text>
+          <!-- Pad 10 (+5V) on Strip B (Opposite Strip A Pad 890!) -->
+          <rect x="1364" y="474" width="50" height="40" rx="4" fill="#3b1219" stroke="#ef4444" stroke-width="2"/>
+          <text x="1389" y="491" fill="#fca5a5" font-size="10" font-weight="900" text-anchor="middle">PAD 10</text>
+          <text x="1389" y="506" fill="#ef4444" font-size="10" font-weight="900" text-anchor="middle">+5V</text>
+          <!-- Pad 6 (GND) on Strip B (Opposite Strip A Pad 894!) -->
+          <rect x="1420" y="474" width="50" height="40" rx="4" fill="#1e293b" stroke="#cbd5e1" stroke-width="2"/>
+          <text x="1445" y="491" fill="#ffffff" font-size="10" font-weight="900" text-anchor="middle">PAD 6</text>
+          <text x="1445" y="506" fill="#cbd5e1" font-size="10" font-weight="900" text-anchor="middle">GND</text>
+          <!-- Pad 0 (Strip B LED 0 DIN <- Start!) -->
+          <rect x="1476" y="474" width="52" height="40" rx="4" fill="#2e1d09" stroke="#f59e0b" stroke-width="2.5"/>
+          <text x="1502" y="491" fill="#f59e0b" font-size="10" font-weight="900" text-anchor="middle">PAD 0</text>
+          <text x="1502" y="506" fill="#ffffff" font-size="9" font-weight="800" text-anchor="middle">← B-DIN #1</text>
+
+          <!-- End Power Risers -->
+          <line x1="1389" y1="182" x2="1389" y2="474" stroke="#ef4444" stroke-width="3"/>
+          <circle cx="1389" cy="405" r="5.5" fill="#ef4444" stroke="#fff" stroke-width="1.5"/>
+          <line x1="1445" y1="182" x2="1445" y2="474" stroke="#cbd5e1" stroke-width="3"/>
+          <circle cx="1445" cy="425" r="5.5" fill="#cbd5e1" stroke="#000" stroke-width="1.5"/>
+          <rect x="1372" y="205" width="90" height="22" rx="4" fill="#3b1219" stroke="#ef4444"/>
+          <text x="1417" y="220" fill="#fca5a5" font-size="10" font-weight="800" text-anchor="middle">END PWR TAP</text>
+        </g>
+
+
+        <!-- ================= THE 5 DATA LINES RUNNING THROUGH THE CENTER CHANNEL ================= -->
+        <!-- Line 1 (Y=288): Cyan -> goes to Station 3 Strip A Pad 300 (X=745, Y=182) -->
+        <path d="M 206 218 L 250 288 L 745 288 L 745 182" stroke="#38bdf8" stroke-width="2.5" fill="none"/>
+        <circle cx="745" cy="182" r="4.5" fill="#38bdf8"/>
+        <text x="615" y="284" fill="#38bdf8" font-size="10" font-weight="800">Line 1 (33Ω → Strip A Pad 300)</text>
+
+        <!-- Line 2 (Y=306): Amber -> goes to Station 3 Strip B Pad 600 DIN <- (X=655, Y=474) -->
+        <path d="M 206 270 L 250 306 L 655 306 L 655 474" stroke="#f59e0b" stroke-width="2.5" fill="none"/>
+        <circle cx="655" cy="474" r="4.5" fill="#f59e0b"/>
+        <text x="515" y="320" fill="#f59e0b" font-size="10" font-weight="800">Line 2 (33Ω → Strip B Pad 600 ←)</text>
+
+        <!-- Line 3 (Y=324): Cyan -> goes to Station 5 Strip A Pad 600 (X=1115, Y=182) -->
+        <path d="M 206 322 L 250 324 L 1115 324 L 1115 182" stroke="#38bdf8" stroke-width="2.5" fill="none"/>
+        <circle cx="1115" cy="182" r="4.5" fill="#38bdf8"/>
+        <text x="985" y="319" fill="#38bdf8" font-size="10" font-weight="800">Line 3 (30Ω → Strip A Pad 600)</text>
+
+        <!-- Line 4 (Y=342): Amber -> goes to Station 5 Strip B Pad 300 DIN <- (X=1025, Y=474) -->
+        <path d="M 206 374 L 250 342 L 1025 342 L 1025 474" stroke="#f59e0b" stroke-width="2.5" fill="none"/>
+        <circle cx="1025" cy="474" r="4.5" fill="#f59e0b"/>
+        <text x="875" y="355" fill="#f59e0b" font-size="10" font-weight="800">Line 4 (30Ω → Strip B Pad 300 ←)</text>
+
+        <!-- Line 5 (Y=362): Amber -> goes ALL THE WAY to Station 7 Strip B Pad 0 Start <- (X=1502, Y=474) -->
+        <path d="M 206 428 L 250 362 L 1502 362 L 1502 474" stroke="#f59e0b" stroke-width="3" fill="none"/>
+        <circle cx="1502" cy="474" r="5" fill="#f59e0b"/>
+        <text x="1200" y="357" fill="#f59e0b" font-size="10.5" font-weight="800">Line 5 (22Ω → Runs 5.0m to Strip B Pad 0 Start ←)</text>
+
+      </svg>
+    </div>
+  </div>
+
+  <!-- ================= EXACT PAD-BY-PAD CONNECTION TABLES ================= -->
+  <div class="grid-2">
+    <!-- TABLE 1: POWER PADS -->
+    <div class="card">
+      <div class="card-header">
+        <h2>2. Exact LED Pad Numbers for Power (+5V &amp; GND with 4-Pad <code>wire_lock</code> Offset)</h2>
+        <span style="font-size:12px; color:#fca5a5; font-weight:700;">Measured in Pads (0..900) From the Left Entry (0.00m)</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Power Clip #</th>
+            <th>Position Along Tube</th>
+            <th>+5V Pad # (Red Window)</th>
+            <th>GND Pad # (Gray Window, +4 Pads / 22mm Offset)</th>
+            <th>Strip B Equivalent Pad # (Counted from Right End)</th>
+            <th>Distance to Nearest Data Cut</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Power Clip #1</strong> (Top Entry)</td>
+            <td><code>0.03 m – 0.05 m</code></td>
+            <td><span class="pad-badge">PAD 6 (+5V)</span></td>
+            <td><span class="pad-badge gnd">PAD 10 (GND)</span></td>
+            <td><code>B-Pad 894 (+5V)</code> / <code>B-Pad 890 (GND)</code></td>
+            <td><strong>6 pads (3.3 cm)</strong> clear of Pad 0 Data</td>
+          </tr>
+          <tr id="rowTap2">
+            <td><strong>Power Clip #2</strong> (1/4 Way)</td>
+            <td><code>1.25 m</code> (Center of 225)</td>
+            <td><span class="pad-badge">PAD 223 (+5V)</span></td>
+            <td><span class="pad-badge gnd">PAD 227 (GND)</span></td>
+            <td><code>B-Pad 677 (+5V)</code> / <code>B-Pad 673 (GND)</code></td>
+            <td><strong>73 pads (41 cm)</strong> clear of Pad 300 Data</td>
+          </tr>
+          <tr>
+            <td><strong>Power Clip #3</strong> (Exact Center)</td>
+            <td><code>2.50 m</code> (Center of 450)</td>
+            <td><span class="pad-badge">PAD 448 (+5V)</span></td>
+            <td><span class="pad-badge gnd">PAD 452 (GND)</span></td>
+            <td><code>B-Pad 452 (+5V)</code> / <code>B-Pad 448 (GND)</code></td>
+            <td><strong>148 pads (82 cm)</strong> clear of 300 &amp; 600</td>
+          </tr>
+          <tr id="rowTap4">
+            <td><strong>Power Clip #4</strong> (3/4 Way)</td>
+            <td><code>3.75 m</code> (Center of 675)</td>
+            <td><span class="pad-badge">PAD 673 (+5V)</span></td>
+            <td><span class="pad-badge gnd">PAD 677 (GND)</span></td>
+            <td><code>B-Pad 227 (+5V)</code> / <code>B-Pad 223 (GND)</code></td>
+            <td><strong>73 pads (41 cm)</strong> clear of Pad 600 Data</td>
+          </tr>
+          <tr>
+            <td><strong>Power Clip #5</strong> (Far End)</td>
+            <td><code>4.94 m – 4.97 m</code></td>
+            <td><span class="pad-badge">PAD 890 (+5V)</span></td>
+            <td><span class="pad-badge gnd">PAD 894 (GND)</span></td>
+            <td><code>B-Pad 10 (+5V)</code> / <code>B-Pad 6 (GND)</code></td>
+            <td><strong>6 pads (3.3 cm)</strong> clear of Pad 900 Data</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- TABLE 2: DATA PADS & THE 5 CHANNEL WIRES -->
+    <div class="card">
+      <div class="card-header">
+        <h2>3. Exact LED Pad Numbers for Data (Entry Wire + The 5 Channel Wires)</h2>
+        <span style="font-size:12px; color:#38bdf8; font-weight:700;">30 AWG (0.80mm OD) • Resistors at Arduino</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Wire ID</th>
+            <th>Target Strip &amp; Direction</th>
+            <th>Solder to Pad # (From Left)</th>
+            <th>Strip B Native Pad #</th>
+            <th>Total 30 AWG Length</th>
+            <th>Resistor (At Arduino)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Entry Wire</strong> <em>(Outside channel)</em></td>
+            <td><strong style="color:var(--dataA);">Strip A (→) Seg 1</strong></td>
+            <td><span class="pad-badge dataA">PAD 0 DIN (0.00m)</span></td>
+            <td>—</td>
+            <td><strong>1.00 m</strong> (1m lead + 0m)</td>
+            <td><strong style="color:var(--ok);">47Ω</strong> (Pin D2)</td>
+          </tr>
+          <tr>
+            <td><strong>Channel Line 1</strong> <em>(1 of 5)</em></td>
+            <td><strong style="color:var(--dataA);">Strip A (→) Seg 2</strong></td>
+            <td><span class="pad-badge dataA">PAD 300 DIN (1.67m)</span></td>
+            <td>—</td>
+            <td><strong>2.67 m</strong> (1m + 1.67m)</td>
+            <td><strong style="color:var(--ok);">33Ω</strong> (Pin D3)</td>
+          </tr>
+          <tr>
+            <td><strong>Channel Line 2</strong> <em>(2 of 5)</em></td>
+            <td><strong style="color:var(--dataB);">Strip B (←) Seg 3</strong></td>
+            <td><span class="pad-badge dataB">PAD 300 (1.67m)</span></td>
+            <td><code>B-Pad 600 DIN ←</code></td>
+            <td><strong>2.67 m</strong> (1m + 1.67m)</td>
+            <td><strong style="color:var(--ok);">33Ω</strong> (Pin D7)</td>
+          </tr>
+          <tr>
+            <td><strong>Channel Line 3</strong> <em>(3 of 5)</em></td>
+            <td><strong style="color:var(--dataA);">Strip A (→) Seg 3</strong></td>
+            <td><span class="pad-badge dataA">PAD 600 DIN (3.33m)</span></td>
+            <td>—</td>
+            <td><strong>4.33 m</strong> (1m + 3.33m)</td>
+            <td><strong style="color:var(--ok);">30Ω / 27Ω</strong> (Pin D4)</td>
+          </tr>
+          <tr>
+            <td><strong>Channel Line 4</strong> <em>(4 of 5)</em></td>
+            <td><strong style="color:var(--dataB);">Strip B (←) Seg 2</strong></td>
+            <td><span class="pad-badge dataB">PAD 600 (3.33m)</span></td>
+            <td><code>B-Pad 300 DIN ←</code></td>
+            <td><strong>4.33 m</strong> (1m + 3.33m)</td>
+            <td><strong style="color:var(--ok);">30Ω / 27Ω</strong> (Pin D6)</td>
+          </tr>
+          <tr>
+            <td><strong>Channel Line 5</strong> <em>(5 of 5)</em></td>
+            <td><strong style="color:var(--dataB);">Strip B (←) Seg 1 Start</strong></td>
+            <td><span class="pad-badge dataB">PAD 900 (5.00m End)</span></td>
+            <td><code>B-Pad 0 DIN ← (Start)</code></td>
+            <td><strong>6.00 m</strong> (1m + 5.00m)</td>
+            <td><strong style="color:var(--ok);">22Ω / 27Ω</strong> (Pin D5)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    function setHorizMode(taps) {
+      const s2 = document.getElementById("stationPwr2");
+      const s4 = document.getElementById("stationPwr4");
+      const r2 = document.getElementById("rowTap2");
+      const r4 = document.getElementById("rowTap4");
+      const b5 = document.getElementById("btnMode5");
+      const b3 = document.getElementById("btnMode3");
+
+      if (taps === 5) {
+        s2.style.opacity = "1";
+        s4.style.opacity = "1";
+        r2.style.opacity = "1";
+        r4.style.opacity = "1";
+        b5.classList.add("active");
+        b3.classList.remove("active");
+      } else {
+        s2.style.opacity = "0.2";
+        s4.style.opacity = "0.2";
+        r2.style.opacity = "0.3";
+        r4.style.opacity = "0.3";
+        b5.classList.remove("active");
+        b3.classList.add("active");
+      }
+    }
+  </script>
+</body>
+</html>

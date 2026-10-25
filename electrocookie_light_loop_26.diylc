@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project>
+  <fileVersion>
+    <major>4</major>
+    <minor>37</minor>
+    <build>0</build>
+  </fileVersion>
+  <title>Light Loop 26 — ElectroCookie UNO R4 Proto Shield (4-Tap &amp; 8-Tap Level Shifter)</title>
+  <author>Light Loop 26</author>
+  <description>6x PN2222A NPN Emitter-Follower 3.3V-to-5V Level Shifter (D3, D5, D6, D7, D11, D12) + 2x 330 Ohm Direct Short-Line Channels (D2, D4) on ElectroCookie Proto Shield REV3.3.</description>
+  <width value="8.0" unit="in"/>
+  <height value="7.0" unit="in"/>
+  <gridSpacing value="0.1" unit="in"/>
+  <components>
+    <!-- ElectroCookie Proto Board Base (Cols 1..10 Upper & Lower 3-Hole Strips + Center GND / +5V Buses) -->
+    <diylc.boards.VeroBoard>
+      <name>ElectroCookie_Proto_Shield</name>
+      <alpha>127</alpha>
+      <value></value>
+      <controlPoints>
+        <point x="1.5" y="1.0"/>
+        <point x="5.5" y="6.0"/>
+      </controlPoints>
+      <firstPoint x="1.5" y="1.0"/>
+      <secondPoint x="5.5" y="6.0"/>
+      <boardColor hex="092442"/>
+      <borderColor hex="38bdf8"/>
+      <coordinateColor hex="94a3b8"/>
+      <drawCoordinates>true</drawCoordinates>
+      <spacing value="0.1" unit="in"/>
+      <stripColor hex="cbd5e1"/>
+      <orientation>VERTICAL</orientation>
+    </diylc.boards.VeroBoard>
+  </components>
+</project>

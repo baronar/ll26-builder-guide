@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Light Loop 26 — 2-Tube Opposite-Strip 3(6)-Tap & 12-Tap Mobile Wiring Checklist</title>
+  <style>
+    :root {
+      --bg: #070a10;
+      --card: #111827;
+      --border: #1f2937;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --dataA: #38bdf8;
+      --dataB: #f59e0b;
+      --pwr: #ef4444;
+      --gnd: #cbd5e1;
+      --ok: #10b981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+      padding-bottom: 80px;
+      line-height: 1.45;
+      overflow-y: auto !important;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-y;
+    }
+    .sticky-top {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(11, 15, 23, 0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 14px;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.6);
+    }
+    .top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+    .nav-btn {
+      text-decoration: none;
+      background: #111827;
+      color: #cbd5e1;
+      border: 1px solid #334155;
+      border-radius: 7px;
+      padding: 7px 10px;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .ble-btn {
+      background: rgba(56, 189, 248, 0.16);
+      color: #38bdf8;
+      border: 1.5px solid #38bdf8;
+      border-radius: 7px;
+      padding: 7px 12px;
+      font-size: 11.5px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .ble-btn.connected {
+      background: rgba(16, 185, 129, 0.18);
+      color: #34d399;
+      border-color: #10b981;
+    }
+    .prog-track {
+      width: 100%;
+      height: 8px;
+      background: #111827;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      margin-top: 5px;
+    }
+    .prog-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #0284c7, #38bdf8, #10b981);
+      transition: width 0.2s ease;
+    }
+    .filter-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .tab-btn {
+      background: #111827;
+      color: #94a3b8;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 11.5px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .tab-btn.active {
+      background: rgba(56, 189, 248, 0.18);
+      color: #38bdf8;
+      border-color: #38bdf8;
+    }
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 14px 12px;
+    }
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .nav-tab {
+      text-decoration: none;
+      padding: 7px 12px;
+      border-radius: 7px;
+      font-size: 11.5px;
+      font-weight: 800;
+      background: #111827;
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+    .nav-tab.active {
+      background: rgba(16, 185, 129, 0.16);
+      color: #34d399;
+      border-color: #10b981;
+    }
+    .config-bar {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .station-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    .station-card.done {
+      border-color: rgba(16, 185, 129, 0.45);
+    }
+    .station-head {
+      background: #0b0f17;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .station-card.done .station-head {
+      background: rgba(16, 185, 129, 0.1);
+    }
+    .item-row {
+      padding: 12px 14px;
+      border-bottom: 1px solid #1a2333;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      cursor: pointer;
+    }
+    .item-row:last-child { border-bottom: none; }
+    .item-row.checked { background: rgba(16, 185, 129, 0.04); }
+    .chk-box {
+      width: 26px;
+      height: 26px;
+      min-width: 26px;
+      border-radius: 7px;
+      border: 2px solid #475569;
+      background: #070a10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+    .item-row.checked .chk-box {
+      border-color: #10b981;
+      background: #10b981;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.35);
+    }
+    .badge {
+      display: inline-block;
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 4px;
+      margin-right: 5px;
+      margin-bottom: 4px;
+    }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .test-btn {
+      background: #0b1322;
+      color: #38bdf8;
+      border: 1px solid #0284c7;
+      border-radius: 6px;
+      padding: 6px 9px;
+      font-size: 10.5px;
+      font-weight: 900;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .test-btn.active {
+      background: rgba(0, 255, 136, 0.22);
+      color: #00ff88;
+      border-color: #00ff88;
+    }
+  
+  /* Unified Light Loop Drive Bundle Top Nav */
+  .ll-bundle-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    background: #060911;
+    border: 1px solid #1e293b;
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+  }
+  .ll-bundle-brand {
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #00f0ff;
+    padding-right: 10px;
+    border-right: 1px solid #334155;
+    margin-right: 4px;
+  }
+  .ll-bundle-link {
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 11px;
+    border-radius: 6px;
+    background: #111827;
+    color: #cbd5e1;
+    border: 1px solid #334155;
+    transition: all 0.14s ease;
+  }
+  .ll-bundle-link:hover {
+    color: #ffffff;
+    border-color: #38bdf8;
+    background: #1e293b;
+  }
+  .ll-bundle-link.active {
+    background: rgba(56, 189, 248, 0.18);
+    color: #38bdf8;
+    border-color: #38bdf8;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
+  }
+
+  </style>
+</head>
+<body>
+  <div class="ll-bundle-nav"><span class="ll-bundle-brand">LIGHT LOOP v2.545.0 PACK</span><a class="ll-bundle-link" href="00_START_HERE_BUILDER_GUIDE.html">00. Start Here: Builder & SW Guide</a><a class="ll-bundle-link" href="electro-cookie-interactive-wiring.html">01. ElectroCookie Shield Explorer</a><a class="ll-bundle-link" href="wiring-horizontal.html">02. Horizontal Tube Pad Map</a><a class="ll-bundle-link active" href="checklist.html">03. 51-Step Solder Checklist</a><a class="ll-bundle-link" href="wiring.html">04. 5m Master Vertical Blueprint</a><a class="ll-bundle-link" href="wiring-split.html">05. Split Connectors (Opt A)</a><a class="ll-bundle-link" href="wiring-hybrid.html">06. Hybrid 2P+6D Connector (Opt B)</a></div>
+
+  <div class="sticky-top">
+    <div class="top-row">
+      <div>
+        <div style="font-size:15px;font-weight:900;color:#fff;">2-TUBE OPPOSITE-STRIP WIRING CHECKLIST</div>
+        <div id="sync-status" style="font-size:11px;color:#94a3b8;font-weight:600;">SAVED ON PHONE (LOCAL) • v2.541.0</div>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <button id="ble-btn" class="ble-btn" onclick="connectBle()">LINK ARDUINO BLE</button>
+        <a class="nav-btn" href="/?view=phone">PHONE CONTROLLER</a>
+        <a class="nav-btn" href="/wiring-horizontal.html">PAD SCHEMATIC</a>
+      </div>
+    </div>
+
+    <div>
+      <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:800;">
+        <span id="prog-label" style="color:#38bdf8;">BUILD PROGRESS: 0 / 51 (0%)</span>
+        <span id="phase-label" style="color:#94a3b8;font-size:11px;">BENCH 0/9 • TUBE 1 0/21 • TUBE 2 0/21</span>
+      </div>
+      <div class="prog-track">
+        <div id="prog-fill" class="prog-fill" style="width:0%;"></div>
+      </div>
+    </div>
+
+    <div class="filter-row">
+      <div style="display:flex;gap:5px;flex-wrap:wrap;">
+        <button id="tab-all" class="tab-btn active" onclick="setPhase('all')">ALL</button>
+        <button id="tab-bench" class="tab-btn" onclick="setPhase('bench')">1. BENCH</button>
+        <button id="tab-tube1" class="tab-btn" onclick="setPhase('tube1')">2. TUBE 1</button>
+        <button id="tab-tube2" class="tab-btn" onclick="setPhase('tube2')">3. TUBE 2</button>
+      </div>
+      <div style="display:flex;gap:5px;">
+        <button id="btn-hide-done" class="tab-btn" onclick="toggleHideDone()">HIDE DONE</button>
+        <button id="btn-reset" class="tab-btn" style="color:#fca5a5;border-color:rgba(239,68,68,0.4);" onclick="resetAll()">RESET</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <nav class="nav-tabs">
+      <a class="nav-tab active" href="/checklist.html">0. Interactive Mobile Solder Checklist (51 Steps)</a>
+      <a class="nav-tab" href="/wiring-horizontal.html">1. Horizontal Compressed Connection &amp; Pad Map</a>
+      <a class="nav-tab" href="/wiring.html">2. Full 5m Vertical Blueprint</a>
+      <a class="nav-tab" href="/wiring-split.html">3. Split Connectors (2P + 3D)</a>
+      <a class="nav-tab" href="/wiring-hybrid.html">4. Hybrid 2P+6D Connector</a>
+    </nav>
+
+    <div class="config-bar">
+      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+        <span style="font-size:11px;font-weight:800;color:#94a3b8;">PIN TOPOLOGY:</span>
+        <button id="pin-6" class="tab-btn active" onclick="setPinMode('6pin')">6-PIN SHARED (D2–D7)</button>
+        <button id="pin-12" class="tab-btn" onclick="setPinMode('12pin')">12-PIN 3,600-LED (D2–D7 + A0–A3, D11, D12)</button>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+        <span style="font-size:11px;font-weight:800;color:#94a3b8;">POWER TAPS:</span>
+        <button id="pwr-5" class="tab-btn active" onclick="setPowerMode(5)">5 POWER TAPS (0, 225, 450, 675, 900)</button>
+        <button id="pwr-3" class="tab-btn" onclick="setPowerMode(3)">3 POWER TAPS (0, 450, 900)</button>
+      </div>
+    </div>
+
+    <div id="stations-root"></div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'll26_wiring_checklist_state_v1';
+    const BLE_SERVICE_UUID = '000019b1-0000-1000-8000-00805f9b34fb';
+    const BLE_CHAR_UUID = '19b10001-e8f2-537e-4f6c-d104768a1214';
+    const FALLBACK_SERVICE_UUID = 'a8027c79-ca79-4096-9dd0-8a006f30419b';
+    const FALLBACK_CHAR_UUID = 'a8027c79-ca79-4096-9dd0-8a006f30419c';
+
+    const ITEMS = [
+      { bit:0, phase:'bench', station:'BENCH STATION A • ARDUINO RESISTOR BANK', elev:'Arduino Box', cat:'resistor', title:'Strip A Start Series Resistor (47 Ohm)', pad:'STRIP A PAD 0 DIN ->', pin6:'Pin D2 (Shared T1 & T2)', pin12:'T1: Pin D2 | T2: Pin A0', res:'47 Ohm', detail:'Solder 47 Ohm series termination resistor at Arduino output for Strip A Top Entry (LED 1 / Pad 0).', led:0, rgb:[255,255,255] },
+      { bit:1, phase:'bench', station:'BENCH STATION A • ARDUINO RESISTOR BANK', elev:'Arduino Box', cat:'resistor', title:'Strip A Mid-1 Series Resistor (33 Ohm)', pad:'STRIP A PAD 300 DIN ->', pin6:'Pin D3 (Shared T1 & T2)', pin12:'T1: Pin D3 | T2: Pin A1', res:'33 Ohm', detail:'Solder 33 Ohm series resistor at Arduino output for Strip A Segment 2 (LED 301 / Pad 300 @ 1.67m).', led:300, rgb:[0,255,136] },
+      { bit:2, phase:'bench', station:'BENCH STATION A • ARDUINO RESISTOR BANK', elev:'Arduino Box', cat:'resistor', title:'Strip A Mid-2 Series Resistor (30 Ohm)', pad:'STRIP A PAD 600 DIN ->', pin6:'Pin D4 (Shared T1 & T2)', pin12:'T1: Pin D4 | T2: Pin A2', res:'30 Ohm', detail:'Solder 30 Ohm series resistor at Arduino output for Strip A Segment 3 (LED 601 / Pad 600 @ 3.33m).', led:600, rgb:[56,189,248] },
+      { bit:3, phase:'bench', station:'BENCH STATION A • ARDUINO RESISTOR BANK', elev:'Arduino Box', cat:'resistor', title:'Strip B Bottom Entry Series Resistor (22 Ohm)', pad:'STRIP B B-PAD 0 DIN <-', pin6:'Pin D5 (Shared T1 & T2)', pin12:'T1: Pin D5 | T2: Pin A3', res:'22 Ohm', detail:'Solder 22 Ohm low-value series resistor at Arduino output for Strip B 6.00m long wire run to 5.00m far end (B-Pad 0).', led:899, rgb:[255,180,0] },
+      { bit:4, phase:'bench', station:'BENCH STATION A • ARDUINO RESISTOR BANK', elev:'Arduino Box', cat:'resistor', title:'Strip B Mid-1 Series Resistor (30 Ohm)', pad:'STRIP B B-PAD 300 DIN <-', pin6:'Pin D6 (Shared T1 & T2)', pin12:'T1: Pin D6 | T2: Pin D11', res:'30 Ohm', detail:'Solder 30 Ohm series resistor at Arduino output for Strip B Segment 2 (B-Pad 300 @ 3.33m from top).', led:599, rgb:[255,0,204] },
+      { bit:5, phase:'bench', station:'BENCH STATION A • ARDUINO RESISTOR BANK', elev:'Arduino Box', cat:'resistor', title:'Strip B Mid-2 Series Resistor (33 Ohm)', pad:'STRIP B B-PAD 600 DIN <-', pin6:'Pin D7 (Shared T1 & T2)', pin12:'T1: Pin D7 | T2: Pin D12', res:'33 Ohm', detail:'Solder 33 Ohm series resistor at Arduino output for Strip B Segment 3 (B-Pad 600 @ 1.67m from top).', led:299, rgb:[168,85,247] },
+      { bit:6, phase:'bench', station:'BENCH STATION B • 5V 40A PSU & STAR GROUND', elev:'PSU Bus', cat:'power_psu', title:'Arduino GND <-> Mean Well 40A PSU V- Star Ground Reference', pad:'STAR GROUND LINK', pin6:'Arduino GND -> PSU V-', pin12:'Arduino GND -> PSU V-', detail:'Connect 18 AWG Ground reference wire directly between Arduino UNO R4 GND pin and Mean Well LRS-200-5 V- busbar.' },
+      { bit:7, phase:'bench', station:'BENCH STATION B • 5V 40A PSU & STAR GROUND', elev:'PSU Bus', cat:'power_psu', title:'Tube 1 Main 14 AWG Power Trunk + 20A Inline Blade Fuse', pad:'TUBE 1 +5V & GND BUS', pin6:'PSU V+ (20A Fuse) & V-', pin12:'PSU V+ (20A Fuse) & V-', detail:'Connect Tube 1 14 AWG silicone Red (+5V through 20A blade fuse) and Black/Gray (GND) trunk lines to PSU busbars.' },
+      { bit:8, phase:'bench', station:'BENCH STATION B • 5V 40A PSU & STAR GROUND', elev:'PSU Bus', cat:'power_psu', title:'Tube 2 Main 14 AWG Power Trunk + 20A Inline Blade Fuse', pad:'TUBE 2 +5V & GND BUS', pin6:'PSU V+ (20A Fuse) & V-', pin12:'PSU V+ (20A Fuse) & V-', detail:'Connect Tube 2 14 AWG silicone Red (+5V through 20A blade fuse) and Black/Gray (GND) trunk lines to PSU busbars.' },
+
+      { bit:9, phase:'tube1', station:'TUBE 1 • STATION 1: TOP ENTRY (0.00m / PADS 0 .. 10)', elev:'0.00 m', cat:'prep', title:'Tube 1: Route 5-Wire Data Bundle & 14 AWG Power Bus Into Center Channel', pad:'5 DATA + 2 POWER BUS', opp:'Strip 1B B-Pad 900 End', pin6:'D3, D4, D5, D6, D7 inside channel', pin12:'D3, D4, D5, D6, D7 inside channel', detail:'Feed the 5 inner data wires (Lines 1..5) and the 14 AWG +5V/GND bus down Tube 1 center channel. Keep D2 outside for Pad 0.' },
+      { bit:10, phase:'tube1', station:'TUBE 1 • STATION 1: TOP ENTRY (0.00m / PADS 0 .. 10)', elev:'0.00 m', cat:'data_a', title:'Tube 1: Solder Pin D2 Lead to Strip 1A Pad 0 DIN (->)', pad:'STRIP 1A PAD 0 DIN ->', opp:'Opposite Strip 1B B-Pad 900 (End)', pin6:'Pin D2 (Port 1, Bit 4)', pin12:'Pin D2 (Port 1, Bit 4)', res:'47 Ohm', detail:'Solder 1.00m green data lead from Pin D2 directly to Strip 1A Pad 0 DIN at the top of Tube 1 (LEDs 1..300 forward).', led:0, rgb:[255,60,60] },
+      { bit:11, phase:'tube1', station:'TUBE 1 • STATION 1: TOP ENTRY (0.00m / PADS 0 .. 10)', elev:'0.03 m', cat:'power_5v', title:'Tube 1: Top Power Tap #1 (+5V Red Window @ Pad 6 & GND @ Pad 10)', pad:'1A PAD 6(+5V) / PAD 10(GND)', opp:'1B B-PAD 894(+5V) / 890(GND)', pin6:'14 AWG +5V & GND Bus #1', pin12:'14 AWG +5V & GND Bus #1', detail:'In Clip #1 (6 pads clear of Pad 0 data), solder Red +5V riser (1A Pad 6 & 1B B-Pad 894) and Gray GND riser (1A Pad 10 & 1B B-Pad 890).' },
+      { bit:12, phase:'tube1', station:'TUBE 1 • STATION 2: 1/4-WAY POWER TAP #2 (PADS 223 & 227)', elev:'1.25 m', cat:'power_5v', title:'Tube 1: Power Tap #2 (+5V Red Window @ Pad 223)', pad:'STRIP 1A PAD 223 (+5V)', opp:'STRIP 1B B-PAD 677 (+5V)', pin6:'14 AWG +5V Bus #1', pin12:'14 AWG +5V Bus #1', detail:'At 1.25m (LED 225), solder Red +5V bus riser bridging Strip 1A Pad 223 (+5V) and opposite Strip 1B B-Pad 677 (+5V).', pwr5:true },
+      { bit:13, phase:'tube1', station:'TUBE 1 • STATION 2: 1/4-WAY POWER TAP #2 (PADS 223 & 227)', elev:'1.27 m', cat:'power_gnd', title:'Tube 1: Power Tap #2 (GND Gray Window @ Pad 227)', pad:'STRIP 1A PAD 227 (GND)', opp:'STRIP 1B B-PAD 673 (GND)', pin6:'14 AWG GND Bus #1', pin12:'14 AWG GND Bus #1', detail:'At 1.25m second clip window (+4 pads down), solder GND bus riser bridging Strip 1A Pad 227 (GND) and opposite Strip 1B B-Pad 673 (GND).', pwr5:true },
+      { bit:14, phase:'tube1', station:'TUBE 1 • STATION 3: DATA CUT #1 (300 LEDs DOWN @ 1.67m)', elev:'1.67 m', cat:'cut', title:'Tube 1: Cut Strip 1A Copper Data Trace Between Pad 299 & Pad 300', pad:'CUT: 1A PAD 299 | PAD 300', opp:'Opposite Strip 1B B-Pad 600', pin6:'Isolates D2 from D3', pin12:'Isolates D2 from D3', detail:'With flush cutters or hobby blade, slice ONLY the center copper data trace between Strip 1A Pad 299 DOUT and Pad 300 DIN. Leave +5V and GND uncut!' },
+      { bit:15, phase:'tube1', station:'TUBE 1 • STATION 3: DATA CUT #1 (300 LEDs DOWN @ 1.67m)', elev:'1.67 m', cat:'data_a', title:'Tube 1: Solder Channel Line 1 to Strip 1A Pad 300 DIN (->)', pad:'STRIP 1A PAD 300 DIN ->', opp:'Opposite Strip 1B B-Pad 600', pin6:'Pin D3 (Port 1, Bit 5)', pin12:'Pin D3 (Port 1, Bit 5)', res:'33 Ohm', detail:'Break out Channel Line 1 at 1.67m and solder to Strip 1A Pad 300 DIN (drives forward LEDs 301..600). Line 1 ends here.', led:300, rgb:[0,255,136] },
+      { bit:16, phase:'tube1', station:'TUBE 1 • STATION 3: DATA CUT #1 (300 LEDs DOWN @ 1.67m)', elev:'1.67 m', cat:'cut', title:'Tube 1: Cut Strip 1B Copper Data Trace Between B-Pad 599 & B-Pad 600', pad:'CUT: 1B B-PAD 599 | B-PAD 600', opp:'Opposite Strip 1A Pad 299/300', pin6:'Isolates D6 from D7', pin12:'Isolates D6 from D7', detail:'On opposite Strip 1B (at the exact same 1.67m physical station), slice ONLY the center data trace between B-Pad 599 and B-Pad 600.' },
+      { bit:17, phase:'tube1', station:'TUBE 1 • STATION 3: DATA CUT #1 (300 LEDs DOWN @ 1.67m)', elev:'1.67 m', cat:'data_b', title:'Tube 1: Solder Channel Line 2 to Strip 1B B-Pad 600 DIN (<-)', pad:'STRIP 1B B-PAD 600 DIN <-', opp:'Opposite Strip 1A Pad 300', pin6:'Pin D7 (Port 1, Bit 12)', pin12:'Pin D7 (Port 1, Bit 12)', res:'33 Ohm', detail:'Break out Channel Line 2 at 1.67m and solder to Strip 1B B-Pad 600 DIN (drives Strip 1B LEDs 601..900 flowing upward toward 0.00m).', led:299, rgb:[0,240,255] },
+      { bit:18, phase:'tube1', station:'TUBE 1 • STATION 4: CENTER POWER TAP #3 (2.50m / PADS 448 & 452)', elev:'2.50 m', cat:'power_5v', title:'Tube 1: Center Power Tap #3 (+5V Red Window @ Pad 448)', pad:'STRIP 1A PAD 448 (+5V)', opp:'STRIP 1B B-PAD 452 (+5V)', pin6:'14 AWG +5V Bus #1', pin12:'14 AWG +5V Bus #1', detail:'At exact 2.50m tube midpoint (LED 450), solder Red +5V bus riser bridging Strip 1A Pad 448 (+5V) and opposite Strip 1B B-Pad 452 (+5V).' },
+      { bit:19, phase:'tube1', station:'TUBE 1 • STATION 4: CENTER POWER TAP #3 (2.50m / PADS 448 & 452)', elev:'2.52 m', cat:'power_gnd', title:'Tube 1: Center Power Tap #3 (GND Gray Window @ Pad 452)', pad:'STRIP 1A PAD 452 (GND)', opp:'STRIP 1B B-PAD 448 (GND)', pin6:'14 AWG GND Bus #1', pin12:'14 AWG GND Bus #1', detail:'At 2.50m second clip window, solder GND bus riser bridging Strip 1A Pad 452 (GND) and opposite Strip 1B B-Pad 448 (GND).' },
+      { bit:20, phase:'tube1', station:'TUBE 1 • STATION 5: DATA CUT #2 (600 LEDs DOWN @ 3.33m)', elev:'3.33 m', cat:'cut', title:'Tube 1: Cut Strip 1A Copper Data Trace Between Pad 599 & Pad 600', pad:'CUT: 1A PAD 599 | PAD 600', opp:'Opposite Strip 1B B-Pad 300', pin6:'Isolates D3 from D4', pin12:'Isolates D3 from D4', detail:'At 3.33m from top (LED 600), slice ONLY the center copper data trace between Strip 1A Pad 599 DOUT and Pad 600 DIN.' },
+      { bit:21, phase:'tube1', station:'TUBE 1 • STATION 5: DATA CUT #2 (600 LEDs DOWN @ 3.33m)', elev:'3.33 m', cat:'data_a', title:'Tube 1: Solder Channel Line 3 to Strip 1A Pad 600 DIN (->)', pad:'STRIP 1A PAD 600 DIN ->', opp:'Opposite Strip 1B B-Pad 300', pin6:'Pin D4 (Port 1, Bit 6)', pin12:'Pin D4 (Port 1, Bit 6)', res:'30 Ohm', detail:'Break out Channel Line 3 at 3.33m and solder to Strip 1A Pad 600 DIN (drives forward LEDs 601..900 down to 5.00m). Line 3 ends here.', led:600, rgb:[56,189,248] },
+      { bit:22, phase:'tube1', station:'TUBE 1 • STATION 5: DATA CUT #2 (600 LEDs DOWN @ 3.33m)', elev:'3.33 m', cat:'cut', title:'Tube 1: Cut Strip 1B Copper Data Trace Between B-Pad 299 & B-Pad 300', pad:'CUT: 1B B-PAD 299 | B-PAD 300', opp:'Opposite Strip 1A Pad 599/600', pin6:'Isolates D5 from D6', pin12:'Isolates D5 from D6', detail:'On opposite Strip 1B at 3.33m from top, slice ONLY the center data trace between B-Pad 299 and B-Pad 300.' },
+      { bit:23, phase:'tube1', station:'TUBE 1 • STATION 5: DATA CUT #2 (600 LEDs DOWN @ 3.33m)', elev:'3.33 m', cat:'data_b', title:'Tube 1: Solder Channel Line 4 to Strip 1B B-Pad 300 DIN (<-)', pad:'STRIP 1B B-PAD 300 DIN <-', opp:'Opposite Strip 1A Pad 600', pin6:'Pin D6 (Port 1, Bit 11)', pin12:'Pin D6 (Port 1, Bit 11)', res:'30 Ohm', detail:'Break out Channel Line 4 at 3.33m and solder to Strip 1B B-Pad 300 DIN (drives Strip 1B LEDs 301..600 flowing upward from 3.33m to 1.67m).', led:599, rgb:[255,0,204] },
+      { bit:24, phase:'tube1', station:'TUBE 1 • STATION 6: 3/4-WAY POWER TAP #4 (PADS 673 & 677)', elev:'3.75 m', cat:'power_5v', title:'Tube 1: Power Tap #4 (+5V Red Window @ Pad 673)', pad:'STRIP 1A PAD 673 (+5V)', opp:'STRIP 1B B-PAD 227 (+5V)', pin6:'14 AWG +5V Bus #1', pin12:'14 AWG +5V Bus #1', detail:'At 3.75m (LED 675), solder Red +5V bus riser bridging Strip 1A Pad 673 (+5V) and opposite Strip 1B B-Pad 227 (+5V).', pwr5:true },
+      { bit:25, phase:'tube1', station:'TUBE 1 • STATION 6: 3/4-WAY POWER TAP #4 (PADS 673 & 677)', elev:'3.77 m', cat:'power_gnd', title:'Tube 1: Power Tap #4 (GND Gray Window @ Pad 677)', pad:'STRIP 1A PAD 677 (GND)', opp:'STRIP 1B B-PAD 223 (GND)', pin6:'14 AWG GND Bus #1', pin12:'14 AWG GND Bus #1', detail:'At 3.75m second clip window, solder GND bus riser bridging Strip 1A Pad 677 (GND) and opposite Strip 1B B-Pad 223 (GND).', pwr5:true },
+      { bit:26, phase:'tube1', station:'TUBE 1 • STATION 7: FAR END (5.00m / PADS 890 .. 900)', elev:'5.00 m', cat:'data_b', title:'Tube 1: Solder Channel Line 5 to Strip 1B B-Pad 0 DIN (<- Start!)', pad:'STRIP 1B B-PAD 0 DIN <-', opp:'Opposite Strip 1A Pad 900 (End)', pin6:'Pin D5 (Port 1, Bit 7)', pin12:'Pin D5 (Port 1, Bit 7)', res:'22 Ohm', detail:'At the 5.00m far end of Tube 1, solder the remaining Channel Line 5 to Strip 1B B-Pad 0 DIN so Strip 1B flows backward toward 0.00m.', led:899, rgb:[255,180,0] },
+      { bit:27, phase:'tube1', station:'TUBE 1 • STATION 7: FAR END (5.00m / PADS 890 .. 900)', elev:'4.95 m', cat:'power_5v', title:'Tube 1: Far-End Power Tap #5 (+5V @ Pad 890 & GND @ Pad 894)', pad:'1A PAD 890(+5V) / 894(GND)', opp:'1B B-PAD 10(+5V) / 6(GND)', pin6:'14 AWG +5V & GND Bus #1', pin12:'14 AWG +5V & GND Bus #1', detail:'In Clip #5 (6 pads clear of B-Pad 0 data), solder Red +5V riser (1A Pad 890 & 1B B-Pad 10) and Gray GND riser (1A Pad 894 & 1B B-Pad 6).' },
+      { bit:28, phase:'tube1', station:'TUBE 1 • STATION 7: FAR END (5.00m / PADS 890 .. 900)', elev:'Tube 1 QA', cat:'verify', title:'Tube 1: Multimeter Continuity & 6-Segment Boundary Light Check', pad:'VERIFY +5V TO GND > 1 kOhm', pin6:'D2, D3, D4, D5, D6, D7', pin12:'D2, D3, D4, D5, D6, D7', detail:'Verify +5V to GND resistance is unshorted (> 1 kOhm), then power Tube 1 and verify all 6 segments (LEDs 1, 301, 601 on 1A & 1B) illuminate.', led:899, rgb:[0,255,136] },
+
+      { bit:29, phase:'tube2', station:'TUBE 2 • STATION 1: TOP ENTRY (0.00m / PADS 0 .. 10)', elev:'0.00 m', cat:'prep', title:'Tube 2: Route 5-Wire Data Bundle & 14 AWG Power Bus #2 Into Center Channel', pad:'TUBE 2 HARNESS ENTRY', opp:'Circle LED 901..1800 Half', pin6:'Shared Y-Split (D3..D7)', pin12:'Independent (A1, A2, A3, D11, D12)', detail:'Feed Tube 2 5-wire channel bundle and 14 AWG Power Bus #2 into Tube 2 center channel.' },
+      { bit:30, phase:'tube2', station:'TUBE 2 • STATION 1: TOP ENTRY (0.00m / PADS 0 .. 10)', elev:'0.00 m', cat:'data_a', title:'Tube 2: Solder Top Entry Lead to Strip 2A Pad 0 DIN (->)', pad:'STRIP 2A PAD 0 DIN ->', opp:'Circle Inside LED 901..1200', pin6:'Pin D2 (Y-Split)', pin12:'Pin A0 (Port 0, Bit 14)', res:'47 Ohm', detail:'Solder Tube 2 Top Entry data wire to Strip 2A Pad 0 DIN (drives forward LEDs 1..300 on Tube 2).', led:0, rgb:[255,60,60] },
+      { bit:31, phase:'tube2', station:'TUBE 2 • STATION 1: TOP ENTRY (0.00m / PADS 0 .. 10)', elev:'0.03 m', cat:'power_5v', title:'Tube 2: Top Power Tap #1 (+5V Red Window @ Pad 6 & GND @ Pad 10)', pad:'2A PAD 6(+5V) / PAD 10(GND)', opp:'2B B-PAD 894(+5V) / 890(GND)', pin6:'14 AWG +5V & GND Bus #2', pin12:'14 AWG +5V & GND Bus #2', detail:'In Tube 2 Clip #1, solder Red +5V riser (2A Pad 6 & 2B B-Pad 894) and Gray GND riser (2A Pad 10 & 2B B-Pad 890).' },
+      { bit:32, phase:'tube2', station:'TUBE 2 • STATION 2: 1/4-WAY POWER TAP #2 (PADS 223 & 227)', elev:'1.25 m', cat:'power_5v', title:'Tube 2: Power Tap #2 (+5V Red Window @ Pad 223)', pad:'STRIP 2A PAD 223 (+5V)', opp:'STRIP 2B B-PAD 677 (+5V)', pin6:'14 AWG +5V Bus #2', pin12:'14 AWG +5V Bus #2', detail:'At 1.25m on Tube 2 (LED 225), solder Red +5V bus riser bridging Strip 2A Pad 223 (+5V) and opposite Strip 2B B-Pad 677 (+5V).', pwr5:true },
+      { bit:33, phase:'tube2', station:'TUBE 2 • STATION 2: 1/4-WAY POWER TAP #2 (PADS 223 & 227)', elev:'1.27 m', cat:'power_gnd', title:'Tube 2: Power Tap #2 (GND Gray Window @ Pad 227)', pad:'STRIP 2A PAD 227 (GND)', opp:'STRIP 2B B-PAD 673 (GND)', pin6:'14 AWG GND Bus #2', pin12:'14 AWG GND Bus #2', detail:'At 1.25m second clip window on Tube 2, solder GND bus riser bridging Strip 2A Pad 227 (GND) and opposite Strip 2B B-Pad 673 (GND).', pwr5:true },
+      { bit:34, phase:'tube2', station:'TUBE 2 • STATION 3: DATA CUT #1 (300 LEDs DOWN @ 1.67m)', elev:'1.67 m', cat:'cut', title:'Tube 2: Cut Strip 2A Copper Data Trace Between Pad 299 & Pad 300', pad:'CUT: 2A PAD 299 | PAD 300', opp:'Opposite Strip 2B B-Pad 600', pin6:'Isolates D2 from D3', pin12:'Isolates A0 from A1', detail:'Slice ONLY the center copper data trace between Strip 2A Pad 299 DOUT and Pad 300 DIN at 1.67m. Leave +5V and GND uncut!' },
+      { bit:35, phase:'tube2', station:'TUBE 2 • STATION 3: DATA CUT #1 (300 LEDs DOWN @ 1.67m)', elev:'1.67 m', cat:'data_a', title:'Tube 2: Solder Channel Line 1 to Strip 2A Pad 300 DIN (->)', pad:'STRIP 2A PAD 300 DIN ->', opp:'Circle Inside LED 1201..1500', pin6:'Pin D3 (Y-Split)', pin12:'Pin A1 (Port 0, Bit 0)', res:'33 Ohm', detail:'Break out Tube 2 Channel Line 1 at 1.67m and solder to Strip 2A Pad 300 DIN (drives forward LEDs 301..600 on Tube 2).', led:300, rgb:[0,255,136] },
+      { bit:36, phase:'tube2', station:'TUBE 2 • STATION 3: DATA CUT #1 (300 LEDs DOWN @ 1.67m)', elev:'1.67 m', cat:'cut', title:'Tube 2: Cut Strip 2B Copper Data Trace Between B-Pad 599 & B-Pad 600', pad:'CUT: 2B B-PAD 599 | B-PAD 600', opp:'Opposite Strip 2A 299/300', pin6:'Isolates D6 from D7', pin12:'Isolates D11 from D12', detail:'On opposite Strip 2B at 1.67m from top, slice ONLY the center data trace between B-Pad 599 and B-Pad 600.' },
+      { bit:37, phase:'tube2', station:'TUBE 2 • STATION 3: DATA CUT #1 (300 LEDs DOWN @ 1.67m)', elev:'1.67 m', cat:'data_b', title:'Tube 2: Solder Channel Line 2 to Strip 2B B-Pad 600 DIN (<-)', pad:'STRIP 2B B-PAD 600 DIN <-', opp:'Circle Outside LED 1501..1800', pin6:'Pin D7 (Y-Split)', pin12:'Pin D12 (Port 4, Bit 10)', res:'33 Ohm', detail:'Break out Tube 2 Channel Line 2 at 1.67m and solder to Strip 2B B-Pad 600 DIN (drives Strip 2B LEDs 601..900).', led:299, rgb:[0,240,255] },
+      { bit:38, phase:'tube2', station:'TUBE 2 • STATION 4: CENTER POWER TAP #3 (2.50m / PADS 448 & 452)', elev:'2.50 m', cat:'power_5v', title:'Tube 2: Center Power Tap #3 (+5V Red Window @ Pad 448)', pad:'STRIP 2A PAD 448 (+5V)', opp:'STRIP 2B B-PAD 452 (+5V)', pin6:'14 AWG +5V Bus #2', pin12:'14 AWG +5V Bus #2', detail:'At 2.50m midpoint of Tube 2 (LED 450), solder Red +5V bus riser bridging Strip 2A Pad 448 (+5V) and opposite Strip 2B B-Pad 452 (+5V).' },
+      { bit:39, phase:'tube2', station:'TUBE 2 • STATION 4: CENTER POWER TAP #3 (2.50m / PADS 448 & 452)', elev:'2.52 m', cat:'power_gnd', title:'Tube 2: Center Power Tap #3 (GND Gray Window @ Pad 452)', pad:'STRIP 2A PAD 452 (GND)', opp:'STRIP 2B B-PAD 448 (GND)', pin6:'14 AWG GND Bus #2', pin12:'14 AWG GND Bus #2', detail:'At 2.50m second clip window on Tube 2, solder GND bus riser bridging Strip 2A Pad 452 (GND) and opposite Strip 2B B-Pad 448 (GND).' },
+      { bit:40, phase:'tube2', station:'TUBE 2 • STATION 5: DATA CUT #2 (600 LEDs DOWN @ 3.33m)', elev:'3.33 m', cat:'cut', title:'Tube 2: Cut Strip 2A Copper Data Trace Between Pad 599 & Pad 600', pad:'CUT: 2A PAD 599 | PAD 600', opp:'Opposite Strip 2B B-Pad 300', pin6:'Isolates D3 from D4', pin12:'Isolates A1 from A2', detail:'At 3.33m from top of Tube 2, slice ONLY the center copper data trace between Strip 2A Pad 599 DOUT and Pad 600 DIN.' },
+      { bit:41, phase:'tube2', station:'TUBE 2 • STATION 5: DATA CUT #2 (600 LEDs DOWN @ 3.33m)', elev:'3.33 m', cat:'data_a', title:'Tube 2: Solder Channel Line 3 to Strip 2A Pad 600 DIN (->)', pad:'STRIP 2A PAD 600 DIN ->', opp:'Circle Inside LED 1501..1800', pin6:'Pin D4 (Y-Split)', pin12:'Pin A2 (Port 0, Bit 1)', res:'30 Ohm', detail:'Break out Tube 2 Channel Line 3 at 3.33m and solder to Strip 2A Pad 600 DIN (drives forward LEDs 601..900 on Tube 2).', led:600, rgb:[56,189,248] },
+      { bit:42, phase:'tube2', station:'TUBE 2 • STATION 5: DATA CUT #2 (600 LEDs DOWN @ 3.33m)', elev:'3.33 m', cat:'cut', title:'Tube 2: Cut Strip 2B Copper Data Trace Between B-Pad 299 & B-Pad 300', pad:'CUT: 2B B-PAD 299 | B-PAD 300', opp:'Opposite Strip 2A 599/600', pin6:'Isolates D5 from D6', pin12:'Isolates A3 from D11', detail:'On opposite Strip 2B at 3.33m from top, slice ONLY the center data trace between B-Pad 299 and B-Pad 300.' },
+      { bit:43, phase:'tube2', station:'TUBE 2 • STATION 5: DATA CUT #2 (600 LEDs DOWN @ 3.33m)', elev:'3.33 m', cat:'data_b', title:'Tube 2: Solder Channel Line 4 to Strip 2B B-Pad 300 DIN (<-)', pad:'STRIP 2B B-PAD 300 DIN <-', opp:'Circle Outside LED 1201..1500', pin6:'Pin D6 (Y-Split)', pin12:'Pin D11 (Port 4, Bit 11)', res:'30 Ohm', detail:'Break out Tube 2 Channel Line 4 at 3.33m and solder to Strip 2B B-Pad 300 DIN (drives Strip 2B LEDs 301..600).', led:599, rgb:[255,0,204] },
+      { bit:44, phase:'tube2', station:'TUBE 2 • STATION 6: 3/4-WAY POWER TAP #4 (PADS 673 & 677)', elev:'3.75 m', cat:'power_5v', title:'Tube 2: Power Tap #4 (+5V Red Window @ Pad 673)', pad:'STRIP 2A PAD 673 (+5V)', opp:'STRIP 2B B-PAD 227 (+5V)', pin6:'14 AWG +5V Bus #2', pin12:'14 AWG +5V Bus #2', detail:'At 3.75m on Tube 2 (LED 675), solder Red +5V bus riser bridging Strip 2A Pad 673 (+5V) and opposite Strip 2B B-Pad 227 (+5V).', pwr5:true },
+      { bit:45, phase:'tube2', station:'TUBE 2 • STATION 6: 3/4-WAY POWER TAP #4 (PADS 673 & 677)', elev:'3.77 m', cat:'power_gnd', title:'Tube 2: Power Tap #4 (GND Gray Window @ Pad 677)', pad:'STRIP 2A PAD 677 (GND)', opp:'STRIP 2B B-PAD 223 (GND)', pin6:'14 AWG GND Bus #2', pin12:'14 AWG GND Bus #2', detail:'At 3.75m second clip window on Tube 2, solder GND bus riser bridging Strip 2A Pad 677 (GND) and opposite Strip 2B B-Pad 223 (GND).', pwr5:true },
+      { bit:46, phase:'tube2', station:'TUBE 2 • STATION 7: FAR END (5.00m / PADS 890 .. 900)', elev:'5.00 m', cat:'data_b', title:'Tube 2: Solder Channel Line 5 to Strip 2B B-Pad 0 DIN (<- Start!)', pad:'STRIP 2B B-PAD 0 DIN <-', opp:'Circle Outside LED 901..1200', pin6:'Pin D5 (Y-Split)', pin12:'Pin A3 (Port 0, Bit 2)', res:'22 Ohm', detail:'At the 5.00m far end of Tube 2, solder Channel Line 5 to Strip 2B B-Pad 0 DIN so Strip 2B flows backward from 5.00m toward 0.00m.', led:899, rgb:[255,180,0] },
+      { bit:47, phase:'tube2', station:'TUBE 2 • STATION 7: FAR END (5.00m / PADS 890 .. 900)', elev:'4.95 m', cat:'power_5v', title:'Tube 2: Far-End Power Tap #5 (+5V @ Pad 890 & GND @ Pad 894)', pad:'2A PAD 890(+5V) / 894(GND)', opp:'2B B-PAD 10(+5V) / 6(GND)', pin6:'14 AWG +5V & GND Bus #2', pin12:'14 AWG +5V & GND Bus #2', detail:'In Tube 2 far-end Clip #5, solder Red +5V riser (2A Pad 890 & 2B B-Pad 10) and Gray GND riser (2A Pad 894 & 2B B-Pad 6).' },
+      { bit:48, phase:'tube2', station:'TUBE 2 • STATION 7: FAR END (5.00m / PADS 890 .. 900)', elev:'4.97 m', cat:'power_gnd', title:'Tube 2: Join Tube 1 & Tube 2 Into Full 3,600-LED Circle Bus', pad:'CIRCLE RING JOIN', opp:'Inside 1800 <-> Outside 1800', pin6:'Shared Bus Return', pin12:'12-Channel Full Ring', detail:'Join Tube 1 and Tube 2 mechanical ring couplers and verify common ground reference across both halves.' },
+      { bit:49, phase:'tube2', station:'TUBE 2 • STATION 7: FAR END (5.00m / PADS 890 .. 900)', elev:'5.00 m', cat:'verify', title:'Tube 2: Multimeter Continuity Check (+5V to GND > 1 kOhm)', pad:'VERIFY NO SHORT', pin6:'Bus #2 Check', pin12:'Bus #2 Check', detail:'Verify +5V to GND resistance on Tube 2 is unshorted before energizing the second 20A blade fuse.' },
+      { bit:50, phase:'tube2', station:'TUBE 2 • STATION 7: FAR END (5.00m / PADS 890 .. 900)', elev:'Full Circle QA', cat:'verify', title:'Full Circle 3,600-LED 60 FPS Boundary & Parallel/Opposite Sweep Test', pad:'ALL SEGMENTS VERIFIED', pin6:'All 6 Channels (D2-D7)', pin12:'All 12 Channels (D2-D7, A0-A3, D11-D12)', detail:'Power both tubes and run Mode 8 Boundary Test & 60 FPS Sweep to confirm every 300-LED segment transitions seamlessly.', led:899, rgb:[0,255,136] }
+    ];
+
+    let checked = new Set();
+    let powerTapCount = 5;
+    let pinMode = '6pin';
+    let activePhase = 'all';
+    let hideDone = false;
+    let gattChar = null;
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed.checked)) checked = new Set(parsed.checked);
+          if (parsed.powerTapCount === 3) powerTapCount = 3;
+          if (parsed.pinMode === '12pin') pinMode = '12pin';
+        }
+      } catch (e) {}
+    }
+
+    function setToBytes8(bits) {
+      let mask = 0n;
+      bits.forEach(b => { if (b >= 0 && b < 64) mask |= (1n << BigInt(b)); });
+      const out = new Uint8Array(8);
+      for (let i = 0; i < 8; i++) out[i] = Number((mask >> BigInt((7 - i) * 8)) & 0xFFn);
+      return out;
+    }
+
+    function bytes8ToSet(bytes) {
+      let mask = 0n;
+      for (let i = 0; i < 8; i++) mask = (mask << 8n) | BigInt(bytes[i] || 0);
+      if (mask === 0xFFFFFFFFFFFFFFFFn) return new Set();
+      const s = new Set();
+      for (let b = 0; b <= 50; b++) {
+        if ((mask & (1n << BigInt(b))) !== 0n) s.add(b);
+      }
+      return s;
+    }
+
+    async function saveState() {
+      const arr = Array.from(checked).sort((a, b) => a - b);
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          checked: arr,
+          powerTapCount,
+          pinMode,
+          updatedAt: Date.now()
+        }));
+      } catch (e) {}
+
+      if (gattChar) {
+        try {
+          const bytes8 = setToBytes8(checked);
+          const meta = (powerTapCount === 5 ? 0x01 : 0x00) | (pinMode === '12pin' ? 0x02 : 0x00);
+          const pkt = new Uint8Array(13);
+          pkt[0] = 0x43; pkt[1] = 0x48; pkt[2] = 0x4B; pkt[3] = 0x01;
+          for (let i = 0; i < 8; i++) pkt[4 + i] = bytes8[i];
+          pkt[12] = meta;
+          if (gattChar.writeValueWithoutResponse) await gattChar.writeValueWithoutResponse(pkt);
+          else await gattChar.writeValue(pkt);
+          document.getElementById('sync-status').textContent = 'SYNCED TO ARDUINO DATA FLASH • v2.541.0';
+        } catch (e) {}
+      }
+    }
+
+    async function connectBle() {
+      if (!navigator.bluetooth) {
+        alert('Web Bluetooth requires Chrome on Android or macOS.');
+        return;
+      }
+      try {
+        const device = await navigator.bluetooth.requestDevice({
+          filters: [{ namePrefix: 'LightLoop' }, { namePrefix: 'Arduino' }, { services: [BLE_SERVICE_UUID] }],
+          optionalServices: [BLE_SERVICE_UUID, FALLBACK_SERVICE_UUID]
+        });
+        const server = await device.gatt.connect();
+        let service;
+        try { service = await server.getPrimaryService(BLE_SERVICE_UUID); }
+        catch { service = await server.getPrimaryService(FALLBACK_SERVICE_UUID); }
+        try { gattChar = await service.getCharacteristic(BLE_CHAR_UUID); }
+        catch { gattChar = await service.getCharacteristic(FALLBACK_CHAR_UUID); }
+
+        const btn = document.getElementById('ble-btn');
+        btn.classList.add('connected');
+        btn.textContent = 'LINKED: ' + (device.name || 'ARDUINO');
+        document.getElementById('sync-status').textContent = 'CONNECTED • SYNCING EEPROM...';
+
+        setTimeout(async () => {
+          try {
+            await gattChar.startNotifications();
+            gattChar.addEventListener('characteristicvaluechanged', ev => {
+              const v = ev.target.value;
+              if (v.byteLength >= 13 && v.getUint8(0) === 0x43 && v.getUint8(1) === 0x48 && v.getUint8(2) === 0x4B) {
+                const mb = new Uint8Array(8);
+                for (let i = 0; i < 8; i++) mb[i] = v.getUint8(4 + i);
+                const hw = bytes8ToSet(mb);
+                hw.forEach(b => checked.add(b));
+                render();
+                document.getElementById('sync-status').textContent = 'SYNCED WITH ARDUINO EEPROM • v2.541.0';
+              }
+            });
+            const q = new Uint8Array([0x43, 0x48, 0x4B, 0x00]);
+            if (gattChar.writeValueWithoutResponse) await gattChar.writeValueWithoutResponse(q);
+            else await gattChar.writeValue(q);
+          } catch (e) {}
+        }, 600);
+      } catch (e) {}
+    }
+
+    async function testLed(ev, bit) {
+      ev.stopPropagation();
+      const item = ITEMS.find(i => i.bit === bit);
+      if (!item || item.led === undefined) return;
+      if (gattChar) {
+        try {
+          const [r, g, b] = item.rgb || [0, 240, 255];
+          const pkt = new Uint8Array([0x54, 0x53, 0x54, 0x01, (item.led >> 8) & 0xFF, item.led & 0xFF, r, g, b]);
+          if (gattChar.writeValueWithoutResponse) await gattChar.writeValueWithoutResponse(pkt);
+          else await gattChar.writeValue(pkt);
+          document.getElementById('sync-status').textContent = 'LIT LED #' + (item.led + 1) + ' (' + item.pad + ')';
+        } catch (e) {}
+      } else {
+        alert('Tap LINK ARDUINO BLE at the top right to light physical LED #' + (item.led + 1) + ' directly from this row.');
+      }
+    }
+
+    function toggleBit(bit) {
+      if (checked.has(bit)) checked.delete(bit);
+      else checked.add(bit);
+      saveState();
+      render();
+    }
+
+    function setPhase(p) {
+      activePhase = p;
+      ['all','bench','tube1','tube2'].forEach(id => {
+        document.getElementById('tab-' + id).classList.toggle('active', id === p);
+      });
+      render();
+    }
+
+    function setPinMode(m) {
+      pinMode = m;
+      document.getElementById('pin-6').classList.toggle('active', m === '6pin');
+      document.getElementById('pin-12').classList.toggle('active', m === '12pin');
+      saveState();
+      render();
+    }
+
+    function setPowerMode(n) {
+      powerTapCount = n;
+      document.getElementById('pwr-5').classList.toggle('active', n === 5);
+      document.getElementById('pwr-3').classList.toggle('active', n === 3);
+      saveState();
+      render();
+    }
+
+    function toggleHideDone() {
+      hideDone = !hideDone;
+      const btn = document.getElementById('btn-hide-done');
+      btn.classList.toggle('active', hideDone);
+      btn.textContent = hideDone ? 'SHOWING REMAINING' : 'HIDE DONE';
+      render();
+    }
+
+    function resetAll() {
+      if (!confirm('Clear all wiring checklist checkmarks?')) return;
+      checked = new Set();
+      saveState();
+      render();
+    }
+
+    function render() {
+      const vis = ITEMS.filter(i => !(powerTapCount === 3 && i.pwr5));
+      const total = vis.length;
+      const done = vis.filter(i => checked.has(i.bit)).length;
+      const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+
+      const bItems = vis.filter(i => i.phase === 'bench');
+      const t1Items = vis.filter(i => i.phase === 'tube1');
+      const t2Items = vis.filter(i => i.phase === 'tube2');
+
+      const bDone = bItems.filter(i => checked.has(i.bit)).length;
+      const t1Done = t1Items.filter(i => checked.has(i.bit)).length;
+      const t2Done = t2Items.filter(i => checked.has(i.bit)).length;
+
+      document.getElementById('prog-label').textContent = `BUILD PROGRESS: ${done} / ${total} CONNECTIONS (${pct}%)`;
+      document.getElementById('phase-label').textContent = `BENCH ${bDone}/${bItems.length} • TUBE 1 ${t1Done}/${t1Items.length} • TUBE 2 ${t2Done}/${t2Items.length}`;
+      document.getElementById('prog-fill').style.width = pct + '%';
+
+      const shown = vis.filter(i => {
+        if (activePhase !== 'all' && i.phase !== activePhase) return false;
+        if (hideDone && checked.has(i.bit)) return false;
+        return true;
+      });
+
+      const groups = [];
+      shown.forEach(i => {
+        const last = groups[groups.length - 1];
+        if (!last || last.station !== i.station) groups.push({ station: i.station, items: [i] });
+        else last.items.push(i);
+      });
+
+      const root = document.getElementById('stations-root');
+      root.innerHTML = groups.map(g => {
+        const gDone = g.items.filter(i => checked.has(i.bit)).length;
+        const allDone = gDone === g.items.length;
+        return `
+          <div class="station-card ${allDone ? 'done' : ''}">
+            <div class="station-head">
+              <span style="font-size:12.5px;font-weight:900;color:${allDone ? '#34d399' : '#f8fafc'};">${g.station}</span>
+              <span style="font-size:11px;font-weight:800;color:${allDone ? '#34d399' : '#94a3b8'};">${gDone} / ${g.items.length} DONE</span>
+            </div>
+            <div>
+              ${g.items.map(item => {
+                const isChk = checked.has(item.bit);
+                const pinTxt = pinMode === '12pin' ? item.pin12 : item.pin6;
+                return `
+                  <div class="item-row ${isChk ? 'checked' : ''}" onclick="toggleBit(${item.bit})">
+                    <div class="chk-box">${isChk ? '✓' : ''}</div>
+                    <div style="flex:1;min-width:0;">
+                      <div>
+                        <span class="badge mono" style="background:#070a10;color:#fff;border:1px solid #334155;">${item.pad}</span>
+                        ${item.opp ? `<span class="badge mono" style="background:rgba(245,158,11,0.12);color:#fcd34d;border:1px solid rgba(245,158,11,0.35);">${item.opp}</span>` : ''}
+                        <span class="badge" style="background:rgba(56,189,248,0.12);color:#38bdf8;border:1px solid rgba(56,189,248,0.3);">${pinTxt}</span>
+                        ${item.res ? `<span class="badge" style="background:rgba(16,185,129,0.14);color:#34d399;border:1px solid rgba(16,185,129,0.35);">${item.res}</span>` : ''}
+                      </div>
+                      <div style="font-size:13.5px;font-weight:800;color:${isChk ? '#94a3b8' : '#f8fafc'};text-decoration:${isChk ? 'line-through' : 'none'};margin-bottom:3px;">${item.title}</div>
+                      <div style="font-size:12px;color:#94a3b8;">${item.detail}</div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+                      <span class="mono" style="font-size:10.5px;font-weight:800;color:#64748b;">${item.elev}</span>
+                      ${item.led !== undefined ? `<button class="test-btn" onclick="testLed(event, ${item.bit})">LIGHT LED ${item.led + 1}</button>` : ''}
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    loadState();
+    setPinMode(pinMode);
+    setPowerMode(powerTapCount);
+    render();
+  </script>
+</body>
+</html>
