@@ -184,10 +184,6 @@
           </button>
         </div>
 
-        <label class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0b101b] border border-slate-700 text-xs font-semibold text-slate-300 cursor-pointer hover:border-slate-500">
-          <input type="checkbox" id="chk-hide-unused" onchange="renderState()" class="rounded accent-sky-500 w-3.5 h-3.5" />
-          <span>Hide Unused in 4-Tap</span>
-        </label>
       </div>
     </div>
 
@@ -1086,7 +1082,6 @@
 
     function renderState() {
       const channels = getChannels(state.tapMode);
-      const hideUnused = document.getElementById('chk-hide-unused').checked;
 
       // Update header mode buttons & badges
       const btn4 = document.getElementById('btn-mode-4tap');
@@ -1163,7 +1158,7 @@
 
       channels.forEach(ch => {
         const isActiveInMode = (state.tapMode === 8) || ch.is4TapCore;
-        if (!isActiveInMode && hideUnused) return;
+        if (!isActiveInMode) return;
 
         const isLineMatch =
           (state.selectedLine === 'ALL' && isActiveInMode) ||
